@@ -1,0 +1,2306 @@
+{
+    "parts": [
+        {
+            "name": "The Prophecy of the Kush",
+            "id": 1,
+            "sceneList": [
+                {
+                    "name": "A field",
+                    "nameAudio": "",
+                    "id": "LIfC-gpCowQz7jKi7OrFO1NnRc8liNMA",
+                    "items": [
+                        "TMJ6QzUimLPdTvh0U5glAvTRsR85dhw1",
+                        "expQxMX_fFUmi2fZCjhMQE55rV36ywCJ",
+                        "RD2u4zYr7Bpf9K8imWzGyzCtd1kvDr5B",
+                        "B0qgKZXoxQKzX3vw9fO-sMleqZZyOFG9"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "north",
+                            "scene": "A different field",
+                            "text": "a path to the north"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "You are standing outside a cornfield. It is windy and looks like it might rain. ",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "A different field",
+                    "nameAudio": "",
+                    "id": "f1mxxEtapTJhO9qqvMRnn8XlRyUIJoDb",
+                    "items": [
+                        "jdvFcKfpQfPIeSk8b1yD6HMe2vzg3jhN"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "north",
+                            "scene": "The mountain"
+                        },
+                        {
+                            "direction": "south",
+                            "scene": "A field"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "The field continues on. To the north there is a mountain that looms large and menacing. ",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "The mountain",
+                    "nameAudio": "",
+                    "id": "4F64fbaYZ5RHEQFMjhgxw08yKFMiLpMT",
+                    "items": [
+                        "CGchDuTMQq5WJS4e8EFnaKcAypGg2Gx9"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "south",
+                            "scene": "A different field"
+                        },
+                        {
+                            "direction": "west",
+                            "scene": "The Parade of Ducks"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "You climb the mountain. It is super arduous. You are sweaty and can go no further. To the west there is a path. ",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "The Parade of Ducks",
+                    "nameAudio": "",
+                    "id": "jDUlb_a3omlZLaHAjzk1_dKauIHZTpxg",
+                    "items": [
+                        "dEO_Px4vMi-MfFlb4QEcKbN9kv8HgPdQ"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "east",
+                            "scene": "The mountain"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "You come across a wide boulevard cutting through the mountain.",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "No Scene",
+                    "nameAudio": "",
+                    "id": "VlTPpaVhnoApWvT2MU6HhbcijGqxS0Le",
+                    "items": [
+                        "KbX6l0poOzx-wkKAzczVw3V5ToZw-jmF",
+                        "c-IP033ZJ_Y4cjV57HkNCGE2jKLthw2j",
+                        "81zVtTSA5nrE2qIBWEHTiLo3yexBdmq-",
+                        "1rCC2rqqIyhGZ4F6dZRSj8WZIjglXEix"
+                    ],
+                    "exits": [],
+                    "intro": [
+                        {
+                            "text": "",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "The Monastery Entrance",
+                    "nameAudio": "",
+                    "id": "eqXSjfe8OS9-S8MlF1T0ZSfDud4cxFeD",
+                    "items": [
+                        "aXvTfEDXh0XNMHpmaS64LO1tFuGSom5d"
+                    ],
+                    "exits": [],
+                    "intro": [
+                        {
+                            "text": "You and the Jesus walk up the steep, windy path toward the dwelling-place of the Monks of Eternal Anguish. Jesus carries you for part of the way, and makes a bigger deal out of it than you think socially appropriate.",
+                            "audio": ""
+                        },
+                        {
+                            "text": "You arrive at the monastery, which is a humble abode built in the German Brutalist style.",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Inside the Monastery",
+                    "nameAudio": "",
+                    "id": "k3k8VpU6FQ64jiaXoH58h_d00hDwOoAm",
+                    "items": [
+                        "ffnQMbfWYrys4tPBM23PJRvwz-D66X4R",
+                        "gv8mZDT0d1l3PwLjfqGp0tcQZkEa4i9m",
+                        "KM9BqBEJID5GC83PsyI_VXu7VGm-wrAD",
+                        "HA53dIA_mwUC4b3GCWFyld-fm8mpT_Ae",
+                        "dabVoJFariTMp3v9Inam8LAgE4LxcgRa"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "north",
+                            "scene": "Monastery Main Hall"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "The door swings open.",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Monastery Main Hall",
+                    "nameAudio": "",
+                    "id": "OysCSpy-aR5jQBmkHL8QMV8pscHbF5jW",
+                    "items": [
+                        "0CE9c4ZB3e5FNUaNb_kaR2jg9LA9n_1m",
+                        "KvaxGP7XnCs1FCMRCtzODIvllvKLrD0M",
+                        "wDVPbwBpkaY_9UMV3m9Gvff12p5aIgF6",
+                        "dlVXaCPbu4qk_JF0LzAWTxVLSFa4jJb4",
+                        "VjoqRH5ZidUzuQx2JxlH3Eh1zwb1ogIw",
+                        "1h7X9vXdm7NZonHIge0VE6aPfz3mq3Cj"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "east",
+                            "scene": "Bathroom"
+                        },
+                        {
+                            "direction": "south",
+                            "scene": "Inside the Monastery"
+                        },
+                        {
+                            "direction": "west",
+                            "scene": "Library"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "You enter the main meditation hall of the Monastery. It has high ceilings depicting scenes of pure anguish. \n",
+                            "audio": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Bathroom",
+                    "nameAudio": "",
+                    "id": "UpqrXmd36TbqjfCSJOT8aR7m773S_gM9",
+                    "items": [
+                        "BshJLW5xt5Z7VARP11nrhlP81one8DDP",
+                        "KY3ph3815bUMAYLx9dhnj_QMYMvW3Lza",
+                        "dBMAyetNuYZ4iTegJ_c8InrPMV2imV-6",
+                        "R8zrqWOVDmoisVVVS_TfjN7Z05k9HEmy"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "west",
+                            "scene": "Monastery Main Hall"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "",
+                            "audio": ""
+                        }
+                    ],
+                    "script": "function inScene(itemName) {\n    return isVisible(itemName) && !hasItem(itemName)\n}\n\nif(!getAttribute(\"window\", \"isOpen\") && isVisible(\"Mortimor\") && isVisible(\"Steve\") && !isVisible(\"Sartorious\")){\n    if(!inScene(\"incense\") && !inScene(\"kush filled thurible\")) {\n        play(\"Mortimor calls to you from the stall where he's working on the clogged toilet. \\\"Hey buddy, want to fetch me some incense? It reeks in here!\\\"\")\n    } else if (inScene(\"incense\")) {\n        play(\"Mortimor yells: \\\"Hey buddy, the incense ran out! Earn your keep and get us some more.\\\"\")\n    } else if(inScene(\"kush filled thurible\")) {\n        play(\"The bathroom is filled with thick, intoxicating smoke from your kush-filled thurible. Mortimor sits casually on the toilet, looking content.\")\n    }\n}\n"
+                },
+                {
+                    "name": "Library",
+                    "nameAudio": "",
+                    "id": "kUgLMgHNtdB-woX1rbE-pG7FUkZ599L2",
+                    "items": [
+                        "DXyySH4g7DfflT9jxHeqlitA3zI4-EZd",
+                        "HOA4ZUVCtPX5He1cN00qpBXnXJl5Rz-H",
+                        "pxv0Z63bTff63MCSWjkkzIANRWs2u_QX",
+                        "2bdHy-WhQ3FCKIVmAJoqBmi82DoeSoeg"
+                    ],
+                    "exits": [
+                        {
+                            "direction": "east",
+                            "scene": "Monastery Main Hall"
+                        }
+                    ],
+                    "intro": [
+                        {
+                            "text": "You step into a room coated in a thick layer of books and dust. This looks like the monastery library. It also looks like the monks don't read very much.",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "intro": [
+                {
+                    "text": "The world is an oblate spheroid ringed with clouds, dragons, and other winged satellites. It is a dark time in which people have lost their way in the world. The Son of God has returned to earth to chew bubblegum and finish what he started. And he's almost out of bubblegum.\n\n",
+                    "audio": ""
+                }
+            ],
+            "openingScene": "A field"
+        },
+        {
+            "name": "Part II: In which The Jesus unleashes eternal anguish on the world",
+            "id": "a79t4y9fFq1J37z4PoGG-of2JUpEwaf2",
+            "intro": [
+                {
+                    "text": "You and Jesus run far, fast and far. You don't know how far. But far enough that you're pretty worn out and about ready to sit. ",
+                    "audio": ""
+                }
+            ],
+            "sceneList": []
+        }
+    ],
+    "items": [
+        {
+            "name": "Bowl of Wool",
+            "id": "expQxMX_fFUmi2fZCjhMQE55rV36ywCJ",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "Y64lFnz-rw9rYLRDzgJPqLhLpbCIDzC1",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "close",
+                    "id": "MmFJuTMRJCx4qCn85_IfAUF9t_vxR3oX",
+                    "functions": [],
+                    "script": "singlePlay('You close the bowl of wool. It creaks ominously and crashes down with a shudder.', 'wtf.mpeg4')\nsetAttribute('Bowl of Wool', 'isOpen', false)\nstartTimer(\"bah\", 5000, () => {\n    singlePlay(\"The bowl of wool explodes! All of it seems to go nowhere.\", \"\")\n    removeItemFromScene(\"Bowl of Wool\", \"New Scene\")\n})",
+                    "aliases": []
+                }
+            ],
+            "aliases": [
+                "bowl",
+                "wool"
+            ],
+            "inventory": {
+                "text": "Bowl",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There is a bowl of wool here.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "A bowl of wool",
+                    "audio": ""
+                }
+            ],
+            "openable": true,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": true,
+            "isLocked": false
+        },
+        {
+            "name": "Sheep",
+            "id": "jdvFcKfpQfPIeSk8b1yD6HMe2vzg3jhN",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "zCvvOZvrTJEt-NB1tV_JmhSr-NKzZC3x",
+                    "functions": [],
+                    "script": "var creepingHorror = getAttribute('Sheep', 'creepingHorror') || 0\nchangeAttribute('Sheep', 'creepingHorror', creepingHorror + 1)\n\nif (creepingHorror > 5) {\n    singlePlay('BYAAAAAAAH!!!!!!!', 'byah.mpeg4')\n}",
+                    "aliases": ""
+                },
+                {
+                    "name": "take",
+                    "id": "2cOs2Ujdb3Yg0NhRoJ15aCQC6vCtUL7A",
+                    "functions": [],
+                    "script": "singlePlay(\"You camp out in the field for three nights. You and the sheep form a lasting bond. You decide you want to follow this sheep everywhere. Or maybe it wants to follow you. It's unclear. Whatever, you're together now.\")\naddItemToInventory(\"Sheep\")",
+                    "aliases": []
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "Sheep",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There is a sheep here. It looks like a baaaaaaad one.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "There are fewer sheep than there are ferrets. You think this one would follow you.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "The Jesus",
+            "id": "TMJ6QzUimLPdTvh0U5glAvTRsR85dhw1",
+            "topics": [
+                {
+                    "name": "religion",
+                    "id": "4TOAEgSWt-2TmzYXsKUr738G7525gLxv",
+                    "response": [
+                        {
+                            "text": "\"Man, no one get's what I was trying to teach. I want to start a new religion that get's shit right. Want to help?\"\n\n\"How can I help?\" You ask\n\n\"You need to go on a quest, a Jesus Quest™. First youll need to ride high into the mountains, and obtain some sweet sweet kush. Then, bring me 150 duck bladder's. Preferably full. It'll be difficult. Then seek the Ultimate Knowledge © 2017, known only by the Monks of Eternal Anguish®. They just spend all day meditating about how morose they are. Their not a fun bunch. Bring them the sweet kush.\" Says the Jesus.\n\n\"Ok then.\" You reply. ",
+                            "audio": ""
+                        },
+                        {
+                            "text": "\"Get going! Bring me those bladders and that sweet sweet kush!\"",
+                            "audio": ""
+                        }
+                    ],
+                    "script": "",
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "religion"
+                    }
+                },
+                {
+                    "name": "grammar",
+                    "id": "5YJaJmUtrdv4B-xu7FuQoGya0nEAu2PB",
+                    "response": [
+                        {
+                            "text": "\"Whats wrong with my grammer?!\"",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [
+                        "grammer"
+                    ],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "grammar"
+                    }
+                },
+                {
+                    "name": "Ferrets",
+                    "id": "alsejkbFmG2EYw74JWuxEFzOLjHQsovn",
+                    "response": [
+                        {
+                            "text": "\"Oh, these? I'm a ferretomancer. I control elemental ferrets. I've got lot's! Want one?\"",
+                            "audio": ""
+                        },
+                        {
+                            "text": "\"I'm ferromagnetic!\"",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [
+                        "Ferrets"
+                    ],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "Ferrets"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "yyuvW8-8XKZaCM4NOS517EFKFGf60Dqu",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "FQbxoU9E1RK1O4WwJzD0n2OS9mqgzpcq",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [
+                        "praise"
+                    ],
+                    "greeting": [
+                        {
+                            "text": "Hello my son",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Peace be with you",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                "Jesus"
+            ],
+            "inventory": {
+                "text": "The Jesus",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There is a Jesus standing in the field.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "The Jesus is wearing a plain robe made of mustard. He has an aggressive beard and many ferrets.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Ferrets",
+            "id": "RD2u4zYr7Bpf9K8imWzGyzCtd1kvDr5B",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "mq8Hw6INAGqKph5WzmM4ZoEe6ff0TbKZ",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "Ferrets",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "The Jesus is surrounded by ferrets that gambol about the area and snatch at his sleeves.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "This seems like too many ferrets. ",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "ferret",
+            "id": "B0qgKZXoxQKzX3vw9fO-sMleqZZyOFG9",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "_xeG0FDODuGrW9v9AjnhgufrK7KlV4ce",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "7Ih_0Hn95ZwOC34xKgujbJT4hTpDP20G",
+                    "functions": [],
+                    "script": "singlePlay(\"The ferret leaps out of your pants!\", \"\")\nsinglePlay(\"He gets bored and jumps back in.\", \"\")\n",
+                    "aliases": [
+                        ""
+                    ]
+                },
+                {
+                    "name": "take",
+                    "id": "cAJF53Y2yhETPtPZyzyPusoIUFLYGWN0",
+                    "functions": [],
+                    "script": "singlePlay(\"The ferret leaps into your pants. It's oddly comfortable\", \"\")\naddItemToInventory('ferret')\nremoveItemFromScene('ferret', 'a field')\nonce()",
+                    "aliases": []
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": " ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "One ferret seems particularly taken with you.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Sweet sweet kush",
+            "id": "CGchDuTMQq5WJS4e8EFnaKcAypGg2Gx9",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "wPMgKr_SRJc7ZD3nFfsOTvwCvEx2NDw1",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "give",
+                    "id": "IDbInJ_V92X8xmg3KaUeXNriQ_L9kdx0",
+                    "functions": [],
+                    "script": "if(getFlag('The Jesus', 'mad')){\n    singlePlay(`The Jesus lights up and calms down. \"Thanks!\" says the Jesus. \"That's some sweet sweet kush you got there. We should go take it to the Monks of Eternal Anguish®.\"\\n`, \"\")\n    addItemToInventory('The Jesus')\n    switchScene('The Monastery Entrance')\n    once()\n} else {\n    singlePlay(`\"Nah, save it for the monks.\"`, \"\")\n}\n\n",
+                    "aliases": [],
+                    "recipient": "The Jesus"
+                },
+                {
+                    "name": "give",
+                    "id": "RGm1HP8MFc9FdjxHxgfytDK6CsP4tmJU",
+                    "functions": [],
+                    "script": "play(\"\\\"No man, that harshes my anguish!\\\"\", '')",
+                    "aliases": [],
+                    "recipient": "Mortimor"
+                },
+                {
+                    "name": "give",
+                    "id": "0KG1cRskl3LYKsFyUvW597rlhvR67Gv2",
+                    "functions": [],
+                    "script": "play(\"\\\"My tea suits me just fine, thank you!\\\"\", '')",
+                    "aliases": [],
+                    "recipient": "Steve"
+                },
+                {
+                    "name": "give",
+                    "id": "JZEC6e8kMDlNKiFjoYiRMy6w7PyUsexT",
+                    "functions": [],
+                    "script": "play(\"\\\"Nah, I cannot reconcile that sweet sweet kush with the vast unending pain of existence.\\\"\", '')",
+                    "aliases": [],
+                    "recipient": "Sartorious"
+                }
+            ],
+            "aliases": [
+                "kush",
+                " sweet kush"
+            ],
+            "inventory": {
+                "text": "sweet sweet kush",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "You see the sweet sweet kush of which the Jesus spoke!",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It is as foretold in the prophecy of 15 minutes ago!",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "ducks",
+            "id": "dEO_Px4vMi-MfFlb4QEcKbN9kv8HgPdQ",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "gujLWHQ8WV3-1PN3VZDRZ1Sxhbk-PiZE",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Down this road marches a parade of ducks. It stretches endlessly in both directions. \"WTF,\" you think.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "The ducks march twenty abreast, not turning their heads to look at you. They seem very grim.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "duck bladders",
+            "id": "KbX6l0poOzx-wkKAzczVw3V5ToZw-jmF",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "hDZctqOppnP-bOhcnox_FF2Q3L96hj9A",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "give",
+                    "id": "NcgdOPlcfBflwInheNF4HArt3hBFElkY",
+                    "functions": [],
+                    "script": "singlePlay(\"\\\"WHAT? Dude, I was just joking about the duck bladders. Where did you get all of these? And what are these? Ducks don't HAVE bladders! \\nWhat did you do?! And wait, where's Billy, last I saw he jumped int your pants! WHAT DID YOU DO TO BILLY????\\\" He angry, the Jesus\", \"\")\nsetFlag('The Jesus', 'mad')",
+                    "aliases": [],
+                    "recipient": "The Jesus"
+                }
+            ],
+            "aliases": [
+                "bladders"
+            ],
+            "inventory": {
+                "text": "147 duck bladders",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Among other entrails and offal you spy some duck bladders.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "This is super gross. Most of them are full. ",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Monastery Door",
+            "id": "aXvTfEDXh0XNMHpmaS64LO1tFuGSom5d",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "FQCHfB6deMUdE5bviSLOX6GUXBxr-ph2",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "6Wr9o5tpSxGxW83wY64agAzJNRxC5Ptr",
+                    "functions": [],
+                    "script": "singlePlay(`You knock on the door which booms loudly with each strike. From the other side you hear the small voice of a man. He seems quite anguished.`)\naddItemToScene('man', 'The Monastery Entrance')",
+                    "aliases": [
+                        "knock on"
+                    ]
+                },
+                {
+                    "name": "open",
+                    "id": "evWBPJjhTB_wzYwcS_vn6Pa1DoEAY6CO",
+                    "functions": [],
+                    "script": "play(\"It's locked.\", '')",
+                    "aliases": []
+                }
+            ],
+            "aliases": [
+                "door"
+            ],
+            "inventory": {
+                "text": "Door",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "A large (ADA compliant) door blocks your way.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It is quite a large door with intricate woodwork. It shows massive number of dwarves in anguish cowering in the fetal position before a demon named Yghardmaorgipf. You don't know how you know that.   ",
+                    "audio": ""
+                }
+            ],
+            "openable": true,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": true
+        },
+        {
+            "name": "man",
+            "id": "c-IP033ZJ_Y4cjV57HkNCGE2jKLthw2j",
+            "topics": [
+                {
+                    "name": "door",
+                    "id": "lymTIbGEHJhpSMb3VLJKYr_MwDfdGpzZ",
+                    "response": [
+                        {
+                            "text": "Yes, it's quite a nice door, isn't it? Cost five thousand rubles. Now go away! Can't you see I'm anguished?",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "the door"
+                    }
+                },
+                {
+                    "name": "Ultimate Knowledge",
+                    "id": "XHU48M7-gaihYg5ny29Ze4b53hRLTu4f",
+                    "response": [
+                        {
+                            "text": "Yes, we have it. Now go away!",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "Ultimate Knowledge"
+                    }
+                },
+                {
+                    "name": "anguish",
+                    "id": "WNJ2S7IAguHFduPleJsQMjPRAxJg8jKq",
+                    "response": [],
+                    "script": "console.log(\"Asked about anguish\")\nplay(\n    `\"I hear you're eternally anguished,\" you say. \"That's right,\" the monk replies. \"And we don't want any happy people from outside disturbing our misery!\" \"But,\" you reply, \"I too am miserable! Just a few moments ago I lost a dear friend to a horde of ducks!\" You tell the monk the sad tale of Billy the Ferret, how he used to ride in your pants, and how he met his untimely demise, so young. Your eyes fill with tears, and it seems the monk is also crying. You hear soft sobs emanating from behind the door. There is some silence. Then a voice says, \"We see that you are one of us. Enter, brother.\"`,\n    '')\nswitchScene('inside the monastery')",
+                    "aliases": [
+                        ""
+                    ],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "anguish"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "gN_JS0x7vnejdSZvQEhL63I88CMX9zC6",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "TcrqXLvf1p4uvgFYJMRpePyjc5dB9LzB",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "Go away!",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Begone!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                ""
+            ],
+            "inventory": {
+                "text": "A man",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There is a man on the other side of the door. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Statues",
+            "id": "gv8mZDT0d1l3PwLjfqGp0tcQZkEa4i9m",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "kKXQhfZKG6PQ7zMp2dvf8pGbn-1fYDn9",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [
+                "statue"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Surrounding the courtyard are many statues of people being tortured.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "This one looks disturbingly like you.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Steve",
+            "id": "KM9BqBEJID5GC83PsyI_VXu7VGm-wrAD",
+            "topics": [
+                {
+                    "name": "clogged toilet",
+                    "id": "OvwH2Jq4xM3rM-vzaP4zdAgmMFfoG9FY",
+                    "response": [
+                        {
+                            "text": "\"Ach, talk to Mortimor. That's his job.\"",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": false,
+                    "list": {
+                        "text": "clogged toilet"
+                    }
+                },
+                {
+                    "name": "man on rack",
+                    "id": "0_JOskKyhFfnz7eF_N4gm5YzTcM2EP--",
+                    "response": [
+                        {
+                            "text": "",
+                            "audio": ""
+                        }
+                    ],
+                    "script": "if (getFlag('Man on rack', 'notScreaming')) {\n    play(\"\\\"Come to think of it, I haven't heard him screaming in a while. I'll go see what's the matter.\\\" Steve gets up and goes to the other room.\")\n    removeItemFromScene('Steve', 'Inside the Monastery')\n    startTimer('steveReturns', 30000, function() {\n        removeFlag(\"Man on rack\", 'notScreaming')\n    })\n}else{\n    play(\"Oh him? He's just here for some anguish.\")\n}",
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": false,
+                    "list": {
+                        "text": "man on rack"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "w54QA-hqZwsJqM6sl686Ii0-doKGC1LD",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "oEXpYAOr-qaMc3Ha8TceRB0kahxzdVDH",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "Hello my son, what can I hurt you for?",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Have an insufferable day!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                ""
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "In the center of the courtyard sits an elderly man wearing a loincloth and a crown of thorns and drinking tea.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "He's clearly in charge here.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Tea",
+            "id": "HA53dIA_mwUC4b3GCWFyld-fm8mpT_Ae",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "8n2-zSYQv4d3c06j4FzRSAtErXGMs2Ae",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "The teabag label says \"Cloud of Despair\".",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Sartorious",
+            "id": "dabVoJFariTMp3v9Inam8LAgE4LxcgRa",
+            "topics": [
+                {
+                    "name": "clogged toilet",
+                    "id": "mAKnBQRyl57rRmjt0b-b5gJcGOWMVXFg",
+                    "response": [
+                        {
+                            "text": "\"Go talk to Mortimor about that. He handles all such... tasks...\"",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "raGef0YRWMCDd2bUczUhtq0w5XUgDoCT",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "push",
+                    "id": "-fWsNuYFF_zhn0Aj87-8PoMi4-MO_qIH",
+                    "functions": [],
+                    "script": "var responses = [{text: \"Hey!\", audio: \"\"}, {text: \"Watch it!\", audio: \"\"}, {text: \"Stop it!\", audio: \"\"}, {text: \"Unhand me!\", audio: \"\"}, {text: \"What do you think you're doing?\", audio: \"\"}, {text: \"What did I do to you?\", audio: \"\"}, {text: \"Why are you doing this?\", audio: \"\"}, {text: \"What the hell?\", audio: \"\"}, {text: \"Oof\", audio: \"\"}, {text: \"Ow!\", audio: \"\"}]\nfunction inScene(itemName) {\n    return isVisible(itemName) && !hasItem(itemName)\n}\n\n\nfunction isBathroomHotboxed(){\n    return isVisible(\"Steve\") && isVisible(\"Mortimor\") && !getAttribute(\"window\", \"isOpen\") && inScene(\"kush filled thurible\") \n}\n\nif(!getAttribute(\"Sartorious\", \"pushCounter\")){\n    setAttribute(\"Sartorious\", \"pushCounter\", 1) \n    playRandom(responses)\n}else{\n    setAttribute(\"Sartorious\", \"pushCounter\", 1 + getAttribute(\"Sartorious\", \"pushCounter\"))\n    if(getAttribute(\"Sartorious\", \"pushCounter\") === 3){\n        switchScene(\"Monastery Main Hall\")\n        removeItemFromScene(\"Sartorious\", \"Inside the Monastery\")\n        addItemToScene(\"Sartorious\", \"Monastery Main Hall\")\n        play(\"You push Sartorious through the doors of the Monastery Main Hall. \\\"Where are you taking me?!\\\" he cries.\")\n    }else if(getAttribute(\"Sartorious\", \"pushCounter\") === 5){\n        switchScene(\"Bathroom\")\n        removeItemFromScene(\"Sartorious\", \"Monastery Main Hall\")\n        addItemToScene(\"Sartorious\", \"Bathroom\")\n        if(isBathroomHotboxed()){\n            play(`You push Sartorious into the bathroom, and block the exit. Everyone gets super baked. You all start talking about Life, The Universe and Stuff. Gingerly you pry, \"So, what is the Ultimate knowledge?\"\n            \"You want to know? I'll show ya!\" boasts Mortimor. The others let out small groans of disapproval, but they are waaaay to baked to give a damn. Mortimor leaves only to return with an intracately carved wooden box about one foot long and six inches wide bewteen his hands. \"Open it\", he says.\n            You look to the Jesus and he just nods somberly. You slowly open the box! \n            Inside are 3 collectable bobble heads, still bobbling from their journey to the bathroom.\n            \"the Ultimate Knowledge © 2017\". The Jesus grabs the box from Mortimor. \"Run!\" he cries as he bounds out the door. Dazed and confused you look up at Mortimor who has death in his eyes. You take off sprinting behind the Jesus to destinations unknown.\n            \n            End of Part One.\n            `)\n        }else if(isVisible(\"Steve\")){\n            play(`\"Oh god! It smells repugnant in here!\" he cries. He pushes his way past you and returns to the courtyard. \"Get some incense!\" Mortimor calls out after him. Steve lets out a loud, extremely wet fart. You're mouth fills with vomit.`)\n            removeItemFromScene(\"Sartorious\", \"Bathroom\")\n            addItemToScene(\"Sartorious\", \"Inside the Monastery\")\n            setAttribute(\"Sartorious\", \"pushCounter\", 0)\n        }else{\n            play(`\"I don't know why you've pushed me here but I will go no further!\" he cries. He pushes his way past you and returns to the courtyard.`)\n            removeItemFromScene(\"Sartorious\", \"Bathroom\")\n            addItemToScene(\"Sartorious\", \"Inside the Monastery\")\n            setAttribute(\"Sartorious\", \"pushCounter\", 0)\n        }\n    }else{\n        playRandom(responses)\n    }\n}\n\n\n",
+                    "aliases": []
+                }
+            ],
+            "aliases": [
+                ""
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Lurking behind a column you see a surprisingly well dressed man whose face is entirely covered in white corpsepaint and guyliner. He grimaces unconvincingly at you.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "He looks like Iggy Pop, in fact, you're almost positive it is. He seems like kind of a pushover. ",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Mortimor",
+            "id": "ffnQMbfWYrys4tPBM23PJRvwz-D66X4R",
+            "topics": [
+                {
+                    "name": "Ultimate Knowledge",
+                    "id": "mbhnkbjV9IG47HI6IzVsFDDgpbFbwakX",
+                    "response": [
+                        {
+                            "text": "\"We three monks are the keepers of Ultimate Knowledge © 2017. Only the truely anguished can even begin to comprehend it. I'm afraid your fragile mind couldn't handle it. Sartorious got drunk once and gave it to a shepherd. He died instantaniously. Or, passed out. We didn't stick around to find out.\" ",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true
+                },
+                {
+                    "name": "clogged toilet",
+                    "id": "vYcADpIpbDTIcTybkdb5kdMJhF3-5vn2",
+                    "response": [],
+                    "script": "play('\"Egads! I just unclogged that dang thing last week.\" Mortimer slouches off to the bathroom, grumbling all the way.')\n\nremoveItemFromScene('Mortimor', 'Inside the Monastery')\naddItemToScene('Mortimor', 'Bathroom')\nchangeInSceneDescription('Mortimor', {text: 'Mortimor is poking around in the clogged toilet with a stick.', audio: ''})\nmakeUnbroachable(\"Mortimor\", \"clogged toilet\")",
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": false,
+                    "list": {
+                        "text": "the clogged toilet"
+                    }
+                },
+                {
+                    "name": "Monks",
+                    "id": "BpKLg-hni3IMS7bGkWQ3ZkwHpCeowCxT",
+                    "response": [
+                        {
+                            "text": "I'm Mortimor. That's Steve sitting over there with the tea and the crown of thorns. Sartorius is the one who dresses in all black and acts spooky all the time.",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "monks"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "xq2Ta07BfRxaCYyB2_KfSC4JRYMVOQY7",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "sYg-ghqAlGWfOMMKz3Okm5E67nCN7b6h",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "Bah!",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Humbug!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                "monk",
+                " man"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": " Beside the door is a small man in woollen clothes. They look ichy. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "He's bald in that classic Christian monk sort of way, but you suspect it wasn't voluntary. ",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Cabinet",
+            "id": "BshJLW5xt5Z7VARP11nrhlP81one8DDP",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "SyczT7oEOEy5rMoyVYpvgmBsKeTWgU0w",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "close",
+                    "id": "UhzTohCUegau7PJOw_u1zwm2rFdEuBjt",
+                    "functions": [],
+                    "script": "if (getAttribute('Cabinet', 'isOpen')) {\n    removeItemFromScene('Laxative', 'Bathroom')\n    play(\"You close the cabinet.\")\n} else {\n    play(\"It's already closed.\", '')\n}\n\n",
+                    "aliases": []
+                },
+                {
+                    "name": "open",
+                    "id": "Zx4a57efchlTK0dMU2bx-e8t3wL0w3rj",
+                    "functions": [],
+                    "script": "if (!getAttribute('Cabinet', 'isOpen')) {\n    setAttribute('Cabinet', 'isOpen', true)\n    if(!isVisible('Laxative')){\n        play(\"The cabinet is empty except for an unusally large bottle of laxatives.\")\n        addItemToSceneAtIndex('Laxative', 'Bathroom', 1)\n    }\n} else {\n    play(\"It's already open\")\n}",
+                    "aliases": [
+                        "use"
+                    ]
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There is a medicine cabinet on one wall.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "I wonder what's in here?",
+                    "audio": ""
+                }
+            ],
+            "openable": true,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Laxative",
+            "id": "81zVtTSA5nrE2qIBWEHTiLo3yexBdmq-",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "IwG_mDAWhoySvw9EvPq_NSlrArKqq-_3",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "nEl-TTOE1z93E6RkKmucYtlbnE9e-kO-",
+                    "functions": [],
+                    "script": "play(\"I'm feeling fine, thank you.\")",
+                    "aliases": []
+                }
+            ],
+            "aliases": [
+                "laxatives",
+                " bottle"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Laxative sits on the shelf.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "\"Xaksaphraxaþhil™: makes the poops come out!\" Seems like pretty strong stuff...",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "empty roll",
+            "id": "dBMAyetNuYZ4iTegJ_c8InrPMV2imV-6",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "jtvOEoiE2IGnJdhBB4i58-PMa1uEEHvR",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [
+                "roll",
+                " toilet paper roll"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "An empty roll lies on the floor beneth the toilet. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "The human condition, summed up in five inches of cardboard. Eloquent.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "toilet",
+            "id": "KY3ph3815bUMAYLx9dhnj_QMYMvW3Lza",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "U-x0Du1SZU36LeKo4MqBv5G16JHzIQuA",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "wTI-tiuyQpw_Q8OdaSikeI_k8lX2sW1y",
+                    "functions": [],
+                    "script": "play(\"You don't have to go right now.\", \"\")",
+                    "aliases": []
+                }
+            ],
+            "aliases": [
+                "toilet"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "Two toilets sit in unoccupied stalls. Neither has toilet paper. These monks must truely be in anguish. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It's porcelain. Beautiful porcelain",
+                    "audio": ""
+                },
+                {
+                    "text": "It looks so comfy.",
+                    "audio": ""
+                },
+                {
+                    "text": "You've never seen such an attractive toilet.",
+                    "audio": ""
+                },
+                {
+                    "text": "Such beauty shouldn't exist in such a wicked world. You're overcome with a desire to destroy it. ",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "window",
+            "id": "R8zrqWOVDmoisVVVS_TfjN7Z05k9HEmy",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "9LKwqIAtYG1irAd3Mws9qV6TXslb0Cnx",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "close",
+                    "id": "XeJb7rrEq-Kz6I1COphIO8l43dUMBj29",
+                    "functions": [],
+                    "script": "if (getAttribute(\"window\", \"isOpen\")) {\n    setAttribute(\"window\", \"isOpen\", false)\n    changeInSceneDescription(\"window\", {text: \"High up on one wall is a small window.\", audio: ''})\n    play(\"You close the window. It creaks closed.\", \"\")\n} else {\n    play(\"It's already closed.\", \"\")\n}\n",
+                    "aliases": []
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "High up on one wall is a small window which admits a feeble breeze.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It's a place where there's no wall. There's glass though. See-through glass. ",
+                    "audio": ""
+                }
+            ],
+            "openable": true,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": true,
+            "isLocked": false
+        },
+        {
+            "name": "Mats",
+            "id": "0CE9c4ZB3e5FNUaNb_kaR2jg9LA9n_1m",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "2CCX7b00inCKbfTlZ4a-9XwdoIQ9bCbP",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "L9Ksj_uYH56HwUdrkORkzEW2lladxRm7",
+                    "functions": [],
+                    "script": "play(\"I have enough holes in my ass\", \"\")",
+                    "aliases": []
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "On the floor there are spiky meditation mats. They don't look very comfortable.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "The mats are covered in one inch long spikes. The tips are red with blood. That can't be sanitary.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Man on rack",
+            "id": "KvaxGP7XnCs1FCMRCtzODIvllvKLrD0M",
+            "topics": [
+                {
+                    "name": "Torture",
+                    "id": "PQJWmsKmy0LHNN-mHNSr8CnGUlyGpDbN",
+                    "response": [
+                        {
+                            "text": "AAAAAAAAAAAAAUGGGHGH",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "torture"
+                    }
+                },
+                {
+                    "name": "Music",
+                    "id": "-N5OQ7bWGsy4pMBUx6rF-bhYJz34BtQK",
+                    "response": [
+                        {
+                            "text": "OOOHAOAHHHHOHOAHHOHAHHHAH!!",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "music"
+                    }
+                },
+                {
+                    "name": "Sports",
+                    "id": "RGM0lS3SixPRZCLHXe39X046oqvZ6Bdc",
+                    "response": [
+                        {
+                            "text": "YEEURRGHGHHGH!!!",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "sports"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "GL_6pIvKeR1Zb09rF5u-YLdvrTW6A2QR",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "XDau816e6cT0VzO-0B1gUw6EUsp0Wa_D",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "AAAAAAAAAAAAH!",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "NURRRGHGHG!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                "man on the rack",
+                " tortured man"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "On one side of the room, there is a man stretched across a torture rack, screaming in anguish.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "There's a lever for adjusting the tension. He already looks pretty tense.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Man stubbing his toe",
+            "id": "wDVPbwBpkaY_9UMV3m9Gvff12p5aIgF6",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "qfC7MHWIhWaL4WWmOZuEG54xWgdcW5T2",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "KAAwy_Phej2HOV9ZH-O5v6FdhLyJDQu2",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "Go away! I'm busy.",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Egads!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "On the other side of the room is a man stubbing his toe.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "He seems to be in the most anguish.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "A Scotsman on a Horse",
+            "id": "dlVXaCPbu4qk_JF0LzAWTxVLSFa4jJb4",
+            "topics": [
+                {
+                    "name": "anguish",
+                    "id": "jwuYiMDQhMctBaHjK81U9cfo0gITdSha",
+                    "response": [
+                        {
+                            "text": "It's Angus, laddie.",
+                            "audio": ""
+                        }
+                    ],
+                    "script": null,
+                    "aliases": [],
+                    "functions": [],
+                    "broachable": true,
+                    "list": {
+                        "text": "anguish"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "105Q7VTvQGkV9-btGXsnisd94lKztF18",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "talk to",
+                    "id": "6F60ydgRLCbKdtoVnyddAhsQP8fPdLGH",
+                    "functions": [],
+                    "script": null,
+                    "aliases": [],
+                    "greeting": [
+                        {
+                            "text": "Ach!",
+                            "audio": ""
+                        }
+                    ],
+                    "goodbye": [
+                        {
+                            "text": "Ach!",
+                            "audio": ""
+                        }
+                    ]
+                }
+            ],
+            "aliases": [
+                "scotsman"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "In the middle of the room is a Scotsman on a horse.",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "A Scotsman on a horse!",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Lever",
+            "id": "VjoqRH5ZidUzuQx2JxlH3Eh1zwb1ogIw",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "6aXbmRGW2x2QKjicmO3Dn_TOnRI5JSAq",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "push",
+                    "id": "DrZ3Vj9kbRQWCRnNcZ9itzkcoLqa0w3w",
+                    "functions": [],
+                    "script": "play(\"The man's screams subside. He passes out.\", '')\nsetFlag('Man on rack', 'notScreaming')\nmakeBroachable('Steve', 'man on rack')",
+                    "aliases": []
+                },
+                {
+                    "name": "pull",
+                    "id": "OJCB9a4kE6SxBBY-VweFc9PiHeL6s_YZ",
+                    "functions": [],
+                    "script": "play(\"The man screams louder. Maybe you should try pushing instead.\", '')",
+                    "aliases": []
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "This lever controls the rack.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Rack",
+            "id": "1h7X9vXdm7NZonHIge0VE6aPfz3mq3Cj",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "X2t5C5V2wRzn9euIDcFrHvqJwNb1SXLC",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [
+                "torture rack"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "There's a lever for adjusting the tension. This guy already looks pretty tense.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Books",
+            "id": "DXyySH4g7DfflT9jxHeqlitA3zI4-EZd",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "R2A4D5--hlkWVHNU_7_UT6rwYs4EdNyO",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "There are a lot of books. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "There's one that catches your eye. \"A brief history of monks getting high.\" It looks very brief indeed.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "Book",
+            "id": "HOA4ZUVCtPX5He1cN00qpBXnXJl5Rz-H",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "h2uRzgCfBngdomQZUtnqXTFGX9ADosnE",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "use",
+                    "id": "KXKapxV-3k_kyuFyGylZFRor0tPehFi2",
+                    "functions": [],
+                    "script": "play(\"You open the book to the first page, and read: \\\"In 1332 the monks of York got high.\\\" All the other pages are blank.\")",
+                    "aliases": [
+                        "read"
+                    ]
+                }
+            ],
+            "aliases": [
+                "a brief history of monks getting high"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It's a pretty nice hardbound book. The cover is made out of mustard.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "incense",
+            "id": "2bdHy-WhQ3FCKIVmAJoqBmi82DoeSoeg",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "MgQSRlFCawBRN8KSvIEYqPvwITgGWPXN",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "give",
+                    "id": "GHeSTvXX8eUues53l6ZY2iHnB7wrSL6a",
+                    "functions": [],
+                    "script": "if (currentSceneIs('Bathroom') && !getAttribute(\"window\", \"isOpen\")) {\n    play(\"The Jesus pulls out a lighter engraved with a skull and crossed guns, a snake crawling from one of the eye sockets. Wordlessly, he hands it to you. You light the incense and place it on the bathroom counter. The horrid smell seems to abate, or at least is somewhat obscured.\")\n} else {\n    play(\"\\\"But I don't want any incense!\\\"\")\n}\n\n",
+                    "aliases": [],
+                    "recipient": "Mortimor"
+                }
+            ],
+            "aliases": [
+                "thurible"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "On the desk is a metal thurible full of incense. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "Smelly, but in a good way.",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "desk",
+            "id": "pxv0Z63bTff63MCSWjkkzIANRWs2u_QX",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "h4HUEzamshz9KqbXcE2zQs8WcDURR8X2",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "A large wooden desk sits against the far wall. ",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "It's large, and wooden!",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "kush filled thurible",
+            "id": "1rCC2rqqIyhGZ4F6dZRSj8WZIjglXEix",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "Rso8YHz_C89QzKbpxFjvO3Z38n_9Rsc_",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                },
+                {
+                    "name": "give",
+                    "id": "-_tDX-UYhmp3rB4Y-DzVhhx-e7N8H--o",
+                    "functions": [],
+                    "script": "if (currentSceneIs('Bathroom') && !getAttribute(\"window\", \"isOpen\")) {\n    play(\"The Jesus pulls out a lighter engraved with a skull and crossed guns, a snake crawling from one of the eye sockets. You light the kush-laced incense and place it on the bathroom counter. The smell of marijuana does little to combat the horrid stench, but Mortimor doesn't seem as bothered by it anymore.\")\n} else {\n    play(\"\\\"But I don't want any incense!\\\"\")\n}\n",
+                    "aliases": [],
+                    "recipient": "Mortimor"
+                }
+            ],
+            "aliases": [
+                "thurible",
+                " incense"
+            ],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": true,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        }
+    ],
+    "inventory": [],
+    "defaultResponses": {
+        "push": [
+            {
+                "text": "I don't want to",
+                "audio": ""
+            }
+        ],
+        "open fail": [
+            {
+                "text": "That can't be opened",
+                "audio": ""
+            }
+        ],
+        "open fail locked": [
+            {
+                "text": "It's locked.",
+                "audio": ""
+            }
+        ],
+        "open success": [
+            {
+                "text": "Opened",
+                "audio": ""
+            }
+        ],
+        "already open": [
+            {
+                "text": "It's already open",
+                "audio": ""
+            }
+        ],
+        "close fail": [
+            {
+                "text": "There's nothing to close",
+                "audio": ""
+            }
+        ],
+        "close success": [
+            {
+                "text": "Closed",
+                "audio": ""
+            }
+        ],
+        "already closed": [
+            {
+                "text": "It's already closed",
+                "audio": ""
+            }
+        ],
+        "unlock fail": [
+            {
+                "text": "There's nothing to unlock",
+                "audio": ""
+            }
+        ],
+        "unlock success": [
+            {
+                "text": "It's unlocked!",
+                "audio": ""
+            }
+        ],
+        "already unlocked": [
+            {
+                "text": "It's not locked",
+                "audio": ""
+            }
+        ],
+        "lock fail": [
+            {
+                "text": "You can't lock that",
+                "audio": ""
+            }
+        ],
+        "already locked": [
+            {
+                "text": "It's already locked",
+                "audio": ""
+            }
+        ],
+        "lock success": [
+            {
+                "text": "It's locked!",
+                "audio": ""
+            }
+        ],
+        "use": [
+            {
+                "text": "How?",
+                "audio": ""
+            }
+        ],
+        "take failure": [
+            {
+                "text": "I don't want it",
+                "audio": ""
+            }
+        ],
+        "take success": [
+            {
+                "text": "Taken",
+                "audio": ""
+            }
+        ],
+        "generic": [
+            {
+                "text": "I don't want to",
+                "audio": ""
+            }
+        ],
+        "go": [
+            {
+                "text": "Where?",
+                "audio": ""
+            }
+        ],
+        "no object": [
+            {
+                "text": "I don't see that here.",
+                "audio": ""
+            }
+        ],
+        "ask": [
+            {
+                "text": "Nah",
+                "audio": ""
+            }
+        ],
+        "already have": [
+            {
+                "text": "You already have that",
+                "audio": ""
+            }
+        ],
+        "nothing in scene": [
+            {
+                "text": "There is nothing here",
+                "audio": ""
+            }
+        ],
+        "empty inventory": [
+            {
+                "text": "Your inventory is empty",
+                "audio": ""
+            }
+        ],
+        "no exit": [
+            {
+                "text": "There is no way out!",
+                "audio": ""
+            }
+        ],
+        "exit": [
+            {
+                "text": "There is",
+                "audio": ""
+            }
+        ],
+        "exits": [
+            {
+                "text": "There are exits to ",
+                "audio": ""
+            }
+        ],
+        "can't talk to": [
+            {
+                "text": "You can't talk to that",
+                "audio": ""
+            }
+        ],
+        "nothing to talk about": [
+            {
+                "text": "You have nothing to talk about",
+                "audio": ""
+            }
+        ],
+        "north": [
+            {
+                "text": "north",
+                "audio": ""
+            }
+        ],
+        "south": [
+            {
+                "text": "south",
+                "audio": ""
+            }
+        ],
+        "east": [
+            {
+                "text": "east",
+                "audio": ""
+            }
+        ],
+        "west": [
+            {
+                "text": "west",
+                "audio": ""
+            }
+        ],
+        "southeast": [
+            {
+                "text": "southeast",
+                "audio": ""
+            }
+        ],
+        "southwest": [
+            {
+                "text": "southwest",
+                "audio": ""
+            }
+        ],
+        "northeast": [
+            {
+                "text": "northeast",
+                "audio": ""
+            }
+        ],
+        "northwest": [
+            {
+                "text": "northwest",
+                "audio": ""
+            }
+        ],
+        "up": [
+            {
+                "text": "up",
+                "audio": ""
+            }
+        ],
+        "down": [
+            {
+                "text": "down",
+                "audio": ""
+            }
+        ],
+        "and": [
+            {
+                "text": "and",
+                "audio": ""
+            }
+        ],
+        "scene inaccessible": [
+            {
+                "text": "You can't go there anymore",
+                "audio": ""
+            }
+        ],
+        "help": [
+            {
+                "text": "The commands are look, look at, take, use, open, close, push, pull, give, go, ask, talk to/goodbye, and list\n\n There are also natural language commands such as 'play piano'"
+            }
+        ]
+    },
+    "combinations": [
+        {
+            "id": "oR272uOY-CmhUBKYgDUIZ28SJkQDKvMd",
+            "objects": [
+                "ferret",
+                "ducks"
+            ],
+            "script": "singlePlay(\"The ferret leaps out of your pants and attacks the mass of ducks. It's a blood bath. Feathers fly everywhere. You estimate the ferret takes down 147 ducks before succumbing to the duck billed fury. You will miss him dearly. Your pants will never feel full again\", \"\")\nremoveItemFromInventory('ferret')\naddItemToScene(\"duck bladders\", \"The Parade of Ducks\")\nremoveItemFromScene(\"ducks\", \"The Parade of Ducks\")",
+            "functions": [],
+            "aliasGrammars": [
+                {
+                    "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "sick",
+                    "order": "current"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
+                }
+            ]
+        },
+        {
+            "id": "qPux76uUXMgD0cX-3zFfGBTkG8NkzgIf",
+            "objects": [
+                "Laxative",
+                "Tea"
+            ],
+            "script": "if(!isVisible(\"Steve\")){\n    addItemToScene('Steve', 'bathroom')\n    play(`You add the laxative to the tea while Steve is away. The pills dissolves quickly until it is completely unnoticable. You think you might have added too much...\n    \n    Moments later, Steve returns. He sits and takes a long drink from his hot cup of tea. He sits back in pure anguish. Then, his eyes buldge, there is an unexpected level of anguish in his sip! He sits up right and then burts into a sprint for the bathroom. He might be there for a while.`, \"\")\n    changeInSceneDescription('Steve', {text: \"Steve occupies one of the toilets. A foul and ungodly smell eminates from the stall\", audio: \"\"})\n    changeDescription(\"Steve\", [{text: \"He's in the stall. He doesn't sound like he's having fun.\" ,audio:\"\"}])    \n}else{\n    play(\"I think he'll notice.\")\n}\n",
+            "functions": [],
+            "aliasGrammars": [
+                {
+                    "name": "add",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
+                }
+            ]
+        },
+        {
+            "id": "OEQPkbuDYdrL-B51RKAkPFpo4jio7ykR",
+            "objects": [
+                "empty roll",
+                "toilet"
+            ],
+            "script": "if(!getFlag(\"toilet\", \"clogged\")){\n    if(hasItem(\"empty roll\")){\n        removeItemFromInventory(\"empty roll\")\n    }else{\n        removeItemFromScene(\"empty roll\", \"Bathroom\")\n    } \n    play(\"You stuff the empty roll into the toilet and flush. Water begins to pool over the top soaking your sandals.\", \"\")\n    setFlag(\"toilet\", \"clogged\")\n    changeInSceneDescription(\"toilet\", {text: \"One of the toilets is full to the brim.\", audio: \"\"})\n    makeBroachable(\"Sartorious\", \"clogged toilet\")\n    makeBroachable(\"Mortimor\", \"clogged toilet\")\n    makeBroachable(\"Steve\", \"clogged toilet\")\n}\n",
+            "functions": [],
+            "aliasGrammars": [
+                {
+                    "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "stuff",
+                    "order": "current"
+                },
+                {
+                    "name": "clog",
+                    "order": "reverse"
+                }
+            ]
+        },
+        {
+            "id": "jvke59ZJ26RZWBCEXmxxB1XJkzgXqPOP",
+            "objects": [
+                "incense",
+                "Sweet sweet kush"
+            ],
+            "script": "var output = []\n\noutput.push({text: \"You replace the incense with some of your sweet, sweet kush. Enough to get like, 3 people really high.\", audio:''})\n\nif (currentSceneIs(\"bathroom\")) {\n    output.push({text: \"The smell of marijuana does little to combat the horrid stench, but Mortimor doesn't seem as bothered by it anymore.\", audio: \"\"})\n} else {\n    removeItemFromScene(\"incense\", \"library\")\n    addItemToInventory(\"kush filled thurible\")\n}\n\nplayMultiple(output)\n",
+            "functions": [],
+            "aliasGrammars": [
+                {
+                    "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "put",
+                    "order": "reverse"
+                },
+                {
+                    "name": "add",
+                    "order": "reverse"
+                }
+            ]
+        }
+    ]
+}
