@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {GameEngineFromSpec} from './game-engine/GameEngine'
+import {GameEngineFromSpec, GameEngineFromYaml} from './game-engine/GameEngine'
 import GameCommandInput from './GameCommandInput'
 import GameTextOutput from './GameTextOutput'
 import './GameView.css'
@@ -43,7 +43,22 @@ export default class GameView extends Component {
   }
 
   save(yaml){
-    //NOTHING
+    localStorage.setItem("game", yaml)
+  }
+
+  load(){
+    var game = localStorage.getItem("game")
+    this.setState({
+      gameEngine: GameEngineFromYaml(game, (output) => {
+        setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
+          setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+      ),
+      output : [""],
+      currentSound: null,
+      currentPart: this.props.currentPart,
+      currentScene: this.props.currentScene,
+      first: true
+    })
   }
 
   render() {
@@ -58,6 +73,9 @@ export default class GameView extends Component {
             <div style={{width: "500px", margin: "0 auto"}} >
                 <GameTextOutput text={this.state.output}/>
                 <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
+                <div style={{textAlign: "center"}}>
+                  <div className="button" style={{marginBottom: "150px", marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
+                </div>
             </div>
       </div>
     )

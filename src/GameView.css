@@ -12,3 +12,23 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   /*border-radius: 4px 4px 4px 4px;*/
 }
+
+.button{
+  display: inline-block;
+  font-size: 1.1rem;
+  background-color: rgb(0, 188, 212);
+  color: white;
+  height: 30px;
+  padding-left: 6px;
+  padding-right: 6px;
+  line-height: 30px;
+  text-align: center;
+  z-index: 3;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  box-sizing: border-box;
+  cursor: pointer !important;
+  margin: 0 auto;
+  -webkit-app-region: no-drag;
+}
