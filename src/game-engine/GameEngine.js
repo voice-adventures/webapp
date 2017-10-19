@@ -915,6 +915,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     playCurrentScene(outputQueue)
   }
 
+  function getYaml(){
+    return jsYaml.dump(gameState)
+  }
+
   return {
     audioFinished: playNextAudio,
     parseCommand,
@@ -922,6 +926,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     parseObjects,
     getLocalItemByAlias,
     getAllKeywords,
-    setCurrentPartAndScene
+    setCurrentPartAndScene,
+    getYaml
   }
 }

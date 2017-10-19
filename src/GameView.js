@@ -73,8 +73,9 @@ export default class GameView extends Component {
             <div style={{width: "500px", margin: "0 auto"}} >
                 <GameTextOutput text={this.state.output}/>
                 <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
-                <div style={{textAlign: "center"}}>
-                  <div className="button" style={{marginBottom: "150px", marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
+                <div style={{textAlign: "center", marginBottom: "150px",}}>
+                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.save(this.state.gameEngine.getYaml())}>Save</div>
+                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
                 </div>
             </div>
       </div>
