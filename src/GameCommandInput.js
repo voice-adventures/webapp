@@ -15,7 +15,7 @@ export default class GameCommandInput extends Component {
   }
 
   render() {
-    return <div style={{marginBottom: "20px"}}>
+    return <div style={{marginBottom: "200px", textAlign: "center"}}>
       <input type="text" onChange={this.handleChange} value={this.state.command} onKeyDown={(event) => this.onEnter(event)}/>
       <button id="submit" onClick={this.submit}>make it so!</button>
     </div>

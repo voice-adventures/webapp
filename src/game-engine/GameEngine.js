@@ -6,9 +6,9 @@ function GameState(data) {
   data.timers = data.timers || {}
 
 //at the moment, commands that are are a substring of other commands should be placed after the longer command. ie. "Look around" and "look at" before "look"
-  data.commandList = [ "give", "ask", "combine", "look at", "look around", "use", "pick up",
+  data.commandList = [ "give", "ask", "combine", "look at exits", "look at the exits", "look at", "look around", "use", "pick up",
   "take",  "open", "close", "push", "pull", "talk to", "end conversation", "leave", "goodbye", "look",
-  "inventory", "help",  "climb", "decend", "save", "load",  "go", "exit", 'list', "examine", "inspect", "get"]
+  "inventory", "help", "climb down", "climb",  "decend", "save", "load",  "go", "exit", 'list', "examine", "inspect", "get"]
   data.items = data.items || []
   var actionAliases = []
   data.items.forEach(item => {
@@ -38,7 +38,7 @@ function GameState(data) {
 
   //convert scene's item list from ids to names
   var mapping = {}
-  _(data.items).each(item => mapping[item.id] = item.name)
+  _(data.items).each(item => mapping[item.id] = item.name.toLowerCase())
   _(data.parts).each(part => {
     _(part.sceneList).each(scene => {
       if(scene.items){
@@ -58,6 +58,7 @@ function GameState(data) {
     item.aliases = item.aliases || []
     item.aliases = item.aliases.map(alias => alias.toLowerCase().trim())
     item.aliases.push(item.name.toLowerCase().trim())
+    item.name = item.name.toLowerCase()
     var topics = []
     _(item.topics).each(top => {
       top.aliases = top.aliases || []
@@ -72,12 +73,16 @@ function GameState(data) {
   data.parts.forEach( part => {
     if (part.sceneList){
       part.sceneList.forEach(scene => {
-          data.objectKeys.push(scene.name)
+          scene.aliases = scene.aliases || []
+          scene.aliases = scene.aliases.map(alias => alias.toLowerCase().trim())
+          scene.aliases.push(scene.name.toLowerCase().trim())
+          data.objectKeys = data.objectKeys.concat(scene.aliases)
       })
     }
   })
 
-  data.objectKeys = _.uniq(data.objectKeys.map(item => item.toLowerCase()))
+  data.objectKeys = _.uniq(data.objectKeys.map(item => item.toLowerCase().trim()))
+
   data.fastTravel = []
 
   //Allow current part and scene to be defined in the gameSpec.
@@ -95,7 +100,7 @@ module.exports = {
 
 function GameEngineFromYaml(yaml, ...callbacks) {
   var gameState = jsYaml.load(yaml)
-  return GameEngine(gameState, ...callbacks)
+  return GameEngine(gameState, ...callbacks, true)
 }
 
 function GameEngineFromSpec(gameSpec, ...callbacks) {
@@ -103,20 +108,38 @@ function GameEngineFromSpec(gameSpec, ...callbacks) {
   return GameEngine(gameState, ...callbacks)
 }
 
-function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
+function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fromSave) {
+  var timers = {}
   gameState.currentPart = gameState.currentPart || gameState.parts[0]
-  var partIntro = gameState.currentPart.intro || []
-  var outputQueue = partIntro.slice()
-  if (!gameState.currentScene){
-    if(gameState.currentPart.sceneList){
-       gameState.currentScene = findScene(gameState.currentPart.openingScene || gameState.currentPart.sceneList[0].name)
-    }else{
-      gameState.currentScene= {exits: []}
-    }
+
+  var tempAPI = apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, timers.startTimer, timers.stopTimer)
+  tempAPI.restartTimers()
+
+  // window.globalFunctions = Object.assign({}, tempAPI)
+  for(var key in tempAPI){
+    this[key] = tempAPI[key]
   }
+
+  var outputQueue;
+
+  function start(){
+    var partIntro = gameState.currentPart.intro || []
+    outputQueue = partIntro.slice()
+    if (!gameState.currentScene){
+      if(gameState.currentPart.sceneList){
+         gameState.currentScene = findScene(gameState.currentPart.openingScene || gameState.currentPart.sceneList[0].name)
+      }else{
+        gameState.currentScene= {exits: []}
+      }
+    }
+    playCurrentScene(outputQueue)
+
+  }
+
+  if(!fromSave) start()
+
   var directions = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down"]
 
-  playCurrentScene(outputQueue)
 
   // playNextAudio()
   // gameState.currentScene.visited = true
@@ -132,6 +155,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
     if (output) {
       if(output.scriptor){
         safeEval(output.scriptor)
+        if(outputQueue.length === 0){
+          updateAudio("", true)
+        }
       }else{
         updateText(output.text)
         updateAudio(output.audio)
@@ -184,7 +210,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
       for(var j = 0; j < list.length; j ++){
         var item = " " + list[i] + " "
         var index = item.indexOf(" " + list[j] + " ")
-        if (index !== -1 && i != j){
+        if (index !== -1 && i !== j){
           remove.push(list[j])
         }
       }
@@ -197,7 +223,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
     var objectList = []
     for (var i = 0; i < gameState.objectKeys.length; i++){
       var keyword = gameState.objectKeys[i]
-      if (keyword == "") continue
+      if (keyword === "") continue
       var index = objects.indexOf(" " + keyword + " ")
       if (index !== -1){
         objectList.push({name: gameState.objectKeys[i], index: index})
@@ -218,10 +244,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
       output.push(itemObjects[i].inSceneDescription)
     }
     if (output.length === 0) {
-      playAudio(gameState.defaultResponses["nothing in scene"])
-    } else {
-      playAudio(output)
+      output.push(_.sample(gameState.defaultResponses["nothing in scene"]))
     }
+    if(gameState.currentScene.listExits) {output = output.concat(getExits())}
+    playAudio(output)
   }
 
   function getSceneDescription(){
@@ -252,10 +278,19 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
   }
 
   function playInventory() {
-    if(gameState.inventory.length > 0){
-      playAudio(gameState.inventory.map(itemName =>
-        getItemByName(itemName).inventory
-      ))
+    if(gameState.inventory.length > 1){
+      var output = []
+      var items = gameState.inventory.map( name => getItemByName(name))
+      items  = _.filter(items, i => i.inventory.text)
+      for ( var i = 0; i < items.length - 1; i++){
+        output.push({text: items[i].inventory.text + ", ", audio: items[i].inventory.audio})
+      }
+      var item = _.last(items)
+      output.push({text: item.inventory.text + ".", audio: item.inventory.audio})
+      playAudio(output)
+    }else if(gameState.inventory.length > 0){
+      var output = getItemByName(gameState.inventory[0]).inventory
+      playAudio([{text: output.text + ".", audio: output.audio}])
     }else{
       playAudio(gameState.defaultResponses["empty inventory"])
     }
@@ -299,16 +334,20 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
     }
   }
 
-  function listExits(){
-    var exits = gameState.currentScene.exits
+  function filterExits(exits){
+    return _.reject(exits, e => !e.scene)
+  }
+
+  function getExits(){
+    var exits = filterExits(gameState.currentScene.exits)
     if (exits.length > 0){
       if (exits.length === 1){
-          var output = gameState.defaultResponses["exit"]
-          var to_add =  exits[0].text ? {text: exits[0].text, audio: exits[0].audio} : gameState.defaultResponses[exits[0].direction][0]
+          var output = gameState.defaultResponses["exit"].slice()
+          var to_add =  exits[0].text ? {text: exits[0].text + ".", audio: exits[0].audio} : { text: gameState.defaultResponses[exits[0].direction][0].text + "." , audio: gameState.defaultResponses[exits[0].direction][0].audio}
           output.push(to_add)
-          playAudio(output)
+          return output
       }else{
-        var output = gameState.defaultResponses["exits"]
+        var output = gameState.defaultResponses["exits"].slice()
         var to_play = exits.slice(0, exits.length -1 ).map(e => {
           if(e.text){
             return {text: e.text + ", ", audio: e.audio}
@@ -316,21 +355,28 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
           return {text: gameState.defaultResponses[e.direction][0].text + ", ", audio: gameState.defaultResponses[e.direction][0].audio}
          })
         to_play.push(gameState.defaultResponses["and"][0])
-        var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text, audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
+        var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text + ".", audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
         to_play.push(to_add)
         output = output.concat(to_play)
-        playAudio(output)
+        return output
       }
     }else{
-      playRandom(gameState.defaultResponses["no exit"])
+      return [_.sample(gameState.defaultResponses["no exit"])]
     }
+  }
+
+  function listExits(){
+    playAudio(getExits())
   }
 
   function findDirection(arr, dir){
     return _.find(arr, item => item.direction === dir)
   }
 
-  function playCurrentScene(output = []){
+  function playCurrentScene(output = [], api){
+    if (gameState.converseWith){
+      gameState.converseWith = null
+    }
     if(!gameState.currentScene.visited){
       if(gameState.currentScene.intro){
         output = output.concat(gameState.currentScene.intro)
@@ -338,8 +384,11 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
       gameState.currentScene.visited = true
       if (gameState.currentScene) gameState.fastTravel.push(gameState.currentScene)
       output = output.concat(getSceneDescription())
+      if(gameState.currentScene.listExits) {output = output.concat(getExits())}
     }else{
-      output.push({text: gameState.currentScene.name, audio: gameState.currentScene.nameAudio})
+      var text = gameState.currentScene.name + "\n"
+      if (api) {text= "\n\n" + text}
+      output.push({text, audio: gameState.currentScene.nameAudio})
     }
     if(gameState.currentScene.script){
       playAudioRunScript(output, gameState.currentScene)
@@ -348,12 +397,19 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
     }
   }
 
+  function findAliasedScene(alias){
+    return _.find(gameState.currentPart.sceneList, s => s.aliases.includes(alias.toLowerCase()))
+
+  }
+
+  function findFastTravelSceneByAlias(alias){
+    return _.find(gameState.fastTravel, s => s.aliases.includes(alias.toLowerCase()))
+
+  }
+
   function changeCurrentScene(direction){
     var nextScene
     if (directions.includes(direction)){
-      if (gameState.converseWith){
-        gameState.converseWith = null
-      }
       nextScene = findDirection(gameState.currentScene.exits, direction)
       if (nextScene){
         gameState.lastDirection = direction
@@ -370,24 +426,42 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
       }else{
         playAudio(gameState.defaultResponses.go)
       }
-    }else if(nextScene = findScene(direction)){
-      if(gameState.fastTravel.includes(nextScene)){
-        gameState.currentScene = nextScene
-        playCurrentScene()
+    }else if(nextScene = findFastTravelSceneByAlias(direction)){
+      gameState.currentScene = nextScene
+      playCurrentScene()
+    }else if(nextScene = findAliasedScene(direction)){
+      if(nextScene.visited){
+        playAudio(gameState.defaultResponses["scene inaccessible"])
       }else{
-        if(nextScene.visited){
-          playAudio(gameState.defaultResponses["scene inaccessible"])
-        }else{
-          playAudio(gameState.defaultResponses.go)
-        }
+        playAudio(gameState.defaultResponses.go)
       }
     }else{
-      playAudio(gameState.defaultResponses.go)
+      var firstObject = getLocalItemByAlias(direction)
+      if (firstObject){
+        var action = findActionByAlias(firstObject.actions, "go")
+      }
+      if(action){
+        if (action.script){
+          safeEval(action)
+        }else{
+          if(action && action.failure){
+            playRandom(action.failure)
+          }else{
+            playRandom(gameState.defaultResponses.go)
+          }
+        }
+      }else{
+        playAudio(gameState.defaultResponses.go)
+      }
     }
   }
 
   function findActionByName(actions, name){
     return _(actions).find((action) => action.name === name)
+  }
+
+  function findActionByAlias(actions, alias){
+    return _(actions).find((action) => _(action.aliases).contains(alias))
   }
 
   function hasScript(object, keyword){
@@ -431,7 +505,13 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
         if(combineAlias(keyword)){
           var executed = combine(keyword, firstObject, secondObject)
           if(!executed){
-            playAudio(gameState.defaultResponses.generic)
+            if (firstObject.combinationFailure){
+              playRandom(firstObject.combinationFailure)
+            }else if(secondObject.combinationFailure){
+              playRandom(secondObject.combinationFailure)
+            }else{
+              playAudio(gameState.defaultResponses.generic)
+            }
           } return null
         }
       }
@@ -447,7 +527,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
   }
 
   function give(firstObject, secondName){
-    var actions = _.where(firstObject.actions, {name: 'give', recipient: secondName})
+    var actions = _.filter(firstObject.actions, (elem) => elem.name === 'give' && elem.recipient.toLowerCase() === secondName)
     if(actions.length === 0){
       return null
     }else{
@@ -469,9 +549,18 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
   }
 
   function findTopicByAlias(obj, alias){
-    return _.find(obj.topics, top => {
+    var broachable = _(obj.topics).where({broachable: true})
+    return _.find(broachable, top => {
       return _.contains(top.aliases, alias)
     })
+  }
+
+  function leave(){
+    if (gameState.currentScene.exits.length === 1){
+      changeCurrentScene(gameState.currentScene.exits[0].direction)
+    }else{
+      listExits()
+    }
   }
 
 
@@ -516,9 +605,14 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
         var yaml = jsYaml.dump(gameState)
         save(yaml)
         return
+      case "look at exits":
+      case "look at the exits":
+        listExits()
+        return
       case "climb":
         changeCurrentScene("up")
         return
+      case "climb down":
       case "decend":
         changeCurrentScene("down")
         return
@@ -530,13 +624,15 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
           playRandom(gameState.defaultResponses.go)
         }
         return
+      case "leave":
+        leave()
+        return
       case "look around":
       case "look":
         playSceneDescription()
         return
       case "end conversation":
       case "goodbye":
-      case "leave":
         if (gameState.converseWith){
           var action = findActionByName(gameState.converseWith.actions, "talk to" )
           var farewell = action? action.goodbye : []
@@ -576,22 +672,32 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
       switch(keyword){
                 // case "combine": //since use is an alias for combine, it can accidentally think the command was combine when there's only on arg.
         case "use":
+          var action  = findActionByName(firstObject.actions, "use")
           if (hasScript(firstObject, "use")){
-            safeEval(findActionByName(firstObject.actions, "use"))
+            safeEval(action)
           }else{
-            playRandom(gameState.defaultResponses["use"])
+            if(action && action.failure){
+              playRandom(action.failure)
+            }else{
+              playRandom(gameState.defaultResponses["use"])
+            }
           }
           break
         case "pick up":
         case "get":
         case "take":
+          var action = findActionByName(firstObject.actions, "take")
           if (hasScript(firstObject, "take")){
-            safeEval(findActionByName(firstObject.actions, "take"))
+            safeEval(action)
           }else{
             if(firstObject.takeable){
               takeObject(firstObject)
             }else{
-              playRandom(gameState.defaultResponses["take failure"])
+              if(action && action.failure){
+                playRandom(action.failure)
+              }else{
+                playRandom(gameState.defaultResponses["take failure"])
+              }
             }
           }
           break
@@ -641,32 +747,49 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
             if (scriptor && scriptor.script) {
               safeEval(scriptor)
             }else{
-              scriptor = give(firstObject, secondObject.name)
-              if (scriptor && scriptor.script) {
-                safeEval(scriptor)
+              var scriptor2 = give(firstObject, secondObject.name)
+              if (scriptor2 && scriptor2.script) {
+                safeEval(scriptor2)
               }else{
-              playRandom(gameState.defaultResponses.give)
+                var defaultGive = give(secondObject, "other") || give(firstObject, "other")
+                if(defaultGive && defaultGive.failure){
+                  playRandom(defaultGive.failure)
+                }else{
+                  playRandom(gameState.defaultResponses.give)
+                }
               }
             }
           }
           break
         case "push":
+          var action = findActionByName(firstObject.actions, keyword)
           if (hasScript(firstObject, "push")){
-            safeEval(findActionByName(firstObject.actions, keyword ))
+            safeEval(action)
           }else{
-            playRandom(gameState.defaultResponses.push)
+            if(action && action.failure){
+              playRandom(action.failure)
+            }else{
+              playRandom(gameState.defaultResponses.push)
+            }
           }
           break
         case "pull":
+          var action = findActionByName(firstObject.actions, keyword)
           if (hasScript(firstObject, "pull")){
-            safeEval(findActionByName(firstObject.actions, keyword ))
+            safeEval(action)
           }else{
-            playRandom(gameState.defaultResponses.pull)
+            if(action && action.failure){
+              playRandom(action.failure)
+            }else{
+              playRandom(gameState.defaultResponses.pull)
+            }
           }
           break
         case "open":
+          var action = findActionByName(firstObject.actions, keyword)
+
           if (hasScript(firstObject, "open")){
-            safeEval(findActionByName(firstObject.actions, keyword ))
+            safeEval(action)
           }else{
             if(firstObject.openable){
               if(firstObject.isOpen){
@@ -678,13 +801,18 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
                 playRandom(gameState.defaultResponses["open success"])
               }
             }else{
-              playRandom(gameState.defaultResponses["open fail"])
+              if(action && action.failure){
+                playRandom(action.failure)
+              }else{
+                playRandom(gameState.defaultResponses["open fail"])
+              }
             }
           }
           break
         case "close":
+          var action = findActionByName(firstObject.actions, keyword)
           if (hasScript(firstObject, "close")){
-            safeEval(findActionByName(firstObject.actions, keyword ))
+            safeEval(action)
           }else{
             if(firstObject.openable){
               if(!firstObject.isOpen){
@@ -694,13 +822,16 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
                 playRandom(gameState.defaultResponses["close success"])
               }
             }else{
-              playRandom(gameState.defaultResponses["close fail"])
+              if(action && action.failure){
+                playRandom(action.failure)
+              }else{
+                playRandom(gameState.defaultResponses["close fail"])
+              }
             }
           }
           break
         default:
-          console.log("Command result not defined: " + keyword)
-          playRandom(gameState.defaultResponses["no object"])
+          playRandom(gameState.defaultResponses.generic)
           break
       }
     }else{
@@ -712,8 +843,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
     try{
       argMap = argMap || {}
       gameState.scriptor = scriptor
-      var api = apiGen(gameState, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics)
-      var argMap = Object.assign(argMap, api)
+      var api = apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits)
+      argMap = Object.assign(argMap, api)
       var keys = Object.keys(argMap)
       var values = Object.values(argMap)
       var f = new Function(...keys, scriptor.script)
@@ -725,6 +856,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save) {
 
   function submitCommand(command) {
     var output = command
+    var command = command.toLowerCase()
     var commandObject = parseCommand(command)
     var key = commandObject.command
     if (key){

@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import {GameEngineFromSpec} from './game-engine/GameEngine'
 import GameCommandInput from './GameCommandInput'
 import GameTextOutput from './GameTextOutput'
-
+import './GameView.css'
 import jesusQuest from './games/JesusQuest.json'
+import TheNexus from './games/The_Nexus.json'
+
+var replaying = null
 
 export default class GameView extends Component {
   constructor(props) {
     super(props)
-    var game = jesusQuest
+    var game = TheNexus
     game.currentScene =  props.currentScene
     game.currentPart = props.currentPart
     this.state = {
@@ -19,7 +22,8 @@ export default class GameView extends Component {
       output : [""],
       currentSound: null,
       currentPart: props.currentPart,
-      currentScene: props.currentScene
+      currentScene: props.currentScene,
+      first: true
     }
   }
 
@@ -47,14 +51,16 @@ export default class GameView extends Component {
     if (this.state.currentPart === 0 || this.state.currentPart){
       scenes =  this.props.game.parts[this.state.currentPart].sceneList
     }
-    return <div ref={(div) => {
-        this.outputDiv = div;
-      }} >
-        <div style={{width: "500px", margin: "0 auto"}} >
-            <GameTextOutput text={this.state.output}/>
-            <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
-        </div>
-    </div>
+    return (
+      <div className="page" ref={(div) => {
+          this.outputDiv = div;
+        }} >
+            <div style={{width: "500px", margin: "0 auto"}} >
+                <GameTextOutput text={this.state.output}/>
+                <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
+            </div>
+      </div>
+    )
 
   }
 
@@ -78,10 +84,15 @@ export default class GameView extends Component {
   }
 
   handleAudio(output, done){
-    // if(done){
-    //   return
-    // }
-    // if (this.state.currentSound) this.state.currentSound.stop()
+    if(done){
+      if(replaying){
+        this.replay()
+      }
+      return
+    }
+    if (this.state.currentSound) this.state.currentSound.stop()
+    this.state.gameEngine.audioFinished()
+
     // if (output){
     //   output = this.props.audioPath + output
     //   var sound = new Howl({

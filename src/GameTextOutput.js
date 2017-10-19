@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class GameTextOutput extends Component {
   render() {
-    return <div>
+    return <div style={{marginTop: 10}}>
       {
         this.props.text.map((line, i) => {
           if (line.src){
