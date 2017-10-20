@@ -1,6 +1,6 @@
 var _ = require('underscore')
 
-module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits){
+module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, findCombination){
 
   function startTimer(name, seconds, func, ...args){
       gameState.timers = gameState.timers || {}
@@ -257,6 +257,18 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     }
   }
 
+  function callCombination(verb, object1, object2){
+    var firstObject = findObjectByName(object1)
+    var secondObject = findObjectByName(object1)
+    var comb =  findCombination(verb, firstObject, secondObject)
+    if (comb){
+      if (comb.responses){
+        playInSequence(comb.responses)
+      }
+      eval(comb)
+    }
+  }
+
   function playRandom(array){
     playAudio([_.sample(array)])
   }
@@ -388,6 +400,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     startConversation,
     isBroachable,
     callAction,
+    callCombination,
     addAlias,
     removeAlias,
     changeInventoryName,

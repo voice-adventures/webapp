@@ -486,6 +486,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   function combine(verb, firstObject, secondObject){
     var comb = findCombination(verb, firstObject, secondObject)
     if (comb){
+      if (comb.responses){
+        playInSequence(comb.responses)
+      }
       safeEval(comb)
       return true
     }
@@ -843,7 +846,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     try{
       argMap = argMap || {}
       gameState.scriptor = scriptor
-      var api = apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits)
+      var api = apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, findCombination)
       argMap = Object.assign(argMap, api)
       var keys = Object.keys(argMap)
       var values = Object.values(argMap)
