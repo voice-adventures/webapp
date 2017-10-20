@@ -11,19 +11,34 @@ var replaying = null
 export default class GameView extends Component {
   constructor(props) {
     super(props)
-    var game = TheNexus
-    game.currentScene =  props.currentScene
-    game.currentPart = props.currentPart
-    this.state = {
-      gameEngine: GameEngineFromSpec(game, (output) => {
-        setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
-          setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
-      ),
-      output : [""],
-      currentSound: null,
-      currentPart: props.currentPart,
-      currentScene: props.currentScene,
-      first: true
+    var game = localStorage.getItem("game")
+    if(game){
+      this.state = {
+        gameEngine: GameEngineFromYaml(game, (output) => {
+          setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
+            setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+        ),
+        output : [""],
+        currentSound: null,
+        currentPart: props.currentPart,
+        currentScene: props.currentScene,
+        first: true
+      }
+    }else{
+      game = TheNexus
+      game.currentScene =  props.currentScene
+      game.currentPart = props.currentPart
+      this.state = {
+        gameEngine: GameEngineFromSpec(game, (output) => {
+          setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
+            setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+        ),
+        output : [""],
+        currentSound: null,
+        currentPart: props.currentPart,
+        currentScene: props.currentScene,
+        first: true
+      }
     }
   }
 
@@ -40,6 +55,23 @@ export default class GameView extends Component {
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  new(){
+    var game = TheNexus
+    game.currentScene =  this.props.currentScene
+    game.currentPart = this.props.currentPart
+    this.setState({
+      gameEngine: GameEngineFromSpec(game, (output) => {
+        setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
+          setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+      ),
+      output : [""],
+      currentSound: null,
+      currentPart: this.props.currentPart,
+      currentScene: this.props.currentScene,
+      first: true
+    })
   }
 
   save(yaml){
@@ -74,6 +106,7 @@ export default class GameView extends Component {
                 <GameTextOutput text={this.state.output}/>
                 <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
                 <div style={{textAlign: "center", marginBottom: "150px",}}>
+                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.new()}>New</div>
                   <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.save(this.state.gameEngine.getYaml())}>Save</div>
                   <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
                 </div>
