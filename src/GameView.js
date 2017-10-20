@@ -13,12 +13,15 @@ export default class GameView extends Component {
     super(props)
     var game = localStorage.getItem("game")
     if(game){
+      var output = localStorage.getItem("output")
+      console.log(output)
+      if (output) output = JSON.parse(output)
       this.state = {
         gameEngine: GameEngineFromYaml(game, (output) => {
           setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
             setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
         ),
-        output : [""],
+        output : output || [""],
         currentSound: null,
         currentPart: props.currentPart,
         currentScene: props.currentScene,
@@ -76,16 +79,19 @@ export default class GameView extends Component {
 
   save(yaml){
     localStorage.setItem("game", yaml)
+    localStorage.setItem("output", JSON.stringify(this.state.output))
   }
 
   load(){
     var game = localStorage.getItem("game")
+    var output = localStorage.getItem("output")
+    if (output) output = JSON.parse(output)
     this.setState({
       gameEngine: GameEngineFromYaml(game, (output) => {
         setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
           setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
       ),
-      output : [""],
+      output : output || [""],
       currentSound: null,
       currentPart: this.props.currentPart,
       currentScene: this.props.currentScene,
