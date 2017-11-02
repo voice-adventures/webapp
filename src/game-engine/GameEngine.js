@@ -55,7 +55,7 @@ function GameState(data) {
   //   item.topics = map
   // })
 
-  data.objectKeys = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down", "topics", "items", "objects", "exits", "locations"]
+  data.objectKeys = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down", "topics", "items", "objects", "exits", "locations", "inventory"]
   data.items.forEach(item => {
     item.aliases = item.aliases || []
     item.aliases = item.aliases.map(alias => alias.toLowerCase().trim())
@@ -198,10 +198,11 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       var keyword = gameState.commandList[i]
       var index = command.indexOf(" " + keyword + " ")
       if (index !== -1){
-        list.push({command: keyword, remainder: command.substring(index + 1 + keyword.length)})
+        list.push({command: keyword, remainder: command.substring(index + 1 + keyword.length), index})
       }
     }
     if(list.length > 0){
+      list = _(list).sortBy('index')
       return list.reduce(function (a, b) { return b.command.includes(a.command) ? b : a; });
     }
     return {command: null, remainder: command}
@@ -628,7 +629,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   var standardCommandAliases = {'exit': 'go', 'pick up': 'take', 'look around': 'look'}
 //Comands to be accounted for: [ "use", "open", "close",, "help", "push",
 // "pull",  "save", "load"?, "give"]
-  function executeCommand(keyword, objectAliases){
+  function executeCommand(keyword, objectAliases, raw_input){
     var k = keyword
     k = k.slice(0,3)
     if (k !== "go "){
@@ -906,7 +907,24 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
           break
       }
     }else{
-      playRandom(gameState.defaultResponses["no object"])
+      var objectAliases = parseObjects(raw_input)
+      var firstObject = gameState.converseWith
+      if (firstObject && firstObject.topics && objectAliases.length === 1) {
+        var topic = findTopicByAlias(firstObject, objectAliases[0])
+        if (topic && topic.broachable ){
+          if (topic.script){
+            safeEval(topic)
+          }else{
+            playInSequence(topic.response)
+          }
+        }else{
+          playRandom(gameState.defaultResponses.ask)
+        }
+      }else if(gameState.converseWith){
+        playRandom(gameState.defaultResponses.ask)
+      }else{
+        playRandom(gameState.defaultResponses["no object"])
+      }
     }
   }
 
@@ -933,7 +951,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     if (key){
       var objects = parseObjects(commandObject.remainder)
       updateCommand(key + commandObject.remainder)
-      executeCommand(key, objects)
+      executeCommand(key, objects, command)
     }else{
       if(gameState.converseWith){
         var objects = parseObjects(commandObject.remainder)
