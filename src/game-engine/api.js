@@ -1,6 +1,6 @@
 var _ = require('underscore')
 
-module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, findCombination){
+module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias){
 
   function startTimer(name, seconds, func, ...args){
       gameState.timers = gameState.timers || {}
@@ -257,15 +257,38 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     }
   }
 
+  function askAboutTopic(object, topic){
+    var topic =  topic.toLowerCase().trim()
+    var firstObject = findObjectByName(object)
+    if (firstObject && firstObject.topics) {
+      var topic = findTopicByAlias(firstObject, topic)
+      if (topic && topic.broachable ){
+        if (topic.script){
+          safeEval(topic)
+        }else{
+          playInSequence(topic.response)
+        }
+      }else{
+        playRandom(gameState.defaultResponses.ask)
+      }
+    }else{
+      playRandom(gameState.defaultResponses.ask)
+    }
+
+  }
+
   function callCombination(verb, object1, object2){
+    if (verb === "use") verb = "combine"
     var firstObject = findObjectByName(object1)
-    var secondObject = findObjectByName(object1)
+    var secondObject = findObjectByName(object2)
     var comb =  findCombination(verb, firstObject, secondObject)
     if (comb){
       if (comb.responses){
         playInSequence(comb.responses)
       }
-      eval(comb)
+      if(comb.script){
+        eval(comb.script)
+      }
     }
   }
 
@@ -401,6 +424,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     isBroachable,
     callAction,
     callCombination,
+    askAboutTopic,
     addAlias,
     removeAlias,
     changeInventoryName,
@@ -409,6 +433,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     gameState,
     findScene,
     listExits,
+    listInventory: playInventory,
     _
   }
 

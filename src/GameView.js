@@ -14,7 +14,6 @@ export default class GameView extends Component {
     var game = localStorage.getItem("game")
     if(game){
       var output = localStorage.getItem("output")
-      console.log(output)
       if (output) output = JSON.parse(output)
       this.state = {
         gameEngine: GameEngineFromYaml(game, (output) => {
