@@ -202,7 +202,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       }
     }
     if(list.length > 0){
-      return list.reduce(function (a, b) { return a.command.length > b.command.length ? a : b; });
+      return list.reduce(function (a, b) { return b.command.includes(a.command) ? b : a; });
     }
     return {command: null, remainder: command}
   }
