@@ -264,7 +264,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
       var topic = findTopicByAlias(firstObject, topic)
       if (topic && topic.broachable ){
         if (topic.script){
-          safeEval(topic)
+          eval(topic)
         }else{
           playInSequence(topic.response)
         }
