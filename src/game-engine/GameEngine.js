@@ -6,7 +6,7 @@ function GameState(data) {
   data.timers = data.timers || {}
 
 //at the moment, commands that are are a substring of other commands should be placed after the longer command. ie. "Look around" and "look at" before "look"
-  data.commandList = [ "give", "ask", "combine", "look at exits", "look at the exits", "look at", "look around", "use", "pick up",
+  data.commandList = [ "give", "ask", "combine", "look at exits", "look at the exits", "look at", "look under", "look around", "use", "pick up",
   "take",  "open", "close", "push", "pull", "talk to", "end conversation", "leave", "goodbye", "look",
   "inventory", "help", "climb down", "climb",  "decend", "save", "load",  "go", "exit", 'list', "examine", "inspect", "get", "grab", "who", "what", "when", "where", "why", "how"]
   data.items = data.items || []
@@ -161,7 +161,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   // object. right now this is hard to do because the GameEngine
   // is receiving the playback finished events.
   function playNextAudio() {
+    console.log("playNextAudio", outputQueue.length)
     if(outputQueue.length === 0){
+      // updateText("", true, self)
       updateAudio("", true, self)
       return
     }
@@ -170,11 +172,12 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       if(output.scriptor){
         safeEval(output.scriptor)
         if(outputQueue.length === 0){
+          // updateText("", true, self)
           updateAudio("", true, self)
         }
       }else{
-        updateText(output.text)
-        updateAudio(output.audio, false, self)
+        updateText(output.text, false, self)
+        // updateAudio(output.audio, false, self)
       }
     }
 
@@ -302,14 +305,16 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       var items = gameState.inventory.map( name => getItemByName(name))
       items  = _.filter(items, i => i.inventory.text)
       for ( var i = 0; i < items.length - 1; i++){
-        output.push({text: items[i].inventory.text + ", ", audio: items[i].inventory.audio})
+        output.push({text: items[i].inventory.text, audio: items[i].inventory.audio})
+        output.push({text: ", " , audio: ""})
       }
       var item = _.last(items)
-      output.push({text: item.inventory.text + ".", audio: item.inventory.audio})
+      output.push({text: item.inventory.text, audio: item.inventory.audio})
+      output.push({text: ". " , audio: ""})
       playAudio(output)
     }else if(gameState.inventory.length > 0){
       var output = getItemByName(gameState.inventory[0]).inventory
-      playAudio([{text: output.text + ".", audio: output.audio}])
+      playAudio([{text: output.text, audio: output.audio}, {text: ". " , audio: ""}])
     }else{
       playAudio(gameState.defaultResponses["empty inventory"])
     }
@@ -752,6 +757,19 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
             }
           }
           break
+
+        case "look under":
+          var action  = findActionByName(firstObject.actions, keyword)
+          if (hasScript(firstObject, keyword)){
+            safeEval(action)
+          }else{
+            if(action && action.failure){
+              playRandom(action.failure)
+            }else{
+              playRandom(gameState.defaultResponses[keyword])
+            }
+          }
+          break
         case "pick up":
         case "get":
         case "grab":
@@ -932,7 +950,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     try{
       argMap = argMap || {}
       gameState.scriptor = scriptor
-      var api = apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias)
+      var api = apiGen(gameState, timers, outputQueue, submitCommand, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias)
       argMap = Object.assign(argMap, api)
       var keys = Object.keys(argMap)
       var values = Object.values(argMap)
@@ -943,20 +961,20 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     }
   }
 
-  function submitCommand(command) {
+  function submitCommand(command, api) {
     var output = command
     var command = command.toLowerCase()
     var commandObject = parseCommand(command)
     var key = commandObject.command
     if (key){
       var objects = parseObjects(commandObject.remainder)
-      updateCommand(key + commandObject.remainder)
+      if(!api) updateCommand(key + commandObject.remainder)
       executeCommand(key, objects, command)
     }else{
       if(gameState.converseWith){
         var objects = parseObjects(commandObject.remainder)
         if(objects.length > 0){
-          updateCommand(command)
+          if(!api) updateCommand(command)
           executeCommand("ask", objects)
         }
       }

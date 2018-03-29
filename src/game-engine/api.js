@@ -1,6 +1,6 @@
 var _ = require('underscore')
 
-module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias){
+module.exports = function apiGen(gameState, timers, outputQueue, sc, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias){
 
   function startTimer(name, seconds, func, ...args){
       gameState.timers = gameState.timers || {}
@@ -77,6 +77,9 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
   // function stopTimer(name){
   //   clearTimeout(gameState.timers[name])
   // }
+  function submitCommandWrapper(command){
+    sc(command, true)
+  }
 
   function isVisible(name){
      return getAvailableItems().includes(name)
@@ -379,6 +382,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, updateCommand, 
     play,
     playMultiple,
     singlePlay,
+    submitCommand: submitCommandWrapper,
     setFlag,
     getFlag,
     removeFlag,
