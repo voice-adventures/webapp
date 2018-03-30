@@ -121,12 +121,28 @@ export default class GameView extends Component {
 
   }
 
-  receiveGameOutput(output) {
+  receiveGameOutput(output, done) {
+    if(done){
+      return
+    }
+    console.log("getting output")
+    this.playAudio(output, done)
     var newOutput = this.state.output.slice()
     newOutput[newOutput.length - 1] += " " + output
     this.setState({output: newOutput})
   }
 
+  playAudio(output, done){
+    console.log("playing audio")
+    if(done){
+      if(replaying){
+        this.replay()
+      }
+      return
+    }
+    if (this.state.currentSound) this.state.currentSound.stop()
+    this.state.gameEngine.audioFinished()
+  }
 
   submitCommand(cmd) {
     if (this.state.currentSound) this.state.currentSound.stop()
