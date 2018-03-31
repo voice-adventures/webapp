@@ -243,10 +243,10 @@
                         "JGb9Cordgx-hYKpqOqKFQ2j2XQ6tpheJ",
                         "i63BoEkzk_F09L1ZKSI8jiT2wsf9osgm",
                         "y2W-o10h57_r_pkCnEJlxXLcnYDtPu6W",
-                        "w_h8NJF7TWQZPe9tVHSSLDyCQO9zJOLO",
                         "q_nhgEHhaO5m7THIYOzhx1-GB2TC81WD",
-                        "iWxJUQT3acpxx_ocXwtbcJFF7paZ-X9N",
+                        "w_h8NJF7TWQZPe9tVHSSLDyCQO9zJOLO",
                         "SQHiVD5qWm72E7Rrwra9yX_mBkdmWHL2",
+                        "iWxJUQT3acpxx_ocXwtbcJFF7paZ-X9N",
                         "3WfiNCbvfIHyFgGf7z2iFqFlr5_-HOMp",
                         "H-1_u2gJNOKPqlfIdQsZvMvZRQubkVLo",
                         "Sx8lpdsSnwNiE3UYmFaKscrh8dzYIPx3"
@@ -296,7 +296,7 @@
                             "audio": ""
                         }
                     ],
-                    "script": "",
+                    "script": "addItemToInventory(\"stone tablet\")",
                     "aliases": [
                         "small bedroom",
                         " starting room",
@@ -397,11 +397,11 @@
                     "items": [
                         "NenKB59iNZ585bKaLJpL8go4mNPDRkTB",
                         "08szqLifbVSuKnBlbJPbUfqNMXyx4wvi",
-                        "PJ38MGKLL1ymxiLmG_GSsyhCMQQXqVb1",
                         "LUtx5kgAQwnbf8aKZvknejnK1niLbluP",
                         "I3n5gQNXbLX7oFvxHGUa0CKeKjs3KwAI",
                         "kuXzB99apFSq-4oLWrLx-OhbV1_-6ieO",
                         "RyJwFvFg2eT0hH9pvGhmtEyCyvS52C7f",
+                        "PJ38MGKLL1ymxiLmG_GSsyhCMQQXqVb1",
                         "5RM_ATtsNBg6HsrEt1y3idBF7i8AGXY6",
                         "eiqkFvm8C-Hi-Pvq1ltLbePQ0g3VxcCv",
                         "EIAKoG9HH8eIKvt6TeO1vlO2dd0ZcgVM"
@@ -920,8 +920,8 @@
                         "CxWBsb_-bLzUGxRZCaYvTmildcQriX3K",
                         "JA7zbnwOD-gaFbuay4CP62GEhPvdQfbM",
                         "bQYK8ZGxx_xWtyW9ilOQgAFjcVf652z6",
-                        "4DlwNGxUhKUK4tEybTjBoVzc2X9jwj5p",
-                        "jn7ijGlYa0DrxxnE-Vr1XGxZt63Rb8tG"
+                        "jn7ijGlYa0DrxxnE-Vr1XGxZt63Rb8tG",
+                        "4DlwNGxUhKUK4tEybTjBoVzc2X9jwj5p"
                     ],
                     "exits": [
                         {
@@ -2594,7 +2594,7 @@
                             "audio": ""
                         }
                     ],
-                    "script": "play(\"\\\"Oh dear, yes you must be a bit confused. When I first woke up in the mansion, I was so very afraid. Well, at least I think I was. That was so long ago, it's hard to remember. Memories tend to get little blurry in this place. Archie says it’s all a part of the Master’s work... All I know is this is his home, and I learned a long time ago to just enjoy what the Master’s given us. You will too. In time.\\\"\\n\\n\\*\\*New Topic Added: \\\"The Master?\\\"\\*\\*\")\nmakeBroachable(\"maid\",\"the master\")\nmakeUnbroachable(\"maid\", \"this place\")",
+                    "script": "play(\"\\\"Oh dear, yes you must be a bit confused. When I first woke up in the mansion, I was so very afraid. Well, at least I think I was. That was so long ago, it's hard to remember. Memories tend to get little blurry in this place. Archie says it’s all a part of the Master’s work... All I know is this is his home, and I learned a long time ago to just enjoy what the Master’s given us. You will too. In time.\\\"\")\n makeUnbroachable(\"maid\", \"this place\")\nif (!getFlag(\"maid\", \"masterdone\")){\n    play(\"\\n\\n\\*\\*New Topic Added: \\\"The Master?\\\"\\*\\*\")\n    makeBroachable(\"maid\",\"the master\")\n}",
                     "aliases": [
                         "the nexus",
                         " place",
@@ -2617,7 +2617,7 @@
                             "audio": ""
                         }
                     ],
-                    "script": "play(\"\\\"The Master is...the Master. He's been here longer than any of us. He built this place, brought us all here. Sure, it was hard at first – and he can be very cold. But that's just his way. When you meet him you'll understand. Hopefully he'll be back soon. The mansion tends to go to ruin when he's gone long.\\\"\\n\\n\\*\\*New Topic Added: \\\"Ruin?\\\"\\*\\*\")\nmakeBroachable(\"maid\", \"ruin\")\nmakeUnbroachable(\"maid\",\"the master\")",
+                    "script": "play(\"\\\"The Master is...the Master. He's been here longer than any of us. He built this place, brought us all here. Sure, it was hard at first – and he can be very cold. But that's just his way. When you meet him you'll understand. Hopefully he'll be back soon. The mansion tends to go to ruin when he's gone long.\\\"\\n\\n\\*\\*New Topic Added: \\\"Ruin?\\\"\\*\\*\")\nmakeBroachable(\"maid\", \"ruin\")\nmakeUnbroachable(\"maid\",\"the master\")\nsetFlag(\"maid\", \"masterdone\")\n\n",
                     "aliases": [
                         "master",
                         " the master?",
@@ -2700,7 +2700,7 @@
                             "audio": ""
                         }
                     ],
-                    "script": "play(\"\\\"Goodness, I'd almost forgotten all about her. The Master's daughter – lovely girl, but sad. Never really adjusted to life here, I'm afraid. My Archie and her were quite close before she disappeared.\\\"\")\nmakeUnbroachable(\"maid\", \"kindra\")",
+                    "script": "play(\"\\\"Goodness, I'd almost forgotten all about her. The Master's daughter – lovely girl, but sad. Never really adjusted to life here, I'm afraid. My Archie and her were quite close before she disappeared.\\\"\")\nmakeUnbroachable(\"maid\", \"kindra\")\nif (!getFlag(\"maid\", \"masterdone\")){\n    play(\"\\n\\n\\*\\*New Topic Added: \\\"The Master?\\\"\\*\\*\")\n    makeBroachable(\"maid\",\"the master\")\n}",
                     "aliases": [
                         "the girl",
                         " girl",
@@ -2719,7 +2719,7 @@
                     "name": "ruin",
                     "id": "xe-jUv9C-kdplXTVcFwb5pMfoH-BQ4qy",
                     "response": [],
-                    "script": "play(\"Yes, it's all very odd. You must've seen the staircase – it just started to go earlier this evening. And we've already lost half the bedrooms! Oh well, there is one silver lining at least – less for me to clean!\")\nmakeUnbroachable(\"maid\", \"ruin\")",
+                    "script": "play(\"\\\"Yes, it's all very odd. You must've seen the staircase – it just started to go earlier this evening. And we've already lost half the bedrooms! Oh well, there is one silver lining at least – less for me to clean!\\\"\")\nmakeUnbroachable(\"maid\", \"ruin\")",
                     "aliases": [
                         "go to ruin",
                         " ruin?",
@@ -2982,7 +2982,9 @@
                     ],
                     "script": "play(\"\\\"Yes, dangnamit. What was it? Something the master said? Whatever it was, it was very, very important. Something I was supposed to help the Master remember. It's too bad we haven't got any food around here, smells always tend to jog the old memory for me.\\\"\")\n\nif (!isBroachable(\"chef\", \"The Master\") && !getFlag(\"chef\", \"masterdone\") && !isBroachable(\"chef\",\"Food\")){\n    play(\"\\n\\n\\*\\*New topics added: \\\"No food?\\\" & \\\"The Master?\\\"\\*\\*\")\n    makeBroachable(\"chef\", \"The Master\")\n    makeBroachable(\"chef\", \"Food\")\n}else if (!isBroachable(\"chef\", \"The Master\") && !getFlag(\"chef\", \"masterdone\")){\n    play(\"\\n\\n\\*\\*New topic added: \\\"The Master?\\\"\\*\\*\")\n    makeBroachable(\"chef\", \"The Master\")\n}else if (!getFlag(\"chef\", \"fooddone\")){\n    play(\"\\n\\n\\*\\*New topic added: \\\"No food?\\\"\\*\\*\")\n    makeBroachable(\"chef\", \"Food\")\n\n\n}\n",
                     "aliases": [
-                        "that thing",
+                        "that thing he was supposed to remember",
+                        " that thing he was supposed to remember?",
+                        " that thing",
                         " thing he was supposed to remember",
                         " thing he forgot",
                         " that thing?",
@@ -2992,7 +2994,7 @@
                     "functions": [],
                     "broachable": true,
                     "list": {
-                        "text": "That thing he was supposed to remember?"
+                        "text": "Thing he was supposed to remember?"
                     }
                 },
                 {
@@ -15028,7 +15030,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15049,7 +15051,7 @@
                     "name": "take",
                     "id": "ioOg4uFAN4zlqey0r_JG0c-JljSGFgm5",
                     "functions": [],
-                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tape\", \"tapes\")    \n}\n\ntakeItem(\"tape 1\")\nmakeBroachable(\"tape player\", \"Tape #1\")\nchangeDescription(\"tape 1\", [{text: \"It's the tape you found in the living room, under the ottoman. Its label reads: \\\"TAPE: \\#1\\\".\", audio: \"\"}])\n\nif (getFlag(\"ottoman\",\"carryottoman\")){\n    play(\"You put down the ottoman, pick up the tape, and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Hey, Kindra, it’s Kindra. Found this old tape recorder tucked away in Father’s study.  Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don’t forget to keep up with, okay? Also, don’t tell father about this. He doesn’t like me messing with temporal artifacts, so it’s our little secret. He’s gone again today. He's been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I’ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there’s some trick to it, but it’s hard to run an empirical study when you can barely even remember what you had breakfast. Tonight I think I’ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them – it’s peaceful. It almost feels like I’m somewhere else. \\\"\\n\\nYou stash the tape in your inventory.\") \n    changeInSceneDescription(\"ottoman\", {text: \"with a sturdy ottoman\", audio: \"\"})\n    removeFlag(\"ottoman\", \"carryottoman\")\n    stopTimer(\"ottotime\")\n}else{\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Hey, Kindra, it’s Kindra. Found this old tape recorder tucked away in Father’s study.  Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don’t forget to keep up with, okay? Also, don’t tell father about this. He doesn’t like me messing with temporal artifacts, so it’s our little secret. He’s gone again today. He's been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I’ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there’s some trick to it, but it’s hard to run an empirical study when you can barely even remember what you had breakfast. Tonight I think I’ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them – it’s peaceful. It almost feels like I’m somewhere else.\\\"\\n\\nYou stash the tape in your inventory.\") \n}\nonce()\n",
+                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tapes\", \"tape\")    \n}\n\ntakeItem(\"tape 1\")\nmakeBroachable(\"tape player\", \"Tape #1\")\nchangeDescription(\"tape 1\", [{text: \"It's the tape you found in the living room, under the ottoman. Its label reads: \\\"TAPE: \\#1\\\".\", audio: \"\"}])\n\nif (getFlag(\"ottoman\",\"carryottoman\")){\n    play(\"You put down the ottoman, pick up the tape, and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Hey, Kindra, it’s Kindra. Found this old tape recorder tucked away in Father’s study.  Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don’t forget to keep up with, okay? Also, don’t tell father about this. He doesn’t like me messing with temporal artifacts, so it’s our little secret. He’s gone again today. He's been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I’ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there’s some trick to it, but it’s hard to run an empirical study when you can barely even remember what you had breakfast. Tonight I think I’ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them – it’s peaceful. It almost feels like I’m somewhere else. \\\"\\n\\nYou stash the tape in your inventory.\") \n    changeInSceneDescription(\"ottoman\", {text: \"with a sturdy ottoman\", audio: \"\"})\n    removeFlag(\"ottoman\", \"carryottoman\")\n    stopTimer(\"ottotime\")\n}else{\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Hey, Kindra, it’s Kindra. Found this old tape recorder tucked away in Father’s study.  Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don’t forget to keep up with, okay? Also, don’t tell father about this. He doesn’t like me messing with temporal artifacts, so it’s our little secret. He’s gone again today. He's been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I’ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there’s some trick to it, but it’s hard to run an empirical study when you can barely even remember what you had breakfast. Tonight I think I’ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them – it’s peaceful. It almost feels like I’m somewhere else.\\\"\\n\\nYou stash the tape in your inventory.\") \n}\nonce()\n",
                     "aliases": []
                 },
                 {
@@ -15089,7 +15091,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15113,7 +15115,8 @@
             "aliases": [
                 "cassettes",
                 " kindra's tapes",
-                " kindra's cassette"
+                " kindra's cassette",
+                " tape"
             ],
             "inventory": {
                 "text": "tapes",
@@ -15151,7 +15154,7 @@
                     "name": "use",
                     "id": "2WuKFE93h_tvHeUL-BDT8gAczxhj-fKF",
                     "functions": [],
-                    "script": "if(isVisible(\"tape 1\") && !hasItem(\"tape 1\")){\n    callAction(\"use\", \"tape 1\")\n}else if(isVisible(\"tape 6\") && !hasItem(\"tape 6\")){\n    callAction(\"use\", \"tape 6\")\n}else{\n    if(hasItem(\"tape 1\") || hasItem(\"tape 6\")){\n        play(\"Which tape?\")\n        startConversation(\"tape player\")\n    }else{\n         callAction(\"use\", \"tape 29\")\n    }\n   \n}\n\n",
+                    "script": "if(isVisible(\"tape 1\") && !hasItem(\"tape 1\")){\n    submitCommand(\"use tape 1\")\n}else if(isVisible(\"tape 6\") && !hasItem(\"tape 6\")){\n    submitCommand(\"use tape 6\")\n}else if(isVisible(\"tape 17\") && !hasItem(\"tape 17\")){\n    submitCommand(\"use tape 17\")\n}else if(isVisible(\"tape 22\") && !hasItem(\"tape 22\")){\n    submitCommand(\"use tape 22\")\n}else if(isVisible(\"tape 24\") && !hasItem(\"tape 24\")){\n    submitCommand(\"use tape 24\")\n}else{\n    if (getFlag(\"tape player\", \"hasmultipletapes\")){\n        play(\"Which tape?\")\n        startConversation(\"tape player\")\n    }else{\n        submitCommand(\"use tape 29\")\n   }\n   \n}",
                     "aliases": [
                         "listen to",
                         " play"
@@ -15159,16 +15162,16 @@
                 },
                 {
                     "name": "take",
-                    "id": "DJs6GNyUrWNy_wohptm7gT_RAtMFXlsN",
+                    "id": "cs1wKFcpKt079XyDcKRd_46YfMKUO696",
                     "functions": [],
-                    "script": "if(isVisible(\"tape 1\") && !hasItem(\"tape 1\")){\n    callAction(\"take\", \"tape 1\")\n}else if(isVisible(\"tape 6\") && !hasItem(\"tape 6\")){\n    callAction(\"take\", \"tape 6\")\n}else if(isVisible(\"tape 22\") && !hasItem(\"tape 22\")){\n    callAction(\"take\", \"tape 22\")\n}else if(isVisible(\"tape 17\") && !hasItem(\"tape 17\")){\n    callAction(\"take\", \"tape 17\")\n}else if(isVisible(\"tape 24\") && !hasItem(\"tape 24\")){\n    callAction(\"take\", \"tape 24\")\n}else{\n    play(\"You already have that.\")\n}\n\n",
+                    "script": "if(isVisible(\"tape 1\") && !hasItem(\"tape 1\")){\n    submitCommand(\"take tape 1\")\n}else if(isVisible(\"tape 6\") && !hasItem(\"tape 6\")){\n    submitCommand(\"take tape 6\")\n}else if(isVisible(\"tape 22\") && !hasItem(\"tape 22\")){\n    submitCommand(\"take tape 22\")\n}else if(isVisible(\"tape 17\") && !hasItem(\"tape 17\")){\n    submitCommand(\"take tape 17\")\n}else if(isVisible(\"tape 24\") && !hasItem(\"tape 24\")){\n    submitCommand(\"take tape 24\")\n}else{\n    play(\"You already have that.\")\n}\n\n",
                     "aliases": []
                 }
             ],
             "aliases": [
-                "cassette",
-                " cassette tape",
-                " tapes"
+                "tape",
+                " cassette",
+                " cassette tape"
             ],
             "inventory": {
                 "text": "",
@@ -15185,7 +15188,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15553,7 +15556,7 @@
                     "name": "take",
                     "id": "9IDSHvflJY2TJ-kBe032x-RJN5DOopYg",
                     "functions": [],
-                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tape\", \"tapes\")       \n}\n\ntakeItem(\"tape 6\")\nchangeDescription(\"tape 6\", [{text: \"It's the tape you found outside the lighthouse. Its label reads: \\\"TAPE: \\#6\\\"\", audio: \"\"}])\n\n\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"I had the dream again. I’m in a world made of metal buildings, towering straight up into the clouds – there are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar.  I recognize words - the names of places and things.  I see machines made of pure, suspended light. Father, says it’s the future I’m seeing – the visions, another side effect of living here in liminal space. It’s all so real, so...present. If that’s the future, how do I know that now...is even now? Ugh, I hate this place.\\\"\\n\\nYou stash the tape in your inventory.\") \nmakeBroachable(\"tape player\", \"tape 6\")\nonce()\n",
+                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tapes\", \"tape\")       \n}\n\ntakeItem(\"tape 6\")\nchangeDescription(\"tape 6\", [{text: \"It's the tape you found outside the lighthouse. Its label reads: \\\"TAPE: \\#6\\\"\", audio: \"\"}])\n\n\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"I had the dream again. I’m in a world made of metal buildings, towering straight up into the clouds – there are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar.  I recognize words - the names of places and things.  I see machines made of pure, suspended light. Father, says it’s the future I’m seeing – the visions, another side effect of living here in liminal space. It’s all so real, so...present. If that’s the future, how do I know that now...is even now? Ugh, I hate this place.\\\"\\n\\nYou stash the tape in your inventory.\") \nmakeBroachable(\"tape player\", \"tape 6\")\nonce()\n",
                     "aliases": [],
                     "failure": []
                 }
@@ -15584,7 +15587,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15605,7 +15608,7 @@
                     "name": "take",
                     "id": "DL2cBBFoGJUgIIz6L1XddQwmyBV_bz0D",
                     "functions": [],
-                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tape\", \"tapes\")   \n}\n\n\ntakeItem(\"Tape 22\")\nchangeInSceneDescription(\"writing desk_study\", {text: \"\", audio: \"\"})\nchangeDescription(\"tape 29\", [{text: \"It's the tape you found in the study. Its label reads: \\\"TAPE: \\#22\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says “it’s only for those who can move the hands of time.” But I’m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it.  And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier?  Maybe then I would start to remember – I don't know…but I have to try it. If he won’t show me where he keeps the doors of time, I’ll have to find it myself. \\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 22\")\nonce()",
+                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tapes\", \"tape\")    \n}\n\n\ntakeItem(\"Tape 22\")\nchangeInSceneDescription(\"writing desk_study\", {text: \"\", audio: \"\"})\nchangeDescription(\"tape 29\", [{text: \"It's the tape you found in the study. Its label reads: \\\"TAPE: \\#22\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says “it’s only for those who can move the hands of time.” But I’m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it.  And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier?  Maybe then I would start to remember – I don't know…but I have to try it. If he won’t show me where he keeps the doors of time, I’ll have to find it myself. \\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 22\")\nonce()",
                     "aliases": []
                 },
                 {
@@ -15645,7 +15648,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15666,7 +15669,7 @@
                     "name": "take",
                     "id": "L9MRRlLJQFAE8UrnTNKOYuhH-Q9Hl_DG",
                     "functions": [],
-                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")}\n\n\ntakeItem(\"Tape 17\")\nchangeDescription(\"Tape 17\", [{text: \"It's the tape you found on the balcony. Its label reads: \\\"TAPE: \\#17\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Ok, quick, before I forget, Father has a secret room hidden somewhere – right here in the mansion! Archie told me he saw it once, but of course he can’t remember where. Thank god for Archie, he’s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don’t we just leave? But he says it’s not safe for me out there in the non-liminal, not until he finishes his research – and that what he’s doing will help me – help everyone! I don’t know what he means by that.  Okay, remember, tomorrow you’re supposed to help pick out a gift for Cosette. Something pretty, I think.  \\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 17\")\nonce()",
+                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tapes\", \"tape\")\n}\n\n\ntakeItem(\"Tape 17\")\nchangeDescription(\"Tape 17\", [{text: \"It's the tape you found on the balcony. Its label reads: \\\"TAPE: \\#17\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"Ok, quick, before I forget, Father has a secret room hidden somewhere – right here in the mansion! Archie told me he saw it once, but of course he can’t remember where. Thank god for Archie, he’s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don’t we just leave? But he says it’s not safe for me out there in the non-liminal, not until he finishes his research – and that what he’s doing will help me – help everyone! I don’t know what he means by that.  Okay, remember, tomorrow you’re supposed to help pick out a gift for Cosette. Something pretty, I think.  \\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 17\")\nonce()",
                     "aliases": []
                 },
                 {
@@ -15706,7 +15709,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -15727,7 +15730,7 @@
                     "name": "take",
                     "id": "KpQJlq9M8D5gYw2SXduvxO613p9iajth",
                     "functions": [],
-                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tape\", \"tapes\")   \n}\n\n\ntakeItem(\"Tape 24\")\nchangeDescription(\"Tape 24\", [{text: \"It's the tape you found in the lab. Its label reads: \\\"TAPE: \\#24\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"It’s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I’ve learned the truth? That he’s not my father but my kidnapper? That I have been kept here not against my will, but against my very self! My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its millennia-old resting place, its runic symbols radiant with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can’t know that I’ve found out, but I can’t afford to wait until I forget again. I must find and activate the rune, it’s the only safe way through the time rift.\\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 24\")\nonce()",
+                    "script": "if (!getFlag(\"tape player\", \"hasmultipletapes\")){\nsetFlag(\"tape player\", \"hasmultipletapes\")\nchangeInventoryName(\"tape 29\", \"\", \"\")\naddItemToInventory(\"tapes\")\nremoveAlias(\"tapes\", \"tape\")\n}\n\n\ntakeItem(\"Tape 24\")\nchangeDescription(\"Tape 24\", [{text: \"It's the tape you found in the lab. Its label reads: \\\"TAPE: \\#24\\\"\", audio: \"\"}])\nplay(\"You pick up the tape and put in Kindra's player:\\n\\n\\*\\*TAPE RECORDER SFX\\*\\*\\n\\n KINDRA: \\\"It’s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I’ve learned the truth? That he’s not my father but my kidnapper? That I have been kept here not against my will, but against my very self! My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its millennia-old resting place, its runic symbols radiant with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can’t know that I’ve found out, but I can’t afford to wait until I forget again. I must find and activate the rune, it’s the only safe way through the time rift.\\\"\\n\\nYou stash the tape in your inventory.\")\nmakeBroachable(\"tape player\", \"tape 24\")\nonce()",
                     "aliases": []
                 },
                 {
@@ -15767,7 +15770,7 @@
                 }
             ],
             "openable": false,
-            "takeable": true,
+            "takeable": false,
             "lockable": false,
             "isOpen": false,
             "isLocked": false
@@ -17101,7 +17104,7 @@
                 "screwdriver",
                 "pulley"
             ],
-            "script": "if ((getFlag(\"dumbwaiter_f01\", \"firstfloor\")) || (getFlag(\"dumbwaiter_f01\", \"secondfloor\"))){\n    play(\"You pull out the screwdriver and start to unscrew the pulley from its housing on the dumbwaiter. As the last screw clears its thread, the pulley falls into your hands. The impact causes the long end of the rope to spool out and fall down the shaft, sending the dumbwaiter tray crashing down somewhere below. \\n\\n You stash the pulley, and the short piece of rope still attached to it, in your overcoat.\")\n    removeItemFromScene(\"tray\", \"the hall of history\")\n    removeItemFromScene(\"tray\", \"the kitchen\")\n    removeItemFromScene(\"rope_f01\", \"the kitchen\")\n    removeItemFromScene(\"rope_f02\",\"the hall of history\")\n    removeItemFromScene(\"rope_f00\", \"the secret lab\")\n    addItemToScene(\"tray\", \"the secret lab\")\n    changeInSceneDescription(\"dumbwaiter_f03\", {text: \"Embedded in the wall is a dumbwaiter and its tray.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f01\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f02\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    setFlag(\"dumbwaiter_f01\", \"unscrewed\")\n    setFlag(\"dumbwaiter_f01\", \"basement\")\n    removeFlag(\"dumbwaiter_f01\", \"firstfloor\")\n    removeFlag(\"dumbwaiter_f01\",\"secondfloor\")\n    takeItem(\"pulley\")\n    \n}else{\n    play(\"You pull out the screwdriver and start to unscrew the pulley from its housing on the dumbwaiter. As the last screw clears its thread, the pulley falls into your hands. The impact causes the long end of the rope to spool out and fall down the shaft. \\n\\n You stash the pulley, and the short piece of rope still attached to it, in your overcoat.\")\n    removeItemFromScene(\"tray\", \"the hall of history\")\n    removeItemFromScene(\"tray\", \"the kitchen\")\n    removeItemFromScene(\"rope_f01\", \"the kitchen\")\n    removeItemFromScene(\"rope_f02\",\"the hall of history\")\n    removeItemFromScene(\"rope_f00\", \"the secret lab\")\n    changeInSceneDescription(\"dumbwaiter_f01\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f02\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    addItemToScene(\"tray\", \"the secret lab\")\n    setFlag(\"dumbwaiter_f01\", \"unscrewed\")\n    setFlag(\"dumbwaiter_f01\", \"basement\")\n    removeFlag(\"dumbwaiter_f01\", \"firstfloor\")\n    removeFlag(\"dumbwaiter_f01\",\"secondfloor\")\n    takeItem(\"pulley\")\n    \n}",
+            "script": "if (getFlag(\"dumbwaiter_f01\", \"unscrewed\")){\n    play(\"You've already unscrewed it all that you can.\")\n}\n\nelse if ((getFlag(\"dumbwaiter_f01\", \"firstfloor\")) || (getFlag(\"dumbwaiter_f01\", \"secondfloor\"))){\n    play(\"You pull out the screwdriver and start to unscrew the pulley from its housing on the dumbwaiter. As the last screw clears its thread, the pulley falls into your hands. The impact causes the long end of the rope to spool out and fall down the shaft, sending the dumbwaiter tray crashing down somewhere below. \\n\\n You stash the pulley, and the short piece of rope still attached to it, in your overcoat.\")\n    removeItemFromScene(\"tray\", \"the hall of history\")\n    removeItemFromScene(\"tray\", \"the kitchen\")\n    removeItemFromScene(\"rope_f01\", \"the kitchen\")\n    removeItemFromScene(\"rope_f02\",\"the hall of history\")\n    removeItemFromScene(\"rope_f00\", \"the secret lab\")\n    addItemToScene(\"tray\", \"the secret lab\")\n    changeInSceneDescription(\"dumbwaiter_f03\", {text: \"Embedded in the wall is a dumbwaiter and its tray.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f01\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f02\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    setFlag(\"dumbwaiter_f01\", \"unscrewed\")\n    setFlag(\"dumbwaiter_f01\", \"basement\")\n    removeFlag(\"dumbwaiter_f01\", \"firstfloor\")\n    removeFlag(\"dumbwaiter_f01\",\"secondfloor\")\n    takeItem(\"pulley\")\n\n    \n}else{\n    play(\"You pull out the screwdriver and start to unscrew the pulley from its housing on the dumbwaiter. As the last screw clears its thread, the pulley falls into your hands. The impact causes the long end of the rope to spool out and fall down the shaft. \\n\\n You stash the pulley, and the short piece of rope still attached to it, in your overcoat.\")\n    removeItemFromScene(\"tray\", \"the hall of history\")\n    removeItemFromScene(\"tray\", \"the kitchen\")\n    removeItemFromScene(\"rope_f01\", \"the kitchen\")\n    removeItemFromScene(\"rope_f02\",\"the hall of history\")\n    removeItemFromScene(\"rope_f00\", \"the secret lab\")\n    changeInSceneDescription(\"dumbwaiter_f01\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    changeInSceneDescription(\"dumbwaiter_f02\", {text: \"Embedded in the wall is an empty dumbwaiter.\", audio: \"\"})\n    addItemToScene(\"tray\", \"the secret lab\")\n    setFlag(\"dumbwaiter_f01\", \"unscrewed\")\n    setFlag(\"dumbwaiter_f01\", \"basement\")\n    removeFlag(\"dumbwaiter_f01\", \"firstfloor\")\n    removeFlag(\"dumbwaiter_f01\",\"secondfloor\")\n    takeItem(\"pulley\")\n    \n}\n",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -20125,7 +20128,7 @@
                 "diamond ring_2",
                 "painting"
             ],
-            "script": "if (!getFlag(\"painting\", \"known\")){\n    play(\"You view the painting through the prismatic contours of the diamond. It doesn't make the misshapen letters in the hedges any clearer to you, but it does make you think some other way of viewing them might.\")\n}else{\n    play(\"You don't need to view the painting through the prismatic contours of the dimaond to see what the letters read: \\\"North, West, West, South, East, North.\\\"\")\n}",
+            "script": "if (!getFlag(\"painting\", \"known\")){\n    play(\"You view the painting through the prismatic contours of the diamond. It doesn't make the misshapen letters in the hedges any clearer to you, but it does make you think some other way of viewing them might.\")\n}else{\n    play(\"Having already seen the painting in the warped mirror, you don't need the ring's prismatic contours to see that the painting clearly reads: \\\"North, West, West, South, East, North.\\\"\")\n}",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -29636,7 +29639,7 @@
                 "tape player",
                 "freebutler"
             ],
-            "script": "if (getFlag(\"freebutler\", \"taped\")){\n    play(\"\\\"So she made it out after all. Although...I do hope the Master didn't catch up with her.\\\"\")\n}\nelse if (getFlag(\"tape player\", \"hasmultipletapes\") && isBroachable(\"butler\", \"weird word\")){\n    play(\"You play Kindra’s tapes for him.\\n\\n \\“My god. How could I have forgotten? Yes, Kindra. The poor girl. She suffered so languishing in this place. I…I helped her. Yes, that’s right…she told me she needed the Ki’udbah Alliga to return home, but the Master always kept it on his person. She was such a sweet girl and I owed her for playing the cupid in my wooing of Cossette – so one night I mixed a few sleeping pills into the Master’s tea... It sounds like she made it out after all.\\\"\")\n    setFlag(\"freebutler\", \"taped\")\n    makeUnbroachable(\"freebutler\", \"kindra\")\n}else if (!getFlag(\"tape player\", \"hasmultipletapes\")){\n    play(\"You play Kindra’s tape for him.\\n\\n \\“My god. How could I have forgotten? Yes, Kindra. The poor girl. She suffered so languishing in this place. I…I helped her. Yes, that’s right…she told me she needed the Ki’udbah Alliga to return home, but the Master always kept it on his person. She was such a sweet girl and I owed her for playing the cupid in my wooing of Cossette – so one night I mixed a few sleeping pills into the Master’s tea... It sounds like she made it out after all.\\\"\")\n    setFlag(\"freebutler\", \"taped\")\n    makeUnbroachable(\"freebutler\", \"kindra\")\n}if (!isBroachable(\"freebutler\", \"weird word\")){\n    play(\"\\n\\n \\*\\*New Topic Added: \\\"That weird word he said?\\\"\\*\\*\")\n    makeBroachable(\"freebutler\", \"weird word\")\n}",
+            "script": "if (getFlag(\"freebutler\", \"taped\")){\n    play(\"\\\"So she made it out after all. Although...I do hope the Master didn't catch up with her.\\\"\")\n}\nelse if (getFlag(\"tape player\", \"hasmultipletapes\")){\n    play(\"You play Kindra’s tapes for him.\\n\\n \\“My god. How could I have forgotten? Yes, Kindra. The poor girl. She suffered so languishing in this place. I…I helped her. Yes, that’s right…she told me she needed the Ki’udbah Alliga to return home, but the Master always kept it on his person. She was such a sweet girl and I owed her for playing the cupid in my wooing of Cossette – so one night I mixed a few sleeping pills into the Master’s tea... It sounds like she made it out after all.\\\"\")\n    setFlag(\"freebutler\", \"taped\")\n    makeUnbroachable(\"freebutler\", \"kindra\")\n}else if (!getFlag(\"tape player\", \"hasmultipletapes\")){\n    play(\"You play Kindra’s tape for him.\\n\\n \\“My god. How could I have forgotten? Yes, Kindra. The poor girl. She suffered so languishing in this place. I…I helped her. Yes, that’s right…she told me she needed the Ki’udbah Alliga to return home, but the Master always kept it on his person. She was such a sweet girl and I owed her for playing the cupid in my wooing of Cossette – so one night I mixed a few sleeping pills into the Master’s tea... It sounds like she made it out after all.\\\"\")\n    setFlag(\"freebutler\", \"taped\")\n    makeUnbroachable(\"freebutler\", \"kindra\")\n}if (!isBroachable(\"freebutler\", \"weird word\")){\n    play(\"\\n\\n \\*\\*New Topic Added: \\\"That weird word he said?\\\"\\*\\*\")\n    makeBroachable(\"freebutler\", \"weird word\")\n}",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -30765,7 +30768,7 @@
             "id": "qQtezI7aBRh8ddfJdpaEvn7XRuOyin5T",
             "objects": [
                 "tape 22",
-                "kenn"
+                "kennel master"
             ],
             "script": "callCombination(\"use\", \"tape player\", \"kennel master\")",
             "functions": [],
