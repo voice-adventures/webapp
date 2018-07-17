@@ -367,20 +367,25 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     if (exits.length > 0){
       if (exits.length === 1){
           var output = gameState.defaultResponses["exit"].slice()
-          var to_add =  exits[0].text ? {text: exits[0].text + ".", audio: exits[0].audio} : { text: gameState.defaultResponses[exits[0].direction][0].text + "." , audio: gameState.defaultResponses[exits[0].direction][0].audio}
+          var to_add =  exits[0].text ? {text: exits[0].text, audio: exits[0].audio} : { text: gameState.defaultResponses[exits[0].direction][0].text , audio: gameState.defaultResponses[exits[0].direction][0].audio}
           output.push(to_add)
+          optput.push({text: "."})
           return output
       }else{
         var output = gameState.defaultResponses["exits"].slice()
-        var to_play = exits.slice(0, exits.length -1 ).map(e => {
+        var to_play = []
+        for (var e of exits.slice(0, exits.length -1 )){
           if(e.text){
-            return {text: e.text + ", ", audio: e.audio}
+            to_play.push({text: e.text})
+            to_play.push({text: ", "})
+          }else{
+            to_play.push({text: gameState.defaultResponses[e.direction][0].text, audio: gameState.defaultResponses[e.direction][0].audio})
           }
-          return {text: gameState.defaultResponses[e.direction][0].text + ", ", audio: gameState.defaultResponses[e.direction][0].audio}
-         })
+        }
         to_play.push(gameState.defaultResponses["and"][0])
-        var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text + ".", audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
+        var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text, audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
         to_play.push(to_add)
+        optput.push({text: "."})
         output = output.concat(to_play)
         return output
       }
@@ -410,9 +415,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       output = output.concat(getSceneDescription())
       if(gameState.currentScene.listExits) {output = output.concat(getExits())}
     }else{
-      var text = gameState.currentScene.name + "\n"
-      if (api) {text= "\n\n" + text}
+      var text = gameState.currentScene.name
+      if (api) output.push({text: "\n\n"})
       output.push({text, audio: gameState.currentScene.nameAudio})
+      output.push({text: "\n"})
     }
     if(gameState.currentScene.script){
       playAudioRunScript(output, gameState.currentScene)
