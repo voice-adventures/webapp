@@ -369,7 +369,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
           var output = gameState.defaultResponses["exit"].slice()
           var to_add =  exits[0].text ? {text: exits[0].text, audio: exits[0].audio} : { text: gameState.defaultResponses[exits[0].direction][0].text , audio: gameState.defaultResponses[exits[0].direction][0].audio}
           output.push(to_add)
-          optput.push({text: "."})
+          output.push({text: "."})
           return output
       }else{
         var output = gameState.defaultResponses["exits"].slice()
@@ -385,7 +385,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         to_play.push(gameState.defaultResponses["and"][0])
         var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text, audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
         to_play.push(to_add)
-        optput.push({text: "."})
+        output.push({text: "."})
         output = output.concat(to_play)
         return output
       }
