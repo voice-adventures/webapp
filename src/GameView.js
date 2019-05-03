@@ -52,6 +52,7 @@ export default class GameView extends Component {
   }
 
   componentDidMount() {
+    setTimeout( () => this.state.gameEngine.start(), 0)
     this.scrollToBottom();
   }
 
