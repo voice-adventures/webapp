@@ -2,13 +2,17 @@ var _ = require('underscore')
 var apiGen = require('./api')
 var jsYaml = require("js-yaml")
 
+function clone(obj){
+  return JSON.parse(JSON.stringify(obj))
+}
+
 function GameState(data) {
   data.timers = data.timers || {}
 
 //at the moment, commands that are are a substring of other commands should be placed after the longer command. ie. "Look around" and "look at" before "look"
-  data.commandList = [ "give", "ask", "combine", "look at exits", "look at the exits", "look at", "look under", "look around", "use", "pick up",
-  "take",  "open", "close", "push", "pull", "talk to", "end conversation", "leave", "goodbye", "look",
-  "inventory", "help", "climb down", "climb",  "decend", "save", "load",  "go", "exit", 'list', "examine", "inspect", "get", "grab", "who", "what", "when", "where", "why", "how"]
+  data.commandList = [ "give", "ask", "combine", "look at exits", "look at the exits", "look at", "look under", "look around", "examine room", "explore room", "explore", "use", "pick up",
+  "take",  "open", "close", "push", "pull", "talk to", "end conversation", "leave", "goodbye",
+  "inventory", "help", "save", "load", "go", "exit", 'list', "examine", "inspect", "get", "grab", "who", "what", "when", "where can i go", "where have i been", "where", "why", "how", "look", "climb down", "climb", "descend", "fast travel", "touch", "smell", "taste", "listen", "feel"]
   data.items = data.items || []
   var actionAliases = []
   data.items.forEach(item => {
@@ -54,22 +58,25 @@ function GameState(data) {
   //   _(item.topics).each(topic => map[topic.name.toLowerCase().trim()] = topic)
   //   item.topics = map
   // })
-
-  data.objectKeys = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down", "topics", "items", "objects", "exits", "locations", "inventory"]
+  data.itemNames = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down", "topics", "items", "objects", "exits", "locations", "inventory", "rooms", "fast travel"]
+  data.objectKeys = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down", "topics", "items", "objects", "exits", "locations", "inventory", "rooms", "fast travel"]
   data.items.forEach(item => {
     item.aliases = item.aliases || []
     item.aliases = item.aliases.map(alias => alias.toLowerCase().trim())
     item.aliases.push(item.name.toLowerCase().trim())
+    data.itemNames.push(item.name.toLowerCase().trim())
     item.name = item.name.toLowerCase()
     var topics = []
     _(item.topics).each(top => {
       top.aliases = top.aliases || []
       top.aliases = top.aliases.map(alias => alias.toLowerCase().trim())
       top.aliases.push(top.name.toLowerCase().trim())
+      data.itemNames.push(top.name.toLowerCase().trim())
       topics = topics.concat(top.aliases)
     })
     data.objectKeys = data.objectKeys.concat(item.aliases)
     data.objectKeys = data.objectKeys.concat(topics)
+
   })
   //add scene names to object list for fast travel
   data.parts.forEach( part => {
@@ -78,6 +85,7 @@ function GameState(data) {
           scene.aliases = scene.aliases || []
           scene.aliases = scene.aliases.map(alias => alias.toLowerCase().trim())
           var nameAlias = scene.name.toLowerCase().trim().replace(/^(the\ )/,"").replace(/^(a\ )/,"");
+          // data.itemNames.push(nameAlias)
           scene.aliases.push(nameAlias)
           data.objectKeys = data.objectKeys.concat(scene.aliases)
       })
@@ -93,6 +101,9 @@ function GameState(data) {
   if(data.currentScene){
       data.currentScene = _.find(data.currentPart.sceneList, s => s.name.toLowerCase() === data.currentScene.toLowerCase())
   }
+
+  data.commandList = Array.from(new Set(data.commandList))
+  data.itemNames = Array.from(new Set(data.itemNames))
   return data
 }
 
@@ -121,7 +132,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     getLocalItemByAlias,
     getAllKeywords,
     setCurrentPartAndScene,
-    getYaml
+    getYaml,
+    start
   }
 
   gameState.currentPart = gameState.currentPart || gameState.parts[0]
@@ -130,9 +142,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   tempAPI.restartTimers()
 
   // window.globalFunctions = Object.assign({}, tempAPI)
-  for(var key in tempAPI){
-    this[key] = tempAPI[key]
-  }
+  // for(var key in tempAPI){
+  //   this[key] = tempAPI[key]
+  // }
 
   var outputQueue;
 
@@ -147,10 +159,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       }
     }
     playCurrentScene(outputQueue)
-
   }
-
-  if(!fromSave) start()
 
   var directions = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down"]
 
@@ -160,38 +169,87 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   // TODO: extract playAudio and playNextAudio into a separate
   // object. right now this is hard to do because the GameEngine
   // is receiving the playback finished events.
-  function playNextAudio() {
-    console.log("playNextAudio", outputQueue.length)
+  function playNextAudio(append, other) {
+    console.log("playNextAudio", outputQueue.length, JSON.stringify(outputQueue))
     if(outputQueue.length === 0){
-      // updateText("", true, self)
-      updateAudio("", true, self)
+      updateText({text: ""}, true, false, self)
+      // updateAudio("", true, self)
       return
     }
     var output = outputQueue.shift()
     if (output) {
+      console.log("output is truthy", output)
       if(output.scriptor){
         safeEval(output.scriptor)
         if(outputQueue.length === 0){
-          // updateText("", true, self)
-          updateAudio("", true, self)
+          updateText({text: ""}, true, false, self)
+          // updateAudio("", true, self)
         }
       }else{
-        updateText(output.text, false, self)
+        console.log("output is text", append)
+        var wait = updateText(output, false, append, self)
+        if(wait){
+          console.log("unshifting")
+          //Something from scripts is playing and output is supposed to append so wait to play next thing
+          outputQueue.unshift(output)
+        }
         // updateAudio(output.audio, false, self)
       }
     }
+    console.log(output)
 
   }
 
   function playAudio(output){
-    outputQueue = output.slice()
-    playNextAudio()
+    // outputQueue = output.slice()
+    // playNextAudio(false)
+    if(outputQueue.length === 0){
+      outputQueue = output.slice()
+      playNextAudio(false)
+    }else{
+      outputQueue = outputQueue.concat(output.slice())
+      playNextAudio(true)
+    }
   }
 
+  // function addToQueueOrPlay(output){
+  //   if(outputQueue.length === 0){
+  //     playNextAudio(false)
+  //   }else{
+  //     outputQueue = output.slice()
+  //     playNextAudio(true)
+  //   }
+  // }
+
+  function appendAudio(output){
+    console.log("appendAudio", outputQueue, output)
+    outputQueue = outputQueue.concat(output.slice())
+    console.log(outputQueue)
+    playNextAudio(true)
+  }
+
+  function playOrAppendAudio(output, append){
+    if(append){
+      appendAudio(output)
+    }else{
+      playAudio(output)
+    }
+  }
+
+  function appendAudioRunScript(output, scriptor){
+    outputQueue = outputQueue.concat(output.slice())
+    console.log("appendAudioRunScript", JSON.stringify(output))
+    safeEval(scriptor)
+    playNextAudio(true)
+  }
+
+
   function playAudioRunScript(output, scriptor){
-    outputQueue = output.slice()
-    outputQueue.push({scriptor})
-    playNextAudio()
+    // outputQueue = output.slice()
+    // console.log("playAudioRunScript", JSON.stringify(outputQueue))
+    playAudio(output)
+    safeEval(scriptor)
+    // playNextAudio(false)
   }
 
   function parseCommand(command){
@@ -300,21 +358,20 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
   function playInventory() {
-    if(gameState.inventory.length > 1){
+    if(gameState.inventory.length > 0){
       var output = []
+      if(gameState.defaultResponses.inventory && gameState.defaultResponses.inventory[0]) output.push(gameState.defaultResponses.inventory[0])
       var items = gameState.inventory.map( name => getItemByName(name))
       items  = _.filter(items, i => i.inventory.text)
-      for ( var i = 0; i < items.length - 1; i++){
-        output.push({text: items[i].inventory.text, audio: items[i].inventory.audio})
-        output.push({text: ", " , audio: ""})
+      for ( var i = 0; i < items.length; i++){
+        output.push({text: "• " , audio: ""})
+        output.push(items[i].inventory)
+        output.push({text: "\n" , audio: ""})
       }
-      var item = _.last(items)
-      output.push({text: item.inventory.text, audio: item.inventory.audio})
-      output.push({text: ". " , audio: ""})
+      // var item = _.last(items)
+      // output.push({text: item.inventory.text, audio: item.inventory.audio})
+      // output.push({text: "." , audio: ""})
       playAudio(output)
-    }else if(gameState.inventory.length > 0){
-      var output = getItemByName(gameState.inventory[0]).inventory
-      playAudio([{text: output.text, audio: output.audio}, {text: ". " , audio: ""}])
     }else{
       playAudio(gameState.defaultResponses["empty inventory"])
     }
@@ -341,20 +398,32 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
 
-  function listTopics(obj){
+  function formatTopic(topic){
+    let cl = clone(topic)
+    cl.text  += "\n"
+    return cl
+  }
+
+  function listTopics(obj, append){
     var topics = obj.topics
     if (topics.length > 0){
       var broachable = []
-      var listTop = _.sample(gameState.defaultResponses["list topics"]) || {text: '\n\nYou could ask about ... ', audio: ""}
-      broachable.push(listTop)
-       _.each(topics, top => { if(top.broachable) {broachable.push(top.list);}})
-      if (broachable.length > 1){
-        playAudio(broachable)
+      var listTop = null
+      var action = findActionByName(obj.actions, "talk to" )
+      if(action && action.listTopics && action.listTopics.length > 0){
+        listTop = _.sample(action.listTopics)
       }else{
-        playAudio(gameState.defaultResponses["nothing to talk about"])
+        listTop =  _.sample(gameState.defaultResponses["list topics"]) || {text: '\n\nYou could ask about ...\n\n', audio: ""}
+      }
+      broachable.push(listTop)
+       _.each(topics, top => { if(top.broachable) {broachable.push(formatTopic(top.list));}})
+      if (broachable.length > 1){
+        playOrAppendAudio(broachable, append)
+      }else{
+        playOrAppendAudio(gameState.defaultResponses["nothing to talk about"], append)
       }
     }else{
-      playAudio(gameState.defaultResponses["can't talk to"])
+      playOrAppendAudio(gameState.defaultResponses["can't talk to"], append)
     }
   }
 
@@ -376,16 +445,15 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         var to_play = []
         for (var e of exits.slice(0, exits.length -1 )){
           if(e.text){
-            to_play.push({text: e.text})
-            to_play.push({text: ", "})
+            to_play.push({text: e.text + ","})
           }else{
-            to_play.push({text: gameState.defaultResponses[e.direction][0].text, audio: gameState.defaultResponses[e.direction][0].audio})
+            to_play.push({text: gameState.defaultResponses[e.direction][0].text + ",", audio: gameState.defaultResponses[e.direction][0].audio})
           }
         }
         to_play.push(gameState.defaultResponses["and"][0])
         var to_add = exits[exits.length -1].text ?  {text: exits[exits.length -1].text, audio:  exits[exits.length -1].audio} : {text: gameState.defaultResponses[exits[exits.length -1].direction][0].text, audio: gameState.defaultResponses[exits[exits.length -1 ].direction][0].audio}
         to_play.push(to_add)
-        output.push({text: "."})
+        to_play.push({text: "."})
         output = output.concat(to_play)
         return output
       }
@@ -403,9 +471,12 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
   function playCurrentScene(output = [], api){
+    console.log("playCurrentScene")
     if (gameState.converseWith){
       gameState.converseWith = null
     }
+    console.log("play current scene")
+
     if(!gameState.currentScene.visited){
       if(gameState.currentScene.intro){
         output = output.concat(gameState.currentScene.intro)
@@ -419,11 +490,22 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       if (api) output.push({text: "\n\n"})
       output.push({text, audio: gameState.currentScene.nameAudio})
       output.push({text: "\n"})
+      console.log("play scene name")
+
     }
+    console.log(output)
     if(gameState.currentScene.script){
-      playAudioRunScript(output, gameState.currentScene)
+      if(api){
+        appendAudioRunScript(output, gameState.currentScene)
+      }else{
+        playAudioRunScript(output, gameState.currentScene)
+      }
     }else{
-      playAudio(output)
+      if(api){
+        appendAudio(output)
+      }else{
+        playAudio(output)
+      }
     }
   }
 
@@ -437,15 +519,33 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
 
   }
 
+  function connectedToCurrentScene(exits, scene){
+    for (var e of exits){
+      if(e.scene === scene.name) return true
+    }
+  }
+
+
   function changeCurrentScene(direction, keyword){
     var nextScene
+    console.log("change current scene")
     if (directions.includes(direction)){
       nextScene = findDirection(gameState.currentScene.exits, direction)
       if (nextScene){
         gameState.lastDirection = direction
         if (nextScene.scene){
+          console.log("nextScene", nextScene)
+
+          if(gameState.currentScene.leaving_script){
+            console.log("gameState.currentScene.leaving_script", gameState.currentScene.leaving_script)
+            safeEval(gameState.currentScene, {}, "leaving_script")
+          }
           gameState.currentScene = findScene(nextScene.scene)
-          playCurrentScene()
+          if(nextScene.silent){
+            if(gameState.currentScene.script) safeEval(gameState.currentScene)
+          }else{
+             playCurrentScene()
+          }
         }else{
           if(nextScene.text){
             playAudio([{text: nextScene.text, audio: nextScene.audio}])
@@ -457,10 +557,15 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         playAudio(gameState.defaultResponses.go)
       }
     }else if(nextScene = findFastTravelSceneByAlias(direction)){
+      if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
       gameState.currentScene = nextScene
       playCurrentScene()
     }else if(nextScene = findAliasedScene(direction)){
-      if(nextScene.visited){
+      if(connectedToCurrentScene(gameState.currentScene.exits, nextScene)){
+        if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
+        gameState.currentScene = nextScene
+        playCurrentScene()
+      }else if (nextScene.visited){
         playAudio(gameState.defaultResponses["scene inaccessible"])
       }else{
         playAudio(gameState.defaultResponses.go)
@@ -468,7 +573,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     }else{
       var firstObject = getLocalItemByAlias(direction)
       if (firstObject){
-        var action = findActionByAlias(firstObject.actions, keyword)
+        var action = findActionByAlias(firstObject.actions, keyword) //Does this ever change the scene?
       }
       if(action){
         if (action.script){
@@ -530,7 +635,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
   function isGiveAlias(keyword, firstObject, secondObject){
-    return !!(findActionByAlias(firstObject.actions, keyword) || findActionByAlias(secondObject.actions, keyword))
+    var action = findActionByAlias(firstObject.actions, keyword)
+    var action2 = findActionByAlias(secondObject.actions, keyword)
+
+    return (action && action.name === "give") || (action2 && action2.name === "give")
   }
 
   function findCommand(keyword, objectAliases){
@@ -538,8 +646,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     var available = getAvailableItems()
     var secondObject = getLocalItemByAlias(objectAliases[1]) //|| {name: ''}
     if(firstObject && available.includes(firstObject.name)){
+
       if (secondObject && available.includes(secondObject.name)){
         if(combineAlias(keyword)){
+          console.log("combination, findCommand, objects exist")
           var executed = combine(keyword, firstObject, secondObject)
           if(!executed){
             if(isGiveAlias(keyword, firstObject, secondObject)){
@@ -617,11 +727,12 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
   function listFastTravel(){
-    var output = gameState.fastTravel.map(scene => { return {text: scene.name, audio: scene.nameAudio}})
+    var output = gameState.fastTravel.map(scene => { return {text: scene.name + "\n", audio: scene.nameAudio}})
     playAudio(output)
   }
 
   function findTopicByAlias(obj, alias){
+
     var broachable = _(obj.topics).where({broachable: true})
     return _.find(broachable, top => {
       return _.contains(top.aliases, alias)
@@ -636,11 +747,24 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     }
   }
 
+  function regularAction(firstObject, keyword){
+    var action  = findActionByName(firstObject.actions, keyword)
+    if (hasScript(firstObject, keyword)){
+      safeEval(action)
+    }else{
+      if(action && action.failure){
+        playRandom(action.failure)
+      }else{
+        playRandom(gameState.defaultResponses[keyword])
+      }
+    }
+  }
+
 
   var standardCommandAliases = {'exit': 'go', 'pick up': 'take', 'look around': 'look'}
 //Comands to be accounted for: [ "use", "open", "close",, "help", "push",
 // "pull",  "save", "load"?, "give"]
-  function executeCommand(keyword, objectAliases, raw_input){
+  function executeCommand(keyword, objectAliases, raw_input, no_command){
     var k = keyword
     k = k.slice(0,3)
     if (k !== "go "){
@@ -648,12 +772,15 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     }else{
       k = "go"
     }
+    console.log("Execute")
+    console.log(keyword, objectAliases)
     switch (k) {
       case "list":
         switch (objectAliases[0]){
-          case "objects":
+          // case "objects":
           case "items":
-            playAvailableItems()
+            playInventory()
+            // playAvailableItems()
             return
           case "inventory":
             playInventory()
@@ -666,13 +793,22 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
             if (firstObject){
               listTopics(firstObject)
             }else{
-              playRandom(gameState.defaultResponses["no object"])
+              playRandom(gameState.defaultResponses["not in conversation"])
             }
             return
+          case "fast travel":
+          case "rooms":
           case "locations":
             listFastTravel()
             return
+          default:
+            playAudio([{text: "Command not found", audio: ""}])
         }
+        return
+      case "where can i go":
+      case "where have i been":
+      case "fast travel":
+        listFastTravel()
         return
       case "inventory":
         playInventory()
@@ -689,16 +825,18 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       case "look at the exits":
         listExits()
         return
-      case "climb":
-        changeCurrentScene("up")
-        return
-      case "climb down":
-      case "decend":
-        changeCurrentScene("down")
-        return
+      // case "climb":
+      //   changeCurrentScene("up")
+      //   return
+      // case "climb down":
+      // case "decend":
+      //   changeCurrentScene("down")
+      //   return
       case "exit":
       case "go":
+        console.log("go", k)
         if (objectAliases.length > 0){
+          console.log("objectAliases.length > 0")
           changeCurrentScene(objectAliases[0], keyword)
         }else{
           playRandom(gameState.defaultResponses.go)
@@ -707,8 +845,11 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       case "leave":
         leave()
         return
+      case "examine room":
+      case "explore":
+      case "explore room":
       case "look around":
-      case "look":
+      // case "look":
         playSceneDescription()
         return
       case "end conversation":
@@ -748,33 +889,15 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
       }
     }
 
+    console.log(!!firstObject, keyword, firstObject, !!gameState.converseWith, objectAliases )
     if (firstObject){
       switch(keyword){
                 // case "combine": //since use is an alias for combine, it can accidentally think the command was combine when there's only on arg.
         case "use":
-          var action  = findActionByName(firstObject.actions, "use")
-          if (hasScript(firstObject, "use")){
-            safeEval(action)
-          }else{
-            if(action && action.failure){
-              playRandom(action.failure)
-            }else{
-              playRandom(gameState.defaultResponses["use"])
-            }
-          }
+          regularAction(firstObject, keyword)
           break
-
         case "look under":
-          var action  = findActionByName(firstObject.actions, keyword)
-          if (hasScript(firstObject, keyword)){
-            safeEval(action)
-          }else{
-            if(action && action.failure){
-              playRandom(action.failure)
-            }else{
-              playRandom(gameState.defaultResponses[keyword])
-            }
-          }
+          regularAction(firstObject, keyword)
           break
         case "pick up":
         case "get":
@@ -813,9 +936,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
             gameState.converseWith = firstObject
             var greeting = action ? action.greeting : null
             if(greeting) playInSequence(greeting)
-            listTopics(firstObject)
+            listTopics(firstObject, true)
           }else{
-            playRandom(gameState.defaultResponses.ask)
+            playRandom(gameState.defaultResponses["can't talk to"])
           }
           break
         case "who":
@@ -825,7 +948,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         case "why":
         case "how":
         case "ask":
-          if (firstObject && firstObject.topics) {
+          if(firstObject && !gameState.converseWith){
+            playRandom(gameState.defaultResponses["not in conversation"])
+          }else if (firstObject && firstObject.topics) {
             var topic = findTopicByAlias(firstObject, objectAliases[1])
             if (topic && topic.broachable ){
               if (topic.script){
@@ -845,28 +970,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
           callGive(firstObject, secondObject, available)
           break
         case "push":
-          var action = findActionByName(firstObject.actions, keyword)
-          if (hasScript(firstObject, "push")){
-            safeEval(action)
-          }else{
-            if(action && action.failure){
-              playRandom(action.failure)
-            }else{
-              playRandom(gameState.defaultResponses.push)
-            }
-          }
+          regularAction(firstObject, keyword)
           break
         case "pull":
-          var action = findActionByName(firstObject.actions, keyword)
-          if (hasScript(firstObject, "pull")){
-            safeEval(action)
-          }else{
-            if(action && action.failure){
-              playRandom(action.failure)
-            }else{
-              playRandom(gameState.defaultResponses.pull)
-            }
-          }
+          regularAction(firstObject, keyword)
           break
         case "open":
           var action = findActionByName(firstObject.actions, keyword)
@@ -926,7 +1033,11 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
               }
             }
           }else{
-            playRandom(gameState.defaultResponses.generic)
+            if(keyword === "combine"){
+              playRandom(gameState.defaultResponses["no object"])
+            }else{
+              playRandom(gameState.defaultResponses.generic)
+            }
           }
           break
       }
@@ -942,49 +1053,120 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
             playInSequence(topic.response)
           }
         }else{
-          playRandom(gameState.defaultResponses.ask)
+          if(no_command){
+            playRandom(gameState.defaultResponses.ask)
+          }else{
+            playRandom(gameState.defaultResponses["no object"])
+          }
         }
-      }else if(gameState.converseWith){
+      }else if(gameState.converseWith && no_command){
         playRandom(gameState.defaultResponses.ask)
       }else{
+        switch(keyword){
+          case "who":
+          case "what":
+          case "when":
+          case "where":
+          case "why":
+          case "how":
+          case "ask":
+            playRandom(gameState.defaultResponses["not in conversation"])
+            return
+          case "look":
+            playSceneDescription()
+            return
+          case "sniff":
+          case "smell":
+            var room = getLocalItemByAlias("room")
+            if(room){
+              regularAction(room, "smell")
+            }else{
+              playRandom(gameState.defaultResponses["smell"])
+            }
+            return
+          case "lick":
+          case "taste":
+            var room = getLocalItemByAlias("room")
+            console.log("Getting the room", room)
+            if(room){
+              regularAction(room, "taste")
+            }else{
+              playRandom(gameState.defaultResponses["taste"])
+            }
+          return
+          case "listen":
+            var room = getLocalItemByAlias("room")
+            if(room){
+              regularAction(room, keyword)
+            }else{
+              playRandom(gameState.defaultResponses[keyword])
+            }
+            return
+          case "touch":
+          case "feel":
+            var room = getLocalItemByAlias("room")
+            if(room){
+              regularAction(room, "touch")
+            }else{
+              playRandom(gameState.defaultResponses["touch"])
+            }
+            return
+          case "climb":
+            changeCurrentScene("up")
+            return
+          case "climb down":
+            changeCurrentScene("down")
+            return
+        }
         playRandom(gameState.defaultResponses["no object"])
       }
     }
   }
 
-  function safeEval(scriptor, argMap){
+  function safeEval(scriptor, argMap, scriptLabel){
     try{
+      console.log("safeEval", scriptor, scriptLabel)
       argMap = argMap || {}
       gameState.scriptor = scriptor
-      var api = apiGen(gameState, timers, outputQueue, submitCommand, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias)
+      var api = apiGen(gameState, timers, outputQueue, submitCommand, updateCommand, updateText, updateAudio, appendAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, getExits, playInventory, findCombination, findTopicByAlias, scriptLabel)
       argMap = Object.assign(argMap, api)
       var keys = Object.keys(argMap)
       var values = Object.values(argMap)
-      var f = new Function(...keys, scriptor.script)
+      var f = new Function(...keys, scriptor[scriptLabel || "script"])
       f(...values)
     }catch(err){
+      console.log("err", scriptor, argMap, scriptLabel)
       playAudio([{text: err.toString(), audio: ""}])
     }
   }
 
+
   function submitCommand(command, api) {
+    outputQueue = []
     var output = command
     var command = command.toLowerCase()
     var commandObject = parseCommand(command)
     var key = commandObject.command
     if (key){
       var objects = parseObjects(commandObject.remainder)
-      if(!api) updateCommand(key + commandObject.remainder)
-      executeCommand(key, objects, command)
+      if(!api) setTimeout( () => updateCommand(output), 0)
+      // if(!api) setTimeout( () => updateCommand(key + commandObject.remainder), 0)
+      outputQueue = []
+      // executeCommand(key, objects, command)
+      setTimeout( () => executeCommand(key, objects, command), 0)
     }else{
+      if(!api) setTimeout( () => updateCommand(output), 0)
       if(gameState.converseWith){
         var objects = parseObjects(commandObject.remainder)
         if(objects.length > 0){
-          if(!api) updateCommand(command)
-          executeCommand("ask", objects)
+          outputQueue = []
+          // executeCommand("ask", objects)
+          setTimeout( () => executeCommand("ask", objects,  output, true), 0)
+          return
         }
+      }else{
+        setTimeout( () => playAudio([{text: "Command not found", audio: ""}]))
       }
-      playAudio([{text: "", audio: ""}])
     }
   }
 
@@ -1001,7 +1183,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   }
 
   function getAllKeywords(){
-    return gameState.commandList.concat(gameState.objectKeys)
+    console.log(gameState.commandList, gameState.itemNames)
+    return gameState.commandList.concat(gameState.itemNames).concat(["go north", "go south", "go east", "go west", "go southeast", "go southwest", "go northeast", "go northwest"])
   }
 
 
@@ -1031,7 +1214,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     gameState.currentPart = gameState.parts[index]
     gameState.currentScene = findScene(sceneName) || findScene(gameState.currentPart.openingScene || gameState.currentPart.sceneList[0].name)
     var partIntro = gameState.currentPart.intro || []
-    var outputQueue = partIntro.slice()
+    var output = partIntro.slice()
     playCurrentScene(outputQueue)
   }
 

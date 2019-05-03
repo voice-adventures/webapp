@@ -1,6 +1,6 @@
 var _ = require('underscore')
 
-module.exports = function apiGen(gameState, timers, outputQueue, sc, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, listExits, playInventory, findCombination, findTopicByAlias){
+module.exports = function apiGen(gameState, timers, outputQueue, sc, updateCommand, updateText, updateAudio, playAudio, playNextAudio, findScene, getAvailableItems, playCurrentScene, findObjectByName, listTopics, getExits, playInventory, findCombination, findTopicByAlias, scriptLabel){
 
   function startTimer(name, seconds, func, ...args){
       gameState.timers = gameState.timers || {}
@@ -30,6 +30,9 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
     }
   }
 
+  function listExits(){
+    playAudio(getExits())
+  }
 
   function findActionByName(actions, name){
     return _(actions).find((action) => action.name === name)
@@ -101,8 +104,21 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
     setAttribute(objectName, "description", description)
   }
 
+  function addDescription(objectName, desc){
+    changeDescription(objectName, getAttribute(objectName, "description").concat([desc]))
+  }
+
+  function changeSceneIntro(sceneName, intro){
+    var scene = findScene(sceneName)
+    scene.intro = intro
+  }
+
   function addExit(sceneName, dir, scene, text, audio){
     findScene(sceneName).exits.push({direction: dir, scene: scene, text: text, audio: audio})
+  }
+
+  function addSilentExit(sceneName, dir, scene, text, audio){
+    findScene(sceneName).exits.push({direction: dir, scene: scene, text: text, audio: audio, silent: true})
   }
 
   function addExitAtIndex(index, sceneName, dir, scene, text, audio){
@@ -367,14 +383,21 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
       var action = findActionByName(person.actions, "talk to" )
       var greeting = action ? action.greeting : null
       if(greeting) playInSequence(greeting)
-      listTopics(person)
+      listTopics(person, true)
     }else{
       playRandom(gameState.defaultResponses.ask)
     }
   }
 
+  function startSilentConversation(name){
+    var person = findObjectByName(name)
+    if (person.topics && Object.keys(person.topics).length > 0){
+      gameState.converseWith = person
+    }
+  }
+
   function once(){
-    gameState.scriptor.script =  null
+    gameState.scriptor[scriptLabel || "script"] =  null
   }
 
 
@@ -419,6 +442,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
     getAttribute,
     changeInSceneDescription,
     changeDescription,
+    addDescription,
     setPart,
     removeFromFastTravel,
     addToFastTravel,
@@ -438,6 +462,9 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
     findScene,
     listExits,
     listInventory: playInventory,
+    startSilentConversation,
+    addSilentExit,
+    changeSceneIntro,
     _
   }
 
