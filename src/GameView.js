@@ -79,9 +79,7 @@ export default class GameView extends Component {
     var output = localStorage.getItem("output")
     if (output) output = JSON.parse(output)
     this.setState({
-      gameEngine: GameEngineFromYaml(game, (output) => {
-        setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
-          setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+      gameEngine: GameEngineFromYaml(game, (output, done, append) => this.receiveGameOutput(output, done, append), (output, done) => this.handleAudio(output, done), (output) => this.handleCommands(output), (yaml) => this.save(yaml)
       ),
       output : output || [""],
       currentSound: null,
