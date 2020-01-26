@@ -85,7 +85,7 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
   }
 
   function isVisible(name){
-     return getAvailableItems().includes(name)
+     return getAvailableItems().includes(name.toLowerCase())
   }
 
   function setAttribute(objectName, attribute, value){

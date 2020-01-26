@@ -929,7 +929,7 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
           break
         case "talk to":
           var action = findActionByName(firstObject.actions, "talk to" )
-          if (action || (firstObject.topics && firstObject.topics.length > 0)){
+          if (action && (firstObject.topics && firstObject.topics.length > 0)){
             if (hasScript(firstObject, "talk to")){
               safeEval(findActionByName(firstObject.actions, "talk to" ))
             }
@@ -937,6 +937,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
             var greeting = action ? action.greeting : null
             if(greeting) playInSequence(greeting)
             listTopics(firstObject, true)
+          }else if(action && action.failure){
+            playRandom(action.failure)
           }else{
             playRandom(gameState.defaultResponses["can't talk to"])
           }
