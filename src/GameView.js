@@ -16,9 +16,7 @@ export default class GameView extends Component {
       var output = localStorage.getItem("output")
       if (output) output = JSON.parse(output)
       this.state = {
-        gameEngine: GameEngineFromYaml(game, (output) => {
-          setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
-            setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
+        gameEngine: GameEngineFromYaml(game, (output, done, append) => this.receiveGameOutput(output, done, append), (output, done) => this.handleAudio(output, done), (output) => this.handleCommands(output), (yaml) => this.save(yaml)
         ),
         output : output || [""],
         currentSound: null,
@@ -31,10 +29,7 @@ export default class GameView extends Component {
       game.currentScene =  props.currentScene
       game.currentPart = props.currentPart
       this.state = {
-        gameEngine: GameEngineFromSpec(game, (output) => {
-          setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
-            setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
-        ),
+        gameEngine:  GameEngineFromSpec(game, (output, done, append) => this.receiveGameOutput(output, done, append), (output, done) => this.handleAudio(output, done), (output) => this.handleCommands(output), (yaml) => this.save(yaml)),
         output : [""],
         currentSound: null,
         currentPart: props.currentPart,
@@ -65,10 +60,7 @@ export default class GameView extends Component {
     game.currentScene =  this.props.currentScene
     game.currentPart = this.props.currentPart
     this.setState({
-      gameEngine: GameEngineFromSpec(game, (output) => {
-        setTimeout(() => this.receiveGameOutput(output), 0)}, (output, done) => {
-          setTimeout(() => this.handleAudio(output, done), 0)}, (output) => this.handleCommands(output), (yaml) => this.save(yaml)
-      ),
+      gameEngine:  GameEngineFromSpec(game, (output, done, append) => this.receiveGameOutput(output, done, append), (output, done) => this.handleAudio(output, done), (output) => this.handleCommands(output), (yaml) => this.save(yaml)),
       output : [""],
       currentSound: null,
       currentPart: this.props.currentPart,
@@ -122,15 +114,34 @@ export default class GameView extends Component {
 
   }
 
-  receiveGameOutput(output, done) {
+  receiveGameOutput(output, done, append) {
+    // if(done){
+    //   return
+    // }
+    // console.log("getting output")
+    // this.playAudio(output, done)
+    // var newOutput = this.state.output.slice()
+    // newOutput[newOutput.length - 1] += " " + output
+    // this.setState({output: newOutput})
+
+    if(this.state.currentSound && append){
+      console.log("returning without playing", this.state.currentSound, append, done)
+      return true
+    }
     if(done){
-      return
+      if(replaying){
+        this.replay()
+      }
+      return false
     }
     console.log("getting output")
-    this.playAudio(output, done)
     var newOutput = this.state.output.slice()
-    newOutput[newOutput.length - 1] += " " + output
+    console.log(newOutput)
+    newOutput[newOutput.length - 1] += (/[.,\/#!$%\^&\*;:{}=\-_`~()]/.test(output.text) && output.text.length === 1) ? output.text : " " + output.text
+    console.log(output.text)
     this.setState({output: newOutput})
+    this.playAudio(output.audio, done)
+    return false
   }
 
   playAudio(output, done){
@@ -146,7 +157,10 @@ export default class GameView extends Component {
   }
 
   submitCommand(cmd) {
-    if (this.state.currentSound) this.state.currentSound.stop()
+    if (this.state.currentSound){
+      this.state.currentSound.stop()
+      this.setState({currentSound: null})
+    }
     this.state.gameEngine.submitCommand(cmd)
   }
 
