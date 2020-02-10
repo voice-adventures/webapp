@@ -1,14 +1,23 @@
 import React, { Component } from 'react'
 
 export default class GameTextOutput extends Component {
+
   render() {
     return <div style={{marginTop: 10}}>
       {
         this.props.text.map((line, i) => {
           if (line.src){
-            return  <p style={style} key={i}>{line.text}</p>
+            if(this.props.text.length - 2 === i){
+              return  <p id="last" style={style} key={i}>{line.text}</p>
+            }else{
+              return  <p style={style} key={i}>{line.text}</p>
+            }
           }else{
-            return <p style={{whiteSpace: 'pre-line', marginLeft: "20px", fontSize: "16px", textAlign: "left"}}key={i}>{line}</p>
+            if(this.props.text.length === 1){
+              return <p id="last" style={{whiteSpace: 'pre-line', marginLeft: "20px", fontSize: "16px", textAlign: "left"}}key={i}>{line}</p>
+            }else{
+              return <p style={{whiteSpace: 'pre-line', marginLeft: "20px", fontSize: "16px", textAlign: "left"}}key={i}>{line}</p>
+            }
           }
         })
       }

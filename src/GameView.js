@@ -40,10 +40,11 @@ export default class GameView extends Component {
   }
 
   scrollToBottom() {
-    const scrollHeight = this.outputDiv.scrollHeight;
-    const height = this.outputDiv.clientHeight;
-    const maxScrollTop = scrollHeight - height;
-    this.outputDiv.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+    // const scrollHeight = this.outputDiv.scrollHeight;
+    // const height = this.outputDiv.clientHeight;
+    const lastHeight = document.getElementById("last").scrollIntoView();
+    // const maxScrollTop = scrollHeight - height - lastHeight;
+    // this.outputDiv.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
   }
 
   componentDidMount() {
@@ -67,6 +68,8 @@ export default class GameView extends Component {
       currentScene: this.props.currentScene,
       first: true
     })
+
+    setTimeout(() => this.state.gameEngine.start(), 0)
   }
 
   save(yaml){
@@ -95,18 +98,22 @@ export default class GameView extends Component {
       scenes =  this.props.game.parts[this.state.currentPart].sceneList
     }
     return (
-      <div className="page" ref={(div) => {
-          this.outputDiv = div;
-        }} >
-            <div style={{width: "500px", margin: "0 auto"}} >
-                <GameTextOutput text={this.state.output}/>
-                <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
-                <div style={{textAlign: "center", marginBottom: "150px",}}>
-                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.new()}>New</div>
-                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.save(this.state.gameEngine.getYaml())}>Save</div>
-                  <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
-                </div>
-            </div>
+      <div>
+        <div className="page" ref={(div) => {
+            this.outputDiv = div;
+          }} >
+              <div style={{width: "500px", margin: "0 auto"}} >
+                  <GameTextOutput text={this.state.output}/>
+              </div>
+        </div>
+        <div className="commands">
+          <GameCommandInput onSubmit={(cmd) => this.submitCommand(cmd)} />
+          <div style={{textAlign: "center", marginBottom: "50px",}}>
+            <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.new()}>New</div>
+            <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.save(this.state.gameEngine.getYaml())}>Save</div>
+            <div className="button" style={{ marginLeft: "12px"}} onClick={() => this.load()}>Load</div>
+          </div>
+        </div>
       </div>
     )
 
