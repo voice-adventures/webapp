@@ -558,12 +558,12 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         playAudio(gameState.defaultResponses.go)
       }
     }else if(nextScene = findFastTravelSceneByAlias(direction)){
-      if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
+      if(gameState.currentScene.leaving_script) safeEval(gameState.currentScene, {}, "leaving_script")
       gameState.currentScene = nextScene
       playCurrentScene()
     }else if(nextScene = findAliasedScene(direction)){
       if(connectedToCurrentScene(gameState.currentScene.exits, nextScene)){
-        if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
+        if(gameState.currentScene.leaving_script) safeEval(gameState.currentScene, {}, "leaving_script")
         gameState.currentScene = nextScene
         playCurrentScene()
       }else if (nextScene.visited){
