@@ -84,9 +84,10 @@ function GameState(data) {
       part.sceneList.forEach(scene => {
           scene.aliases = scene.aliases || []
           scene.aliases = scene.aliases.map(alias => alias.toLowerCase().trim())
-          var nameAlias = scene.name.toLowerCase().trim().replace(/^(the\ )/,"").replace(/^(a\ )/,"");
+          var nameAlias = scene.name.toLowerCase().trim();
           // data.itemNames.push(nameAlias)
           scene.aliases.push(nameAlias)
+          scene.aliases.push(nameAlias.replace(/^(the\ )/,"").replace(/^(a\ )/,""))
           data.objectKeys = data.objectKeys.concat(scene.aliases)
       })
     }
@@ -557,12 +558,12 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         playAudio(gameState.defaultResponses.go)
       }
     }else if(nextScene = findFastTravelSceneByAlias(direction)){
-      if(gameState.currentScene.leaving_script) safeEval(gameState.currentScene, {}, "leaving_script")
+      if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
       gameState.currentScene = nextScene
       playCurrentScene()
     }else if(nextScene = findAliasedScene(direction)){
       if(connectedToCurrentScene(gameState.currentScene.exits, nextScene)){
-        if(gameState.currentScene.leaving_script) safeEval(gameState.currentScene, {}, "leaving_script")
+        if(gameState.currentScene.leaving_script) safeEval(currentScene, {}, "leaving_script")
         gameState.currentScene = nextScene
         playCurrentScene()
       }else if (nextScene.visited){
@@ -767,13 +768,14 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
   function executeCommand(keyword, objectAliases, raw_input, no_command){
     var k = keyword
     k = k.slice(0,3)
-    if (k !== "go "){
+    if (k !== "go " || objectAliases.length > 0){ //"go up/ go down" are sometimes used as an alias for use. Need to aloow "go up stairs" to give intelligent/custom response
       k =  keyword
     }else{
       k = "go"
+      objectAliases = [keyword.slice(3).trim()]
     }
-    console.log("Execute")
-    console.log(keyword, objectAliases)
+    console.log("Execute order 66")
+    console.log(keyword, objectAliases, raw_input, no_command)
     switch (k) {
       case "list":
         switch (objectAliases[0]){
