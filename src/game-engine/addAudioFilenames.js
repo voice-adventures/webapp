@@ -163,7 +163,7 @@ function setAudioNames(game, uuidGenerator){
           if(!l.audio) l.audio = uuidGenerator()
         }
       }else{
-        list.audio = uuidGenerator()
+        if(!list.audio) list.audio = uuidGenerator()
       }
     }
   }

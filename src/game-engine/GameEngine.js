@@ -134,7 +134,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     getAllKeywords,
     setCurrentPartAndScene,
     getYaml,
-    start
+    start,
+    gameState
   }
 
   gameState.currentPart = gameState.currentPart || gameState.parts[0]

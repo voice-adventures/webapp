@@ -255,16 +255,19 @@ function getNarratorLines(game, character_list){
         }
       }
     }
-    if(character_list && !character_list.includes(item.name)){
-      for(var topic of item.topics){
-        lines.push(addPathnames(topic.list, ["items", item.name, "topics", topic.name, "list"]))
-        lines.push(addPathnames(topic.response, ["items", item.name, "topics", topic.name, "response"]))
-      }
-    }else{
-      for(var topic of item.topics){
-        lines.push(addPathnames(topic.list, ["items", item.name, "topics", topic.name, "list"]))
+    if(item.topics){
+      if(character_list && !character_list.includes(item.name)){
+        for(var topic of item.topics){
+          lines.push(addPathnames(topic.list, ["items", item.name, "topics", topic.name, "list"]))
+          lines.push(addPathnames(topic.response, ["items", item.name, "topics", topic.name, "response"]))
+        }
+      }else{
+        for(var topic of item.topics){
+          lines.push(addPathnames(topic.list, ["items", item.name, "topics", topic.name, "list"]))
+        }
       }
     }
+
   }
 
   lines = lines.concat(getNarratorCombinationLines(game, character_list))

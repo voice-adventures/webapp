@@ -5,6 +5,7 @@ import GameTextOutput from './GameTextOutput'
 import './GameView.css'
 import jesusQuest from './games/JesusQuest.json'
 import TheNexus from './games/The_Nexus.json'
+import runPatches from './runPatches'
 
 var replaying = null
 
