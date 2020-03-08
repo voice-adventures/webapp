@@ -219,7 +219,7 @@
                             "character": "narrator"
                         }
                     ],
-                    "script": "if (!getFlag('notepad', 'stairscomplete')) {\n    setFlag('notepad', 'stairscomplete');\n}\nremoveFlag('notepad', 'getupstairs');\naddToFastTravel(\"The Balcony\")\naddToFastTravel(\"The Master Bedroom\")",
+                    "script": "if (!getFlag('notepad', 'stairscomplete')) {\n    setFlag('notepad', 'stairscomplete');\n}\nremoveFlag('notepad', 'getupstairs');\naddToFastTravel('The Balcony');\naddToFastTravel('The Master Bedroom');",
                     "listExits": true,
                     "aliases": [
                         "the hall of history",
@@ -301,7 +301,15 @@
                         "iWxJUQT3acpxx_ocXwtbcJFF7paZ-X9N",
                         "3WfiNCbvfIHyFgGf7z2iFqFlr5_-HOMp",
                         "H-1_u2gJNOKPqlfIdQsZvMvZRQubkVLo",
-                        "Sx8lpdsSnwNiE3UYmFaKscrh8dzYIPx3"
+                        "Sx8lpdsSnwNiE3UYmFaKscrh8dzYIPx3",
+                        "PJSK1PSle5U5s-7J0OozNVH9OcgrgMsW",
+                        "QfFW8foKIhQtBCZjIrrImxtuj9zo69yy",
+                        "Tq0nnxDIOFQaaE1pxRPMkbTTNC3eEYIa",
+                        "xav0oV3F2zo3EUqwi4J967vuVCdrCtQc",
+                        "kGmyBnzBU5Gs9hnB74Uw5wC--roWFj9W",
+                        "p42bYpWkSAAf9PIdCo588__5no02P9dh",
+                        "eaCWFoqDZEgQvGK4ccuhAWEan8YBlIsV",
+                        "UVJ3hR4QoWnZfmiOldi3PDE8B0nGZIzq"
                     ],
                     "exits": [],
                     "intro": [
@@ -361,7 +369,7 @@
                             "character": "narrator"
                         }
                     ],
-                    "script": "addItemToInventory('stone tablet');\nonce();",
+                    "script": "addItemToInventory('stone tablet');\naddItemToInventory('key');\nonce();",
                     "aliases": [
                         "small bedroom",
                         " starting room",
@@ -1029,6 +1037,12 @@
                             "audio": "svvisbn1wo",
                             "path": "the_nexus/the_kennel_house/intro",
                             "character": "narrator"
+                        },
+                        {
+                            "text": "",
+                            "audio": "x0a3pl7cso",
+                            "path": "the_nexus/the_kennel_house/intro",
+                            "character": "narrator"
                         }
                     ],
                     "script": "if (!getFlag('shed', 'known') && getFlag('broken window', 'open')) {\n    changeExitDescription('The Dog Yard', 'west', 'west into the kennel house', 'qf2lrichhm');\n    setFlag('shed', 'known');\n} else if (!getFlag('shed', 'known')) {\n    changeExitDescription('The Dog Yard', 'west', 'west into the kennel house', 'w5v0jpqibp');\n    setFlag('shed', 'known');\n}",
@@ -1268,7 +1282,7 @@
                             "character": "narrator"
                         }
                     ],
-                    "script": "var directions = [\n    'north',\n    'east',\n    'south',\n    'west',\n    'northwest',\n    'northeast',\n    'southwest',\n    'southeast'\n];\ngameState.mazeAnswer = [\n    'west',\n    'south',\n    'northwest',\n    'east',\n    'southeast'\n];\nfunction clearExits(sceneName) {\n    var scene = findScene(sceneName);\n    scene.exits = [];\n}\nfunction spitOut() {\n    clearExits('Inside the Maze');\n    addExit('Inside the Maze', 'south', 'The Hedge Maze', '', 'wptdahohcx');\n    silentSwitchScene('The Hedge Maze');\n    play('That took you back to the beginning of the maze! Spooky.', 'Vdv3EznyCQ');\n    gameState.entered = false;\n    gameState.spitOut = false;\n    listExits();\n}\nfunction shuffleExits(chosen, dest) {\n    clearExits('Inside the Maze');\n    var num_exits = _.random(1, 4);\n    var exits = [];\n    if (chosen) {\n        var dir = _.reject(directions, e => e === chosen);\n        exits = _.sample(dir, num_exits);\n        exits.push(chosen);\n        exits = _.shuffle(exits);\n    } else {\n        exits = _.sample(directions, num_exits);\n    }\n    for (var e of exits) {\n        if (dest) {\n            addSilentExit('Inside the Maze', e, 'Inside the Maze', '', 'enrjaqmej7');\n        } else {\n            addSilentExit('Inside the Maze', e, 'Inside the Maze', '', 'yjij8jqzvw');\n        }\n    }\n}\nif (gameState.spitOut) {\n    spitOut();\n} else {\n    if (gameState.entered) {\n        if (gameState.lastDirection === gameState.progress[0] && !gameState.mazeWrong) {\n            if (gameState.progress.length === 1) {\n                clearExits('Inside the Maze');\n                addExit('Inside the Maze', 'east', 'The Generator', 'that leads out of the maze! To the east, towards some sort of machine', 'cginq1a0rv');\n                removeExit('The Backyard', 'north');\n                addExit('The Backyard', 'north', 'The Generator', 'north, through the maze, to the generator', 'gx6vbfxbgd');\n                setFlag('generator', 'navigated');\n                listExits();\n            } else {\n                gameState.progress.shift();\n                shuffleExits(gameState.progress[0]);\n                listExits();\n            }\n        } else {\n            shuffleExits(false, true);\n            listExits();\n            gameState.spitOut = true;\n            gameState.entered = false;\n        }\n    } else {\n        gameState.progress = gameState.mazeAnswer.slice();\n        gameState.entered = true;\n        clearExits('Inside the Maze');\n        shuffleExits(gameState.progress[0]);\n        listExits();\n    }\n}"
+                    "script": "var directions = [\n    'north',\n    'east',\n    'south',\n    'west',\n    'northwest',\n    'northeast',\n    'southwest',\n    'southeast'\n];\ngameState.mazeAnswer = [\n    'west',\n    'south',\n    'northwest',\n    'east',\n    'southeast'\n];\nfunction clearExits(sceneName) {\n    var scene = findScene(sceneName);\n    scene.exits = [];\n}\nfunction spitOut() {\n    clearExits('Inside the Maze');\n    addExit('Inside the Maze', 'south', 'The Hedge Maze', '', 'wptdahohcx');\n    silentSwitchScene('The Hedge Maze');\n    play('That took you back to the beginning of the maze! Spooky.', 'Vdv3EznyCQ');\n    gameState.entered = false;\n    gameState.spitOut = false;\n    listExits();\n}\nfunction shuffleExits(chosen, dest) {\n    clearExits('Inside the Maze');\n    var num_exits = _.random(1, 4);\n    var exits = [];\n    if (chosen) {\n        var dir = _.reject(directions, e => e === chosen);\n        exits = _.sample(dir, num_exits);\n        exits.push(chosen);\n        exits = _.shuffle(exits);\n    } else {\n        exits = _.sample(directions, num_exits);\n    }\n    for (var e of exits) {\n        if (dest) {\n            addSilentExit('Inside the Maze', e, 'Inside the Maze', '', 'enrjaqmej7');\n        } else {\n            addSilentExit('Inside the Maze', e, 'Inside the Maze', '', 'yjij8jqzvw');\n        }\n    }\n}\nif (gameState.spitOut) {\n    spitOut();\n} else {\n    if (gameState.entered) {\n        if (gameState.lastDirection === gameState.progress[0] && !gameState.mazeWrong) {\n            if (gameState.progress.length === 1) {\n                clearExits('Inside the Maze');\n                addExit('Inside the Maze', 'east', 'The Generator', 'that leads out of the maze! To the east, toward some sort of machine', 'cginq1a0rv');\n                removeExit('The Backyard', 'north');\n                addExit('The Backyard', 'north', 'The Generator', 'north, through the maze, to the generator', 'gx6vbfxbgd');\n                setFlag('generator', 'navigated');\n                listExits();\n            } else {\n                gameState.progress.shift();\n                shuffleExits(gameState.progress[0]);\n                listExits();\n            }\n        } else {\n            shuffleExits(false, true);\n            listExits();\n            gameState.spitOut = true;\n            gameState.entered = false;\n        }\n    } else {\n        gameState.progress = gameState.mazeAnswer.slice();\n        gameState.entered = true;\n        clearExits('Inside the Maze');\n        shuffleExits(gameState.progress[0]);\n        listExits();\n    }\n}"
                 },
                 {
                     "name": "The Generator",
@@ -1303,6 +1317,19 @@
                 }
             ],
             "openingScene": "The Butler's Room"
+        },
+        {
+            "name": "New Part",
+            "id": "1U3I8sYOW8QGBY8kNBwyvLuczV6Ptdvr",
+            "intro": [
+                {
+                    "text": "",
+                    "audio": "7ce328cmwl",
+                    "path": "new_part/intro",
+                    "character": "narrator"
+                }
+            ],
+            "sceneList": []
         }
     ],
     "items": [
@@ -1537,7 +1564,7 @@
                     "name": "take",
                     "id": "G6MW3kUL_aISAn2IVCLfaaQTrlTWnKHE",
                     "functions": [],
-                    "script": "if (hasItem('tape player')) {\n    play('You take the coat off the wall and try it on. It\\'s almost a tailor fit. And on top of being quite stylish, you appreciate that it has ample pocket space.  Where the coat used to hang, a long nail sticks out from the wall.', 'kjobfbq6tn');\n    addItemToSceneAtIndex('nail', 'The Butler\\'s Room', 1);\n    removeItemFromScene('trench coat', 'The Butler\\'s Room');\n    changeInSceneDescription('writing desk', {\n        text: 'A handsome writing desk presses up against a wall in the corner.',\n        audio: 'a3tpwwjjlr'\n    });\n    addItemToInventory('trench coat');\n    addItemToInventory('coat pockets');\n    removeItemFromScene('coat pockets', 'The Butler\\'s Room');\n} else {\n    play('You take the coat off the wall and try it on. It\\'s almost a tailor fit and quite stylish. Just then, a small rectangular device falls from one of the pockets. It hits the floor engaging a button on its side. Tiny wheels behind a clear plastic window at its center whir into life below a label that reads \"TAPE #29\".', 'j1lncnyyfi');\n    play('\\n\\n**TAPE RECORDER SFX** \\n\\n WOMAN\\'S VOICE: \"I\\u2019ve got the stone, the-the, damn it, what is it called? It won\\u2019t be long before he notices it\\'s gone. I\\'ve got to get to the lab, but I\\u2019m leaving the recorder and this message here in your room in case I fail...Archie, please, I know you\\'re his Butler, but you\\u2019re my only friend here. If I fail, you have to help me remember. Whatever happens, he\\u2019s got to be stopped. What he\\u2019s planning\\u2014\"\\n\\n**A MUFFED NOISE & FOOTSTEPS**\\n\\n MAN\\'S VOICE: \"Kindra! Kindra! Where are you?\"\\n\\n KINDRA: \"Coming father! Wish me luck.\"\\n\\n**SOUND OF TAPE REACHING END**\\n\\n', 'q2pngbzklj', 'kindra_cutscene');\n    play('That voice on the recording\\u2014you recognized it. It was the same girl from the cafe. She gave you something...then...somehow you woke up here. In a Butler\\'s bedroom? You pick up the tape player and stash it in the trench coat\\'s ample pocket space. Where the coat used to hang, a long nail sticks out from the wall.', 'r9o33lnrvn');\n    addItemToSceneAtIndex('nail', 'The Butler\\'s Room', 1);\n    removeItemFromScene('trench coat', 'The Butler\\'s Room');\n    changeInSceneDescription('writing desk', {\n        text: 'A handsome writing desk presses up against a wall in the corner.',\n        audio: 'yirxix9szd'\n    });\n    addItemToInventory('trench coat');\n    addItemToInventory('tape player');\n    addItemToInventory('tape 29');\n    addItemToInventory('tape');\n    addItemToInventory('coat pockets');\n    removeItemFromScene('coat pockets', 'The Butler\\'s Room');\n}\nonce();",
+                    "script": "if (hasItem('tape player')) {\n    play('You take the coat off the wall and try it on. It\\'s almost a tailor fit. And on top of being quite stylish, you appreciate that it has ample pocket space.  Where the coat used to hang, a long nail sticks out from the wall.', 'kjobfbq6tn');\n    addItemToSceneAtIndex('nail', 'The Butler\\'s Room', 1);\n    removeItemFromScene('trench coat', 'The Butler\\'s Room');\n    changeInSceneDescription('writing desk', {\n        text: 'A handsome writing desk presses up against a wall in the corner.',\n        audio: 'a3tpwwjjlr'\n    });\n    addItemToInventory('trench coat');\n    addItemToInventory('coat pockets');\n    removeItemFromScene('coat pockets', 'The Butler\\'s Room');\n} else {\n    play('You take the coat off the wall and try it on. It\\'s almost a tailor fit and quite stylish. Just then, a small rectangular device falls from one of the pockets. It hits the floor engaging a button on its side. Tiny wheels behind a clear plastic window at its center whir into life below a label that reads \"TAPE #29\".', 'j1lncnyyfi');\n    play('\\n\\n**TAPE RECORDER SFX** \\n\\n WOMAN\\'S VOICE: \"I\\u2019ve got the stone, the-the, damn it, what is it called? It won\\u2019t be long before he notices it\\'s gone. I\\'ve got to get to the lab, but I\\u2019m leaving the recorder and this message here in your room in case I fail...Archie, please, I know you\\'re his Butler, but you\\u2019re my only friend here. If I fail, you have to help me remember. Whatever happens, he\\u2019s got to be stopped. What he\\u2019s planning\\u2014\"\\n\\n**A MUFFED NOISE & FOOTSTEPS**\\n\\n MAN\\'S VOICE: \"Kindra! Kindra! Where are you?\"\\n\\n KINDRA: \"Coming father! Wish me luck.\"\\n\\n**SOUND OF TAPE REACHING END**\\n\\n', 'q2pngbzklj', 'kindra_tape');\n    play('That voice on the recording\\u2014you recognized it. It was the same girl from the cafe. She gave you something...then...somehow you woke up here. In a Butler\\'s bedroom? You pick up the tape player and stash it in the trench coat\\'s ample pocket space. Where the coat used to hang, a long nail sticks out from the wall.', 'r9o33lnrvn');\n    addItemToSceneAtIndex('nail', 'The Butler\\'s Room', 1);\n    removeItemFromScene('trench coat', 'The Butler\\'s Room');\n    changeInSceneDescription('writing desk', {\n        text: 'A handsome writing desk presses up against a wall in the corner.',\n        audio: 'yirxix9szd'\n    });\n    addItemToInventory('trench coat');\n    addItemToInventory('tape player');\n    addItemToInventory('tape 29');\n    addItemToInventory('tape');\n    addItemToInventory('coat pockets');\n    removeItemFromScene('coat pockets', 'The Butler\\'s Room');\n}\nonce();",
                     "aliases": [
                         "wear",
                         " put on",
@@ -2579,7 +2606,7 @@
                     "name": "give",
                     "id": "OnN5sC3lHrynt6b5eN86_MANIol35oys",
                     "functions": [],
-                    "script": "play('\"Now what would I want with an empty old thermos, when I\\'ve got a beauty of a jug like this?\"', 'ij5g0ixhhm');",
+                    "script": "callCombination('combine', 'thermos', 'kennel master');",
                     "aliases": [],
                     "recipient": "kennel master"
                 },
@@ -2713,7 +2740,7 @@
                     "name": "use",
                     "id": "nY9ZoTg30CeEOsvR0Rq1FbQC2zowZsXV",
                     "functions": [],
-                    "script": "if (getFlag('ottoman', 'carryottoman')){\n    play('The ottoman is too heavy to carry from room to room. You put it back down before exiting.\\n\\n', 'jl3n4pqesv');\n        changeInSceneDescription('tape 1', {\n            text: 'A cassette tape is just visible underneath the ottoman.',\n            audio: 'yhmqbi6lug'\n        });\n        removeFlag('ottoman', 'carryottoman');\n        changeInSceneDescription('ottoman', {\n            text: 'with a sturdy ottoman',\n            audio: 'osri0nolvw'\n        });\n}\nswitchScene('the billiard room');",
+                    "script": "if (getFlag('ottoman', 'carryottoman')) {\n    play('The ottoman is too heavy to carry from room to room. You put it back down before exiting.\\n\\n', 'jl3n4pqesv');\n    changeInSceneDescription('tape 1', {\n        text: 'A cassette tape is just visible underneath the ottoman.',\n        audio: 'yhmqbi6lug'\n    });\n    removeFlag('ottoman', 'carryottoman');\n    changeInSceneDescription('ottoman', {\n        text: 'with a sturdy ottoman',\n        audio: 'osri0nolvw'\n    });\n}\nswitchScene('the billiard room');",
                     "aliases": []
                 }
             ],
@@ -4224,7 +4251,7 @@
                     "name": "give",
                     "id": "jGmJXuRlBTS2LQEJTbEwNd_oJldqKSi_",
                     "functions": [],
-                    "script": "play('\"What a potent aroma! Reminds me of all those late nights\\u2014or early mornings\\u2014I spent cooking the Master\\'s favorite dish...what was it again? If only I had that darned recipe!\"', 'ydezrpqfmg');",
+                    "script": "callCombination('combine', 'thermos full of coffee', 'chef');",
                     "aliases": [],
                     "recipient": "chef"
                 },
@@ -4550,7 +4577,9 @@
                     "id": "05MgnChkKse6x-YdT1nbnzE6jQmLxjrd",
                     "functions": [],
                     "script": null,
-                    "aliases": ""
+                    "aliases": [
+                        "smell"
+                    ]
                 }
             ],
             "aliases": [
@@ -6402,7 +6431,7 @@
                     "name": "give",
                     "id": "f33lGB_MrzD1wR_w1abB_qSo20eh7-o8",
                     "functions": [],
-                    "script": "removeItemFromInventory('eggs');\nsetFlag('chef', 'haseggs');\nif (!getFlag('chef', 'hasrecipe')) {\n    play('You give the eggs to the chef:\\n\\n \"You managed to get some eggs from the old broody hen, did ya? No small feat. Thank you! Now if I can just find one of my recipes I\\'ll be able to put these to good use!\"', 'mlgirgvfxf');\n} else if (getFlag('chef', 'hasrecipe')) {\n    if (getFlag('chef', 'hasbacon') && !getFlag('stove', 'working') || getFlag('chef', 'hasbacon') && getFlag('stove', 'working') && !getFlag('gas line', 'gassed')) {\n        play('\"Wow, would you look at those eggs! Fantastic. Well done, my boy. Well done. As soon as we get that stove working, I can poach these puppies and add them to our benedict.\"', 'z8wjb3tddu');\n    } else if (!getFlag('chef', 'hasbacon') && getFlag('stove', 'working') && getFlag('gas line', 'gassed')) {\n        play('\"Wow, would you look at those eggs! Fantastic. Well done, my boy. Well done. As soon as we get that bacon, I can poach these puppies and add them to our benedict.\"', 'mhsmxuiy9k');\n    } else if (getFlag('chef', 'hasbacon') && getFlag('stove', 'working') && getFlag('gas line', 'gassed')) {\n        play('\"Wow, would you look at those eggs! Fantastic. Well done, my boy. Well that\\'s it! I have everything I need to get cookin\\'\"\\n\\n The chef gathers the ingredients and turns on the stove. You watch as the chef masterfully whips up a fresh batch of Eggs Benedict, the smoky smells of bacon and buttery hollandaise fill the room with a decadent aroma.\\n\\n\"Ohh that smell! Yes that wonderful smell. I remember now. The passcode, it\\'s 2342, a year of some importance to the Master as I recall.\"', 'opt83hjdvp');\n        setFlag('keypad', 'codeready');\n        addItemToScene('eggs benedict_ob', 'the kitchen');\n        makeUnbroachable('chef', 'eggs benedict');\n    } else {\n        play('\"Wow, would you look at those eggs! Fantastic. Well done, my boy. Well done. As soon as we get some bacon, and a working stove, I can poach these puppies and add them to our benedict.\"', 'tnbbcmoekb');\n    }\n}",
+                    "script": "callCombination('combine', 'eggs', 'chef');",
                     "aliases": [
                         "show"
                     ],
@@ -8957,7 +8986,7 @@
                     "name": "give",
                     "id": "pDh2hLo0MtFfJSVaeNMJmBDPVm13HtvA",
                     "functions": [],
-                    "script": "play('\"What?! You have the key?! Then what are you waiting for, man? Put it in the door and get me out of here!\"', 'khkpi1gudr');",
+                    "script": "callCombination('combine', 'butler', 'key');",
                     "aliases": [],
                     "recipient": "butler",
                     "failure": [
@@ -9763,7 +9792,7 @@
                     "name": "take",
                     "id": "aFdgjiRvj2IOoLoj9o14qbZOXC3f95CU",
                     "functions": [],
-                    "script": "if (!getFlag('journal_study', 'read')) {\n    play('You flip through the pages of the journal. Most of it is filled with a handwritten scrawl of indecipherable symbols, diagrams and strings of unknown characters. In the last few pages however, you discover an entry in perfectly readable english:\\n\\n\"It was sometime in the late 7th century that I happened upon these marvelous mahogany wood panels in a merchant\\u2019s trailer in the markets of Constantinople. Upon examination I was stunned to discover that its rich inlays depicted the legend of Tab and Zal\\u2014A tale that I had hoped had been long lost to the ravages of time. Apparently, not so.\" \\n\\n\"The topmost panel shows the arrival of the gods Tab and Zal from the sky to the people of ancient Sumer. Tab and Zal could not stay long on the land, for by nature they were transitory beings, but before they left, they prophesied a great calamity in man\\u2019s future, one that only they had the power to stem. \\n\\n\"On the second panel, you can see the gods bestowing their knowledge to the village elders in the form of three magic runes, each with powers beyond imagining. The final piece features the villagers swearing oaths to safeguard the stones, and vowing to keep them forever hidden across the ages, so that one day Tab and Zal might return to help in the time of chaos.\"\\n\\n \"Even though the carvings were hardly enough to betray all the details of the legend, there was no sense in risking that this forgotten chapter of history become public knowledge. So I stole them. And now I\\u2019ve had them repurposed as a rather regal door for my study. Still, the incident was disquieting\\u2014Who was this artist? How many more still remember? It is a question I intend to find the answer to.\"\\n\\nYou close the journal and stash it in your inventory for future reference.', 'qug3q1fext');\n    takeItem('journal_study');\n} else {\n    play('You pick up the journal for later reference.', 'bk1uw2zy2f');\n    takeItem('journal_study');\n}\nonce();",
+                    "script": "if (!getFlag('journal_study', 'read')) {\n    play('You flip through the pages of the journal. Most of it is filled with a handwritten scrawl of indecipherable symbols, diagrams and strings of unknown characters. In the last few pages however, you discover an entry in perfectly readable english:\\n\\n', 'narrjournaltake1');\n    play('\"It was sometime in the late 7th century that I happened upon these marvelous mahogany wood panels in a merchant\\u2019s trailer in the markets of Constantinople. Upon examination I was stunned to discover that its rich inlays depicted the legend of Tab and Zal\\u2014A tale that I had hoped had been long lost to the ravages of time. Apparently, not so.\" \\n\\n\"The topmost panel shows the arrival of the gods Tab and Zal from the sky to the people of ancient Sumer. Tab and Zal could not stay long on the land, for by nature they were transitory beings, but before they left, they prophesied a great calamity in man\\u2019s future, one that only they had the power to stem. \\n\\n\"On the second panel, you can see the gods bestowing their knowledge to the village elders in the form of three magic runes, each with powers beyond imagining. The final piece features the villagers swearing oaths to safeguard the stones, and vowing to keep them forever hidden across the ages, so that one day Tab and Zal might return to help in the time of chaos.\"\\n\\n \"Even though the carvings were hardly enough to betray all the details of the legend, there was no sense in risking that this forgotten chapter of history become public knowledge. So I stole them. And now I\\u2019ve had them repurposed as a rather regal door for my study. Still, the incident was disquieting\\u2014Who was this artist? How many more still remember? It is a question I intend to find the answer to.\"\\n\\n', 'masterjournalread', 'the master');\n    play('You close the journal and stash it in your inventory for future reference.', 'narrjournaltake2');\n    takeItem('journal_study');\n} else {\n    play('You pick up the journal for later reference.', 'bk1uw2zy2f');\n    takeItem('journal_study');\n}\nonce();",
                     "aliases": []
                 }
             ],
@@ -12243,7 +12272,7 @@
                     "name": "give",
                     "id": "Cqx5r6h2QY8WhBGlqCDin4crpLUFVn8G",
                     "functions": [],
-                    "script": "play('You give the Eggs Benedict recipe to the chef. \\n\\n \"Well would you look at that...This was Master\\'s favorite dish whenever he worked on his machine. WAIT! I remember now! The passcode, he wanted me to remember the passcode! The Master was having trouble remembering things, just like the rest of us, so he told me the passcode in case he ever forgot it.\" \\n\\n**New Topics Added: \"Passcode\" & \"Eggs Benedict\"**', 'aswv2agtwm');\nsetFlag('chef', 'hasrecipe');\nremoveItemFromInventory('recipe');\nmakeBroachable('chef', 'passcode');\nmakeBroachable('chef', 'eggs benedict');\nonce();",
+                    "script": "callCombination('combine', 'recipe', 'chef');",
                     "aliases": [
                         "give",
                         " show"
@@ -12581,7 +12610,7 @@
                     "name": "open",
                     "id": "71XEJo58EOLTwp3Q3Dan_Q6jIFWS2gx6",
                     "functions": [],
-                    "script": "if (getFlag('roof hatch', 'open')) {\n    play('It\\'s already open.', 'lonytevthb');\n} else {\n    play('You swing open the hatch. An attached rope-ladder flops down to the room below. You see that it is the hall of portraits on the second floor.', 'y5siej0iu8');\n    addItemToScene('rope ladder', 'the rooftop');\n    addItemToScene('rope ladder_hall', 'the hall of history');\n    changeInSceneDescription('roof hatch', {\n        text: 'Toward the middle of the roof, a rope-ladder leads down through an opening into the mansion.',\n        audio: 'i9wbtaht2z'\n    });\n    addExit('the rooftop', 'down','the hall of history', 'down to the Hall of History', '3049hg2')\n    addExit('the hall of history', 'up' ,'the rooftop','up to the Rooftop', 'aogfh49ng')\n    setFlag('roof hatch', 'open');\n}",
+                    "script": "if (getFlag('roof hatch', 'open')) {\n    play('It\\'s already open.', 'lonytevthb');\n} else {\n    play('You swing open the hatch. An attached rope-ladder flops down to the room below. You see that it is the hall of portraits on the second floor.', 'y5siej0iu8');\n    addItemToScene('rope ladder', 'the rooftop');\n    addItemToScene('rope ladder_hall', 'the hall of history');\n    changeInSceneDescription('roof hatch', {\n        text: 'Toward the middle of the roof, a rope-ladder leads down through an opening into the mansion.',\n        audio: 'i9wbtaht2z'\n    });\n    addExit('the rooftop', 'down', 'the hall of history', 'down to the Hall of History', '3049hg2');\n    addExit('the hall of history', 'up', 'the rooftop', 'up to the Rooftop', 'aogfh49ng');\n    setFlag('roof hatch', 'open');\n}",
                     "aliases": [
                         "pull"
                     ]
@@ -13285,7 +13314,7 @@
                     "name": "maid_1",
                     "id": "3HyBiBy93AP7anW_F3JaK8bJrNHP5VG9",
                     "response": [],
-                    "script": "",
+                    "script": "if (!getFlag('freebutler', 'maidbroached')) {\n    setFlag('freebutler', 'maidbroached');\n}\nif (!getAttribute('freebutler', 'newletter')) {\n    setAttribute('freebutler', 'newletter', [\n        {\n            text: '\"I see you\\'ve delivered my letter. Thank you. But I\\'m worried I didn\\'t say enough. She\\'s such a wonderful woman and I\\'d hate to lose her. Sorry to be a bother, but would you mind fetching another bouquet? I\\'d like to send her another letter.\"',\n            audio: 'ad654fdfa',\n            character: 'freebutler'\n        },\n        {\n            text: '\"I\\'d like to send her another letter, would you mind fetching another lovely bouquet of petunias?\"',\n            audio: '54adfnav',\n            character: 'freebutler'\n        }\n    ]);\n}\nif (!getAttribute('freebutler', 'maid')) {\n    setAttribute('freebutler', 'maid', [\n        {\n            text: '\"My darling Cosette! She must be beside herself with worry. I must see her at once.\"\\n\\n The Butler starts for the door, but stops when he sees himself in the mirror.\\n\\n\"Dear god, look at the state of me. I can\\'t let her see me like this. Oh, but I must let her know I\\'m all right. I shall write to her.\"\\n\\n He pulls a pen and paper from his jacket and begins writing.\\n\\n\"I\\'ll also need to give her something by way of an apology for my long absence. Something beautiful. Do you have anything like that?\"',\n            audio: '65a4dffha',\n            character: 'freebutler_cutscene'\n        },\n        {\n            text: '\"Before I can send her this letter, I\\'ll need some sort of gift to include. Something beautiful. Do you have anything like that?\"',\n            audio: 'lkj1258a5hmc',\n            character: 'freebutler'\n        }\n    ]);\n}\nif (getFlag('maid', 'gone')) {\n    play('\"I see you\\'ve delivered my letter! Did she just love it? Oooh, don\\'t tell me, don\\'t tell me. I\\'ll wait to hear it from her. She\\'s very passionate you know, I\\'d hate to ever be on her bad side!\"', 'lkadh854ha', 'freebutler');\n    makeUnbroachable('freebutler', 'maid_1');\n} else if (getFlag('freebutler', 'waiting')) {\n    play('\"Please deliver my gift to my fiancé as soon as possible!\"', 'oiuahg47gnal', 'freebutler');\n} else if (getFlag('maid', 'firstdeliver')) {\n    playCycle(getAttribute('freebutler', 'newletter'));\n    if (!getFlag('notepad', 'beautifulcomplete') && !getFlag('notepad', 'getbeautiful')) {\n        setFlag('notepad', 'getbeautiful');\n    }\n} else {\n    playInSequence(getAttribute('freebutler', 'maid'));\n    if (!getFlag('notepad', 'beautifulcomplete') && !getFlag('notepad', 'getbeautiful')) {\n        setFlag('notepad', 'getbeautiful');\n        if (hasItem('notepad')) {\n            play('\\n\\n You add \"Find something beautiful for the butler\" to your to-do list.', 'butlermaidtopic1');\n        }\n    }\n}",
                     "aliases": [
                         "maid",
                         " fiancé",
@@ -17053,14 +17082,7 @@
                 {
                     "name": "Tape #29",
                     "id": "bPJHmniQaFQKh8ocevoIbcZIcVMVuSWW",
-                    "response": [
-                        {
-                            "text": "\n",
-                            "audio": "jmhd7m9k6a",
-                            "path": "items/tape_player/topics/tape_#29/response",
-                            "character": "tape player"
-                        }
-                    ],
+                    "response": [],
                     "script": "callAction('use', 'tape 29');",
                     "aliases": [
                         "Tape Number 29",
@@ -17087,15 +17109,8 @@
                 {
                     "name": "Tape #1",
                     "id": "1Si4rJ9SzGKfOAeLxZ3tWOYMZzIOMMnv",
-                    "response": [
-                        {
-                            "text": "**TAPE RECORDER SFX**\n\nKINDRA: \"Hey, Kindra, it’s Kindra. Found this old tape recorder tucked away in Father’s study.  Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don’t forget to keep up with it, okay? Also, don’t tell father about this. He doesn’t like me messing with temporal artifacts, so it’s our little secret. He’s gone again today. He's been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I’ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there’s some trick to it, but it’s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I’ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them — it’s peaceful. It almost feels like I’m somewhere else. \"\n",
-                            "audio": "ytzjbmuln4",
-                            "path": "items/tape_player/topics/tape_#1/response",
-                            "character": "tape player"
-                        }
-                    ],
-                    "script": null,
+                    "response": [],
+                    "script": "callAction('use', 'tape 1');",
                     "aliases": [
                         "Tape 1",
                         " First Tape",
@@ -17402,7 +17417,7 @@
                     "name": "use",
                     "id": "B-lnto1SII_JLtj3kKGdAoHtuAtxx484",
                     "functions": [],
-                    "script": "play('**TAPE RECORDER SFX** \\n\\n WOMAN\\'S VOICE: \"I\\u2019ve got the stone, the-the, damn it, what is it called? It won\\u2019t be long before he notices it\\'s gone. I\\'ve got to get to the lab, but I\\u2019m leaving the recorder and this message here in your room in case I fail...Archie, please, I know you\\'re his Butler, but you\\u2019re my only friend here. If I fail, you have to help me remember. Whatever happens, he\\u2019s got to be stopped. What he\\u2019s planning\\u2014\"\\n\\n**A MUFFED NOISE & FOOTSTEPS**\\n\\n MAN\\'S VOICE: \"Kindra! Kindra! Where are you?\"\\n\\n KINDRA: \\u201DComing father! Wish me luck.\\u201D\\n\\n**SOUND OF TAPE REACHING END**', 'wddn6ocgk9', 'kindra_cutscene');",
+                    "script": "play('**TAPE RECORDER SFX** \\n\\n WOMAN\\'S VOICE: \"I\\u2019ve got the stone, the-the, damn it, what is it called? It won\\u2019t be long before he notices it\\'s gone. I\\'ve got to get to the lab, but I\\u2019m leaving the recorder and this message here in your room in case I fail...Archie, please, I know you\\'re his Butler, but you\\u2019re my only friend here. If I fail, you have to help me remember. Whatever happens, he\\u2019s got to be stopped. What he\\u2019s planning\\u2014\"\\n\\n**A MUFFED NOISE & FOOTSTEPS**\\n\\n MAN\\'S VOICE: \"Kindra! Kindra! Where are you?\"\\n\\n KINDRA: \\u201DComing father! Wish me luck.\\u201D\\n\\n**SOUND OF TAPE REACHING END**', 'wddn6ocgk9', 'kindra_tape');",
                     "aliases": [
                         "play",
                         " listen",
@@ -17463,14 +17478,14 @@
                     "name": "take",
                     "id": "ioOg4uFAN4zlqey0r_JG0c-JljSGFgm5",
                     "functions": [],
-                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'stnbzo8x3d');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('tape 1');\nmakeBroachable('tape player', 'Tape #1');\nchangeDescription('tape 1', [{\n        text: 'It\\'s the tape you found in the living room, under the ottoman. Its label reads: \"TAPE: #1\".',\n        audio: 'ygasxghirs'\n    }]);\nif (getFlag('ottoman', 'carryottoman')) {\n    play('You put down the ottoman, pick up the tape, and put it in Kindra\\'s player:\\n\\n', 'wwictwgca1');\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'ny1yuus8du', 'kindra');\n    play('\\n\\nYou stash the tape in your inventory.', 'l4fqhqxy45');\n    changeInSceneDescription('ottoman', {\n        text: 'with a sturdy ottoman',\n        audio: 'wa4btb1rac'\n    });\n    removeFlag('ottoman', 'carryottoman');\n} else {\n    play('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'wrniens1w0');\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'c1muaddx64', 'kindra');\n    play('\\n\\nYou stash the tape in your inventory.', 'od1e7q4a9h');\n}\nonce();",
+                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'stnbzo8x3d');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('tape 1');\nmakeBroachable('tape player', 'Tape #1');\nchangeDescription('tape 1', [{\n        text: 'It\\'s the tape you found in the living room, under the ottoman. Its label reads: \"TAPE: #1\".',\n        audio: 'ygasxghirs'\n    }]);\nif (getFlag('ottoman', 'carryottoman')) {\n    play('You put down the ottoman, pick up the tape, and put it in Kindra\\'s player:\\n\\n', 'wwictwgca1');\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'ny1yuus8du', 'kindra_tape');\n    play('\\n\\nYou stash the tape in your inventory.', 'l4fqhqxy45');\n    changeInSceneDescription('ottoman', {\n        text: 'with a sturdy ottoman',\n        audio: 'wa4btb1rac'\n    });\n    removeFlag('ottoman', 'carryottoman');\n} else {\n    play('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'wrniens1w0');\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'c1muaddx64', 'kindra_tape');\n    play('\\n\\nYou stash the tape in your inventory.', 'od1e7q4a9h');\n}\nonce();",
                     "aliases": []
                 },
                 {
                     "name": "use",
                     "id": "lA7wV-YEB1PvF2CrFyI6ZwkdN1eAbYth",
                     "functions": [],
-                    "script": "if (hasItem('tape 1')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'zdymimrvti', 'kindra');\n} else {\n    callAction('take', 'tape 1');\n}",
+                    "script": "if (hasItem('tape 1')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Hey, Kindra, it\\u2019s Kindra. Found this old tape recorder tucked away in Father\\u2019s study. \\xA0Figure maybe it can help with our memory if we start keeping a little voice diary. So, you know, don\\u2019t forget to keep up with it, okay? Also, don\\u2019t tell father about this. He doesn\\u2019t like me messing with temporal artifacts, so it\\u2019s our little secret. He\\u2019s gone again today. He\\'s been gone for awhile this time. Maybe in Europe again. Hope he comes back soon, the house is really starting to fall apart. In his absence, I\\u2019ve taken to walking the grounds. Yesterday I tried to solve the hedge maze, but nothing made any sense to me. I know there\\u2019s some trick to it, but it\\u2019s hard to run an empirical study when you can barely even remember what you had for breakfast. Tonight I think I\\u2019ll go up the lighthouse and watch the stars flickering over the edge of the world. I like looking at them\\u2014It\\u2019s peaceful. It almost feels like I\\u2019m somewhere else.\"', 'zdymimrvti', 'kindra_tape');\n} else {\n    callAction('take', 'tape 1');\n}",
                     "aliases": [
                         "play",
                         " listen to"
@@ -18019,7 +18034,7 @@
                     "name": "use",
                     "id": "xD7qDrtkab1XFVZpYqfivRiQX7n5XYIl",
                     "functions": [],
-                    "script": "if (hasItem('tape 6')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"I had the dream again. I\\u2019m in a world made of metal buildings, towering straight up into the clouds\\u2014There are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar. I recognize words\\u2014The names of places and things. I see machines made of pure, suspended light. Father says it\\u2019s the future I\\u2019m seeing\\u2014The visions, another side effect of living here in liminal space. It\\u2019s all so real, so...present. If that\\u2019s the future, how do I know that now...is even now? Ugh, I hate this place.\"', 'sf31vfovfc', 'kindra');\n    if (!getFlag('notepad', 'getlab') && !getFlag('notepad', 'labcomplete')) {\n        setFlag('notepad', 'getlab');\n    }\n} else {\n    callAction('take', 'tape 6');\n}",
+                    "script": "if (hasItem('tape 6')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"I had the dream again. I\\u2019m in a world made of metal buildings, towering straight up into the clouds\\u2014There are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar. I recognize words\\u2014The names of places and things. I see machines made of pure, suspended light. Father says it\\u2019s the future I\\u2019m seeing\\u2014The visions, another side effect of living here in liminal space. It\\u2019s all so real, so...present. If that\\u2019s the future, how do I know that now...is even now? Ugh, I hate this place.\"', 'sf31vfovfc', 'kindra_tape');\n    if (!getFlag('notepad', 'getlab') && !getFlag('notepad', 'labcomplete')) {\n        setFlag('notepad', 'getlab');\n    }\n} else {\n    callAction('take', 'tape 6');\n}",
                     "aliases": [
                         "play",
                         " listen to"
@@ -18029,7 +18044,7 @@
                     "name": "take",
                     "id": "9IDSHvflJY2TJ-kBe032x-RJN5DOopYg",
                     "functions": [],
-                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'wk7c7rkwer');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('tape 6');\nchangeDescription('tape 6', [{\n        text: 'It\\'s the tape you found outside the lighthouse. Its label reads: \"TAPE: #6\"',\n        audio: 'o6tz943zqw'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', '5gzqet1bji');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"I had the dream again. I\\u2019m in a world made of metal buildings, towering straight up into the clouds\\u2014There are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar. I recognize words\\u2014The names of places and things.  I see machines made of pure, suspended light. Father says it\\u2019s the future I\\u2019m seeing\\u2014The visions, another side effect of living here in liminal space. It\\u2019s all so real, so...present. If that\\u2019s the future, how do I know that now...is even now? Ugh, I hate this place.\"', 'bllrqm9sbd', 'kindra');\nplay('\\n\\nYou stash the tape in your inventory.', 'zqrsos6eh9');\nmakeBroachable('tape player', 'tape 6');\nonce();",
+                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'wk7c7rkwer');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('tape 6');\nchangeDescription('tape 6', [{\n        text: 'It\\'s the tape you found outside the lighthouse. Its label reads: \"TAPE: #6\"',\n        audio: 'o6tz943zqw'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', '5gzqet1bji');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"I had the dream again. I\\u2019m in a world made of metal buildings, towering straight up into the clouds\\u2014There are streets crowded with strange looking people. Electric lights and sounds fill the air, and in the moment it is so vivid...so foreign, yet familiar. I recognize words\\u2014The names of places and things.  I see machines made of pure, suspended light. Father says it\\u2019s the future I\\u2019m seeing\\u2014The visions, another side effect of living here in liminal space. It\\u2019s all so real, so...present. If that\\u2019s the future, how do I know that now...is even now? Ugh, I hate this place.\"', 'bllrqm9sbd', 'kindra_tape');\nplay('\\n\\nYou stash the tape in your inventory.', 'zqrsos6eh9');\nmakeBroachable('tape player', 'tape 6');\nonce();",
                     "aliases": [],
                     "failure": []
                 }
@@ -18087,14 +18102,14 @@
                     "name": "take",
                     "id": "DL2cBBFoGJUgIIz6L1XddQwmyBV_bz0D",
                     "functions": [],
-                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'yrdblpttbf');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 22');\nchangeInSceneDescription('writing desk_study', {\n    text: '',\n    audio: 'm2zrrbwiiy'\n});\nchangeDescription('tape 22', [{\n        text: 'It\\'s the tape you found in the study. Its label reads: \"TAPE: #22\"',\n        audio: 'kibez69aht'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', '54l9jydh71');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says \\u201Cit\\u2019s only for those who can move the hands of time.\\u201D But I\\u2019m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it.  And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier? \\xA0Maybe then I would start to remember\\u2014I don\\'t know\\u2026but I have to try it. If he won\\u2019t show me where he keeps the doors of time, I\\u2019ll have to find it myself.\"', '8pplinhxmb', 'kindra');\nplay('\\n\\nYou stash the tape in your inventory.', 'ucotqhzvc9');\nmakeBroachable('tape player', 'tape 22');\nonce();",
+                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'yrdblpttbf');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 22');\nchangeInSceneDescription('writing desk_study', {\n    text: '',\n    audio: 'm2zrrbwiiy'\n});\nchangeDescription('tape 22', [{\n        text: 'It\\'s the tape you found in the study. Its label reads: \"TAPE: #22\"',\n        audio: 'kibez69aht'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', '54l9jydh71');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says \\u201Cit\\u2019s only for those who can move the hands of time.\\u201D But I\\u2019m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it.  And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier? \\xA0Maybe then I would start to remember\\u2014I don\\'t know\\u2026but I have to try it. If he won\\u2019t show me where he keeps the doors of time, I\\u2019ll have to find it myself.\"', '8pplinhxmb', 'kindra_tape');\nplay('\\n\\nYou stash the tape in your inventory.', 'ucotqhzvc9');\nmakeBroachable('tape player', 'tape 22');\nonce();",
                     "aliases": []
                 },
                 {
                     "name": "use",
                     "id": "uexMgbMuYUnkE-VS4qnHs7xH_fr2_1wI",
                     "functions": [],
-                    "script": "if (hasItem('tape 22')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says \\u201Cit\\u2019s only for those who can move the hands of time.\\u201D But I\\u2019m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it. And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier? \\xA0Maybe then I would start to remember\\u2014I don\\'t know\\u2026but I have to try it. If he won\\u2019t show me where he keeps the doors of time, I\\u2019ll have to find them myself.\"', 'dzyozpip7s', 'kindra');\n} else {\n    callAction('take', 'tape 22');\n}",
+                    "script": "if (hasItem('tape 22')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Father is hiding something. Why else keep his lab secret from me? Whenever I ask to see it, he says \\u201Cit\\u2019s only for those who can move the hands of time.\\u201D But I\\u2019m his daughter, why not teach me? There is something tucked away in the corners of my mind but he refuses to help me access it. And why is his memory so much better than ours? Is it because he spends such much time outside of the Nexus, in real time? What if I could just get closer to the temporal barrier? \\xA0Maybe then I would start to remember\\u2014I don\\'t know\\u2026but I have to try it. If he won\\u2019t show me where he keeps the doors of time, I\\u2019ll have to find them myself.\"', 'dzyozpip7s', 'kindra_tape');\n} else {\n    callAction('take', 'tape 22');\n}",
                     "aliases": [
                         "play",
                         " listen to"
@@ -18154,14 +18169,14 @@
                     "name": "take",
                     "id": "L9MRRlLJQFAE8UrnTNKOYuhH-Q9Hl_DG",
                     "functions": [],
-                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', '7s2feh5ban');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 17');\nchangeDescription('Tape 17', [{\n        text: 'It\\'s the tape you found on the balcony. Its label reads: \"TAPE: #17\"',\n        audio: 'fmdgskomal'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'zxxi0xu4sq');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Ok, quick, before I forget. Father has a secret room hidden somewhere\\u2014Right here in the mansion! Archie told me he saw it once, but of course he can\\u2019t remember where. Thank god for Archie, he\\u2019s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don\\u2019t we just leave? But he says it\\u2019s not safe for me out there in the non-liminal, not until he finishes his research\\u2014And that what he\\u2019s doing will help me\\u2014Help everyone! I don\\u2019t know what he means by that. Ok, remember, tomorrow you\\u2019re supposed to help pick out a gift for Cosette. Something pretty, I think.\"', 'fryqkiiwm6', 'kindra');\nplay('\\n\\nYou stash the tape in your inventory.', '0tv5nr0lzl');\nmakeBroachable('tape player', 'tape 17');\nonce();",
+                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', '7s2feh5ban');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 17');\nchangeDescription('Tape 17', [{\n        text: 'It\\'s the tape you found on the balcony. Its label reads: \"TAPE: #17\"',\n        audio: 'fmdgskomal'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'zxxi0xu4sq');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Ok, quick, before I forget. Father has a secret room hidden somewhere\\u2014Right here in the mansion! Archie told me he saw it once, but of course he can\\u2019t remember where. Thank god for Archie, he\\u2019s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don\\u2019t we just leave? But he says it\\u2019s not safe for me out there in the non-liminal, not until he finishes his research\\u2014And that what he\\u2019s doing will help me\\u2014Help everyone! I don\\u2019t know what he means by that. Ok, remember, tomorrow you\\u2019re supposed to help pick out a gift for Cosette. Something pretty, I think.\"', 'fryqkiiwm6', 'kindra_tape');\nplay('\\n\\nYou stash the tape in your inventory.', '0tv5nr0lzl');\nmakeBroachable('tape player', 'tape 17');\nonce();",
                     "aliases": []
                 },
                 {
                     "name": "use",
                     "id": "VQPpqSzPl9NrTxHiSakkL5RwPCE33avR",
                     "functions": [],
-                    "script": "if (hasItem('tape 17')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Ok, quick, before I forget. Father has a secret laboratory hidden somewhere\\u2014Right here in the mansion! Archie told me he saw it once, but of course he can\\u2019t remember where. Thank god for Archie, he\\u2019s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don\\u2019t we just leave? But he says it\\u2019s not safe for me out there in the non-liminal, not until he finishes his research\\u2014And that what he\\u2019s doing will help me\\u2014Help everyone! I don\\u2019t know what he means by that. Ok, remember, tomorrow you\\u2019re supposed to help pick out a gift for Cosette. Something pretty, I think.\"', 'qclbmsn7qa', 'kindra');\n    if (!getFlag('notepad', 'getlab') && !getFlag('notepad', 'labcomplete')) {\n        setFlag('notepad', 'getlab');\n    }\n} else {\n    callAction('take', 'tape 17');\n}",
+                    "script": "if (hasItem('tape 17')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"Ok, quick, before I forget. Father has a secret laboratory hidden somewhere\\u2014Right here in the mansion! Archie told me he saw it once, but of course he can\\u2019t remember where. Thank god for Archie, he\\u2019s the only one that really seems to care about getting out of this place, about having a future, any future. This morning I asked father: if the Nexus is so bad for my mind, then why don\\u2019t we just leave? But he says it\\u2019s not safe for me out there in the non-liminal, not until he finishes his research\\u2014And that what he\\u2019s doing will help me\\u2014Help everyone! I don\\u2019t know what he means by that. Ok, remember, tomorrow you\\u2019re supposed to help pick out a gift for Cosette. Something pretty, I think.\"', 'qclbmsn7qa', 'kindra_tape');\n    if (!getFlag('notepad', 'getlab') && !getFlag('notepad', 'labcomplete')) {\n        setFlag('notepad', 'getlab');\n    }\n} else {\n    callAction('take', 'tape 17');\n}",
                     "aliases": [
                         "play",
                         " listen to"
@@ -18221,14 +18236,14 @@
                     "name": "take",
                     "id": "KpQJlq9M8D5gYw2SXduvxO613p9iajth",
                     "functions": [],
-                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'sxfapdr3aw');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 24');\nchangeDescription('Tape 24', [{\n        text: 'It\\'s the tape you found in the lab. Its label reads: \"TAPE: #24\"',\n        audio: 'fxgqzo0aju'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'kj2acxrzhn');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"It\\u2019s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I\\u2019ve learned the truth? That he\\u2019s not my father but my kidnapper? That I have been kept here not just against my will, but against my self? My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its ancient resting place, its runes glowing with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can\\u2019t know that I\\u2019ve found out, but I can\\u2019t afford to wait until I forget again. I must get the runestone and then find a way to activate it. It\\'s the only safe way through the time rift.\"', 'pvsisfkuj5', 'kindra');\nplay('\\n\\nYou stash the tape in your inventory.', 'mklr3n5pfk');\nmakeBroachable('tape player', 'tape 24');\nonce();",
+                    "script": "if (!getFlag('tape player', 'hasmultipletapes')) {\n    setFlag('tape player', 'hasmultipletapes');\n    changeInventoryName('tape 29', '', 'sxfapdr3aw');\n    addItemToInventory('tapes');\n    removeAlias('tapes', 'tape');\n}\ntakeItem('Tape 24');\nchangeDescription('Tape 24', [{\n        text: 'It\\'s the tape you found in the lab. Its label reads: \"TAPE: #24\"',\n        audio: 'fxgqzo0aju'\n    }]);\nplay('You pick up the tape and put it in Kindra\\'s player:\\n\\n', 'kj2acxrzhn');\nplay('**TAPE RECORDER SFX**\\n\\n KINDRA: \"It\\u2019s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I\\u2019ve learned the truth? That he\\u2019s not my father but my kidnapper? That I have been kept here not just against my will, but against my self? My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its ancient resting place, its runes glowing with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can\\u2019t know that I\\u2019ve found out, but I can\\u2019t afford to wait until I forget again. I must get the runestone and then find a way to activate it. It\\'s the only safe way through the time rift.\"', 'pvsisfkuj5', 'kindra_tape');\nplay('\\n\\nYou stash the tape in your inventory.', 'mklr3n5pfk');\nmakeBroachable('tape player', 'tape 24');\nonce();",
                     "aliases": []
                 },
                 {
                     "name": "use",
                     "id": "HXN6bj-xnsI_PwLo0CswyqU-wOcfdffL",
                     "functions": [],
-                    "script": "if (hasItem('tape 24')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"It\\u2019s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I\\u2019ve learned the truth? That he\\u2019s not my father but my kidnapper? That I have been kept here not just against my will, but against my self! My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its ancient resting place, its runes glowing with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can\\u2019t know that I\\u2019ve found out, but I can\\u2019t afford to wait until I forget again. I must get the runestone and then find a way to activate it. It\\'s the only safe way through the time rift.\"', 'apibkfkmqu', 'kindra');\n} else {\n    callAction('take', 'tape 24');\n}",
+                    "script": "if (hasItem('tape 24')) {\n    play('**TAPE RECORDER SFX**\\n\\n KINDRA: \"It\\u2019s all a lie. The bastard has been lying to me the whole time. How long have I been here? Is this the first time I\\u2019ve learned the truth? That he\\u2019s not my father but my kidnapper? That I have been kept here not just against my will, but against my self! My identity! The time door seems to emanate pulses of linear energy, the nearer I approached it, the more my memories returned in jolting waves of clarity. Staring into the vortex, I could see the future...my past. I could see my team unearthing the stone from its ancient resting place, its runes glowing with the unclassifiable, space-distorting energy our LIGO had detected. Years and years of testing and obsessive experimentation, and finally that last night. The one that opened the door for him. He can\\u2019t know that I\\u2019ve found out, but I can\\u2019t afford to wait until I forget again. I must get the runestone and then find a way to activate it. It\\'s the only safe way through the time rift.\"', 'apibkfkmqu', 'kindra_tape');\n} else {\n    callAction('take', 'tape 24');\n}",
                     "aliases": [
                         "play",
                         " listen to"
@@ -21193,6 +21208,320 @@
             "lockable": false,
             "isOpen": false,
             "isLocked": false
+        },
+        {
+            "name": "kindra",
+            "id": "PJSK1PSle5U5s-7J0OozNVH9OcgrgMsW",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "UhBSnqdsnEMJLO6nZBWGiLU67bPayZMy",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "nf8yflaykl",
+                "path": "items/kindra/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "0lfdwrvflw",
+                "path": "items/kindra/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "crv3f5jnzf",
+                    "path": "items/kindra/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "kindra_tape",
+            "id": "QfFW8foKIhQtBCZjIrrImxtuj9zo69yy",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "qn20JntnLpHLNdFbDuI0wpkC6vYsMdJ1",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "bc55xllylh",
+                "path": "items/kindra_tape/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "ulkqupntmp",
+                "path": "items/kindra_tape/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "bksmubmeta",
+                    "path": "items/kindra_tape/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "cutscene",
+            "id": "Tq0nnxDIOFQaaE1pxRPMkbTTNC3eEYIa",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "aOzN6GdR7EvEQMWAMCjoXyzGv4wWDqWa",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "ufxldgthrh",
+                "path": "items/cutscene/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "lktkqxevr1",
+                "path": "items/cutscene/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "1qnfctv4fi",
+                    "path": "items/cutscene/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "the master",
+            "id": "xav0oV3F2zo3EUqwi4J967vuVCdrCtQc",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "6xV4A3lFzy5pKXukfx2us4aj7A96B5Us",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "wnsqlduojx",
+                "path": "items/the_master/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "3autgcsjf4",
+                "path": "items/the_master/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "lezyehhvvd",
+                    "path": "items/the_master/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "maid_cutscene",
+            "id": "kGmyBnzBU5Gs9hnB74Uw5wC--roWFj9W",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "Y20luJLaUdMDnwsupunzCY5WAS1PZnEp",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "5sgl5qasuz",
+                "path": "items/maid_cutscene/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "oemwqtgodl",
+                "path": "items/maid_cutscene/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "ccsorctzoj",
+                    "path": "items/maid_cutscene/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "kennel master_cutscene",
+            "id": "p42bYpWkSAAf9PIdCo588__5no02P9dh",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "Rk3KMrFuQ9CplTOWzEIWU0XXghO21rYT",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "tz58vavdov",
+                "path": "items/kennel_master_cutscene/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "eho1koz2vs",
+                "path": "items/kennel_master_cutscene/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "hd1op9igqr",
+                    "path": "items/kennel_master_cutscene/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "freebutler_cutscene",
+            "id": "eaCWFoqDZEgQvGK4ccuhAWEan8YBlIsV",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "QJa_21G_eWphxOxu9VwIoAQe2sEchMFY",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": "qtgcrcx6qr",
+                "path": "items/freebutler_cutscene/inventory",
+                "character": "narrator"
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": "4wqigauu1p",
+                "path": "items/freebutler_cutscene/inscenedescription",
+                "character": "narrator"
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": "sa9bobnjax",
+                    "path": "items/freebutler_cutscene/description",
+                    "character": "narrator"
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
+        },
+        {
+            "name": "narrator",
+            "id": "UVJ3hR4QoWnZfmiOldi3PDE8B0nGZIzq",
+            "topics": [],
+            "actions": [
+                {
+                    "name": "look at",
+                    "id": "s9ZSZuGJ8occ_6eqt9FqIXclvgUiQ1Ks",
+                    "functions": [],
+                    "script": null,
+                    "aliases": ""
+                }
+            ],
+            "aliases": [],
+            "inventory": {
+                "text": "",
+                "audio": ""
+            },
+            "inSceneDescription": {
+                "text": "",
+                "audio": ""
+            },
+            "description": [
+                {
+                    "text": "",
+                    "audio": ""
+                }
+            ],
+            "openable": false,
+            "takeable": false,
+            "lockable": false,
+            "isOpen": false,
+            "isLocked": false
         }
     ],
     "inventory": [],
@@ -21627,6 +21956,22 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "fix",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "stick",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
                 }
             ]
         },
@@ -21642,6 +21987,18 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "stick",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
                 }
             ]
         },
@@ -21672,6 +22029,10 @@
                 {
                     "name": "combine",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ]
         },
@@ -21701,6 +22062,14 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "place",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
                 }
             ]
         },
@@ -21716,6 +22085,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "fill",
+                    "order": "current"
                 }
             ]
         },
@@ -21761,6 +22134,22 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "wipe up",
+                    "order": "current"
+                },
+                {
+                    "name": "clean",
+                    "order": "current"
+                },
+                {
+                    "name": "soak up",
+                    "order": "reverse"
+                },
+                {
+                    "name": "mop up",
+                    "order": "reverse"
                 }
             ]
         },
@@ -21791,6 +22180,22 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "wipe up",
+                    "order": "reverse"
+                },
+                {
+                    "name": "clean",
+                    "order": "reverse"
+                },
+                {
+                    "name": "soak up",
+                    "order": "reverse"
+                },
+                {
+                    "name": "mop up",
+                    "order": "reverse"
                 }
             ]
         },
@@ -21805,6 +22210,10 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "unscrew",
                     "order": "either"
                 }
             ]
@@ -21840,6 +22249,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ]
         },
@@ -21855,6 +22268,30 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "tie",
+                    "order": "current"
+                },
+                {
+                    "name": "fasten",
+                    "order": "current"
+                },
+                {
+                    "name": "wrap",
+                    "order": "current"
+                },
+                {
+                    "name": "attach",
+                    "order": "current"
+                },
+                {
+                    "name": "affix",
+                    "order": "current"
+                },
+                {
+                    "name": "knot",
+                    "order": "current"
                 }
             ]
         },
@@ -21873,6 +22310,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ]
@@ -21897,6 +22338,14 @@
                 {
                     "name": "kill",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "current"
                 }
             ]
         },
@@ -21929,7 +22378,15 @@
             "functions": [],
             "aliasGrammars": [
                 {
-                    "name": "combine, give, show",
+                    "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "current"
+                },
+                {
+                    "name": "show",
                     "order": "either"
                 }
             ]
@@ -21949,6 +22406,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ]
@@ -21980,6 +22441,10 @@
                 },
                 {
                     "name": "shatter",
+                    "order": "reverse"
+                },
+                {
+                    "name": "bash",
                     "order": "reverse"
                 }
             ]
@@ -22023,6 +22488,10 @@
                 {
                     "name": "spike",
                     "order": "reverse"
+                },
+                {
+                    "name": "add",
+                    "order": "current"
                 }
             ]
         },
@@ -23118,6 +23587,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "screw",
+                    "order": "either"
                 }
             ]
         },
@@ -23133,6 +23606,18 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "screw",
+                    "order": "either"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "reattach",
+                    "order": "either"
                 }
             ]
         },
@@ -23147,6 +23632,18 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "tie",
+                    "order": "either"
+                },
+                {
+                    "name": "connect",
                     "order": "either"
                 }
             ]
@@ -23458,6 +23955,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "clamp",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23473,6 +23974,30 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "unlock",
+                    "order": "reverse"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
+                },
+                {
+                    "name": "stick",
+                    "order": "current"
+                },
+                {
+                    "name": "turn",
+                    "order": "current"
+                },
+                {
+                    "name": "twist",
+                    "order": "either"
+                },
+                {
+                    "name": "open",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23577,6 +24102,10 @@
                 {
                     "name": "set",
                     "order": "current"
+                },
+                {
+                    "name": "insert",
+                    "order": "current"
                 }
             ]
         },
@@ -23619,6 +24148,22 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "set",
+                    "order": "current"
+                },
+                {
+                    "name": "insert",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
+                },
+                {
+                    "name": "place",
+                    "order": "current"
                 }
             ]
         },
@@ -23634,6 +24179,18 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "add",
+                    "order": "current"
+                },
+                {
+                    "name": "crank",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23672,6 +24229,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
                 }
             ]
         },
@@ -23687,6 +24252,18 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
+                },
+                {
+                    "name": "drug",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23777,6 +24354,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "add",
+                    "order": "either"
                 }
             ]
         },
@@ -23796,6 +24377,14 @@
                 {
                     "name": "give",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "drug",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23826,6 +24415,26 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "smash",
+                    "order": "reverse"
+                },
+                {
+                    "name": "hit",
+                    "order": "reverse"
+                },
+                {
+                    "name": "break",
+                    "order": "reverse"
+                },
+                {
+                    "name": "shatter",
+                    "order": "reverse"
+                },
+                {
+                    "name": "bash",
+                    "order": "reverse"
                 }
             ]
         },
@@ -23864,6 +24473,18 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "screw",
+                    "order": "either"
+                },
+                {
+                    "name": "attach",
+                    "order": "either"
+                },
+                {
+                    "name": "reattach",
+                    "order": "either"
                 }
             ]
         },
@@ -23881,7 +24502,7 @@
                     "order": "either"
                 },
                 {
-                    "name": "",
+                    "name": "unscrew",
                     "order": "either"
                 },
                 {
@@ -24055,6 +24676,10 @@
                 {
                     "name": "prune",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -24105,6 +24730,10 @@
                 {
                     "name": "cut",
                     "order": "current"
+                },
+                {
+                    "name": "slice",
+                    "order": "current"
                 }
             ]
         },
@@ -24132,6 +24761,10 @@
                 {
                     "name": "chop up",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -24158,6 +24791,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -24194,6 +24831,10 @@
                 {
                     "name": "chop up",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -24220,6 +24861,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -24248,6 +24893,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -24274,6 +24923,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -24302,6 +24955,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -24329,6 +24986,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "current"
                 }
             ],
             "responses": [
@@ -24709,21 +25370,6 @@
             ]
         },
         {
-            "id": "AySkPUp5Q9nOdyiKTVgw63a8aYgGPlqS",
-            "objects": [
-                "lantern",
-                "charged runestone"
-            ],
-            "script": null,
-            "functions": [],
-            "aliasGrammars": [
-                {
-                    "name": "combine",
-                    "order": "either"
-                }
-            ]
-        },
-        {
             "id": "q-sNWZeXE3E-M8icEhiXbHGUIfjDDOTw",
             "objects": [
                 "lantern",
@@ -24803,6 +25449,10 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "unscrew",
                     "order": "either"
                 }
             ],
@@ -24934,6 +25584,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -25053,6 +25707,10 @@
                 {
                     "name": "give",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
                 }
             ],
             "responses": []
@@ -25107,6 +25765,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -25129,6 +25795,14 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
                     "order": "either"
                 }
             ],
@@ -25267,6 +25941,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -25317,6 +25999,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25344,6 +26030,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25370,6 +26060,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25401,6 +26095,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25441,6 +26139,14 @@
                 {
                     "name": "murder",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25467,6 +26173,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25495,6 +26205,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25518,6 +26232,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "cut",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25549,6 +26271,10 @@
                 {
                     "name": "stab",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25575,6 +26301,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25603,6 +26333,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25629,6 +26363,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25657,6 +26395,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25684,6 +26426,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25710,6 +26456,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25750,6 +26500,14 @@
                 {
                     "name": "murder",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25776,6 +26534,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25804,6 +26566,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25830,6 +26596,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25862,6 +26632,10 @@
                 {
                     "name": "stab",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25888,6 +26662,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -25920,6 +26698,14 @@
                 {
                     "name": "shave",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -25947,6 +26733,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ]
         },
@@ -25969,6 +26759,14 @@
                 },
                 {
                     "name": "murder",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
                     "order": "reverse"
                 }
             ],
@@ -26001,6 +26799,10 @@
                 {
                     "name": "trim",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -26032,6 +26834,10 @@
                 {
                     "name": "stab",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": []
@@ -26055,6 +26861,10 @@
                 },
                 {
                     "name": "break",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -26082,6 +26892,14 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
                     "order": "reverse"
                 }
             ],
@@ -26114,6 +26932,14 @@
                 {
                     "name": "murder",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -26140,6 +26966,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -26180,6 +27010,14 @@
                 {
                     "name": "murder",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -26219,6 +27057,14 @@
                 {
                     "name": "murder",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
+                },
+                {
+                    "name": "attack",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -26245,6 +27091,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -26510,6 +27360,10 @@
                 {
                     "name": "stab",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -26759,6 +27613,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
                 }
             ],
             "responses": []
@@ -26774,6 +27636,14 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
                     "order": "either"
                 }
             ],
@@ -26798,6 +27668,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -26820,6 +27698,14 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
                     "order": "either"
                 }
             ],
@@ -26848,6 +27734,18 @@
                 {
                     "name": "give",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
+                },
+                {
+                    "name": "drug",
+                    "order": "current"
                 }
             ],
             "responses": [
@@ -26976,6 +27874,14 @@
                 {
                     "name": "give",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "drug",
+                    "order": "current"
                 }
             ],
             "responses": [
@@ -27003,6 +27909,14 @@
                 {
                     "name": "give",
                     "order": "either"
+                },
+                {
+                    "name": "offer",
+                    "order": "either"
+                },
+                {
+                    "name": "drug",
+                    "order": "current"
                 }
             ],
             "responses": [
@@ -27194,7 +28108,7 @@
                 "painting",
                 "chef"
             ],
-            "script": "play('\"Hmm, the hedges do seem to spell out letters, but they don\\'t make any sense.\",\\'', 'chef');",
+            "script": "play('\"Hmm, the hedges do seem to spell out letters, but they don\\'t make any sense.\"\\'', 'chefpaintingcombo', 'chef');",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -27371,7 +28285,7 @@
             ],
             "responses": [
                 {
-                    "text": "You grind up a few flowers into a mushy paste. You taste it. It's not good at all. but you're not sure what you expected. You dump the rest on the ground. ",
+                    "text": "You grind up a few flowers into a mushy paste. You taste it. It's not good at all. But you're not sure what you expected. You dump the rest on the ground. ",
                     "audio": "jheenjo8os",
                     "path": "combinations/garden_petunias-mortar_and_pestle/responses",
                     "character": "narrator"
@@ -29102,7 +30016,7 @@
                 "sleeping pills",
                 "eggs benedict_ob"
             ],
-            "script": null,
+            "script": "play('\"Mon dieu! What are you doing? You will ruin the flavor! And also...I think you might have a problem, my friend.\"', '3qpmr2rh9x', 'chef');\nplay('\"You put the pills away.\"', 'benedictpills');",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -29348,6 +30262,10 @@
                 {
                     "name": "smash",
                     "order": "reverse"
+                },
+                {
+                    "name": "shatter",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -29394,6 +30312,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ],
@@ -29449,7 +30371,7 @@
             ],
             "responses": [
                 {
-                    "text": "After all the trouble you went to get the meat, you'd rather carry it yourself. ",
+                    "text": "after all the trouble you went to to get the meat, you'd rather carry it yourself. ",
                     "audio": "hccltnkhpl",
                     "path": "combinations/dumbwaiter_f01-boar_meat/responses",
                     "character": "narrator"
@@ -29472,7 +30394,7 @@
             ],
             "responses": [
                 {
-                    "text": "After all the trouble you went to get the meat, you'd rather carry it yourself. ",
+                    "text": "after all the trouble you went to to get the meat, you'd rather carry it yourself. ",
                     "audio": "koxszwasng",
                     "path": "combinations/boar_meat-dumbwaiter_f02/responses",
                     "character": "narrator"
@@ -29495,7 +30417,7 @@
             ],
             "responses": [
                 {
-                    "text": "After all the trouble you went to get the meat, you'd rather carry it yourself. ",
+                    "text": "after all the trouble you went to to get the meat, you'd rather carry it yourself. ",
                     "audio": "wltisktedo",
                     "path": "combinations/dumbwaiter_f03-boar_meat/responses",
                     "character": "narrator"
@@ -29541,7 +30463,7 @@
             ],
             "responses": [
                 {
-                    "text": "After all the trouble you went to get the meat, you'd rather carry it yourself.  ",
+                    "text": "after all the trouble you went to to get the meat, you'd rather carry it yourself.  ",
                     "audio": "zseuf07f5r",
                     "path": "combinations/boar_meat-tray/responses",
                     "character": "narrator"
@@ -29759,6 +30681,10 @@
                 {
                     "name": "cut",
                     "order": "reverse"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -29776,7 +30702,7 @@
                 "pill powder",
                 "eggs benedict_ob"
             ],
-            "script": "play('\"Mon dieu! What are you doing? You will ruin the flavor! And also...I think you might have a problem, my friend.\"', '3qpmr2rh9x', 'chef');\nplay('\"You put the pill powder away.\"', 'gnsktseis6');",
+            "script": "play('\"Mon dieu! What are you doing? You will ruin the flavor! And also...I think you might have a problem, my friend.\"', '3qpmr2rh9x', 'chef');\nplay('You put the pill powder away.', 'gnsktseis6');",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -30118,7 +31044,7 @@
             ],
             "responses": [
                 {
-                    "text": "You place the lantern on the pedestal. It seems out of place. it's too small to serve as a lighthouse beacon, and yet it's too big to fit in the small slot atop the pedestal. Maybe this wasn't meant for a lantern at all? You pick it back up. ",
+                    "text": "You place the lantern on the pedestal. It seems out of place. It's too small to serve as a lighthouse beacon, and yet it's too big to fit in the small slot atop the pedestal. Maybe this wasn't meant for a lantern at all? You pick it back up. ",
                     "audio": "mgystioh6f",
                     "path": "combinations/lantern-pedestal/responses",
                     "character": "narrator"
@@ -30195,7 +31121,7 @@
             ],
             "responses": [
                 {
-                    "text": "Maybe you could tie the handlebars back onto the bike with the pulleys rope, but that just seems like backpedaling. ",
+                    "text": "Maybe you could tie the handlebars back onto the bike with the pulley's rope, but that just seems like backpedaling. ",
                     "audio": "ui8lmbjsmu",
                     "path": "combinations/handlebars_with_a_pulley_in_the_middle-bike/responses",
                     "character": "narrator"
@@ -30301,6 +31227,10 @@
                 },
                 {
                     "name": "break",
+                    "order": "reverse"
+                },
+                {
+                    "name": "shatter",
                     "order": "reverse"
                 }
             ],
@@ -30518,7 +31448,7 @@
                 "bouquet with hate note",
                 "pedestal"
             ],
-            "script": null,
+            "script": "callCombination('combine', 'pedestal', 'bouquet with love letter');",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -30526,14 +31456,7 @@
                     "order": "either"
                 }
             ],
-            "responses": [
-                {
-                    "text": "callCombination(\"combine\", \"pedestal\", \"bouquet with love letter\")",
-                    "audio": "yb4qfprnku",
-                    "path": "combinations/bouquet_with_hate_note-pedestal/responses",
-                    "character": "narrator"
-                }
-            ]
+            "responses": []
         },
         {
             "id": "63zjW5og22uPMVC9taGDfO3n7kfVHKYU",
@@ -30989,6 +31912,10 @@
                 },
                 {
                     "name": "hit",
+                    "order": "reverse"
+                },
+                {
+                    "name": "shatter",
                     "order": "reverse"
                 }
             ],
@@ -31572,6 +32499,10 @@
                 {
                     "name": "screw",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31599,6 +32530,10 @@
                 {
                     "name": "fix",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31626,6 +32561,10 @@
                 {
                     "name": "fix",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31653,6 +32592,10 @@
                 {
                     "name": "fix",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31680,6 +32623,10 @@
                 {
                     "name": "fix",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31715,6 +32662,10 @@
                 {
                     "name": "open",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31746,6 +32697,14 @@
                 {
                     "name": "twist",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
+                },
+                {
+                    "name": "screw",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31777,6 +32736,10 @@
                 {
                     "name": "screw",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31832,6 +32795,10 @@
                 {
                     "name": "unlock",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31863,6 +32830,10 @@
                 {
                     "name": "screw",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31898,6 +32869,10 @@
                 {
                     "name": "open",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -31972,6 +32947,10 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32003,6 +32982,10 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32034,6 +33017,10 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32077,6 +33064,10 @@
                 {
                     "name": "repair",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32112,6 +33103,10 @@
                 {
                     "name": "pick",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32151,6 +33146,10 @@
                 {
                     "name": "hotwire",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32190,6 +33189,10 @@
                 {
                     "name": "repair",
                     "order": "current"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32213,6 +33216,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -32235,6 +33242,10 @@
             "aliasGrammars": [
                 {
                     "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "unscrew",
                     "order": "either"
                 }
             ],
@@ -32349,6 +33360,34 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "show",
+                    "order": "current"
+                },
+                {
+                    "name": "smash",
+                    "order": "reverse"
+                },
+                {
+                    "name": "hit",
+                    "order": "reverse"
+                },
+                {
+                    "name": "toss",
+                    "order": "current"
+                },
+                {
+                    "name": "break",
+                    "order": "reverse"
+                },
+                {
+                    "name": "shatter",
+                    "order": "reverse"
+                },
+                {
+                    "name": "bash",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -32418,6 +33457,14 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "clean",
+                    "order": "current"
+                },
+                {
+                    "name": "dust",
+                    "order": "current"
                 }
             ],
             "responses": [
@@ -32604,6 +33651,10 @@
                 {
                     "name": "combine",
                     "order": "either"
+                },
+                {
+                    "name": "slice",
+                    "order": "reverse"
                 }
             ],
             "responses": [
@@ -33117,7 +34168,7 @@
             ],
             "responses": [
                 {
-                    "text": "Though it looks like a telescope, but there doesn't seem to be any way to look through it to see the painting.",
+                    "text": "Though it looks like a telescope, there doesn't seem to be any way to look through it to see the painting.",
                     "audio": "gmk6dlodjo",
                     "path": "combinations/painting-telescope/responses",
                     "character": "narrator"
@@ -33160,7 +34211,7 @@
                 "fireplace",
                 "branch"
             ],
-            "script": "if (!getFlag('drugged kennel master', 'present')) {\n    play('You stick the branch in the woodstove and twist it around for a few minutes.\\n\\n \"Don\\'t think that branch is gonna catch, boy. Too damp and too dense.\" \\n\\n You pick the branch back up, somewhat disappointed. Even though you weren\\'t sure what it was supposed to accomplish, you thought you were on to something there. But you weren\\'t.', '7iqthwwbtl');\n} else {\n    play('You stick the branch in the woodstove and twist it around for a few minute. Doesn\\'t seem to be catching. You pick it back up.', 'kezknqbwu6');\n}",
+            "script": "if (!getFlag('drugged kennel master', 'present')) {\n    play('You stick the branch in the woodstove and twist it around for a few minutes.\\n\\n', 'narrbranchfire1');\n    play('\"Don\\'t think that branch is gonna catch, boy. Too damp and too dense.\"\\n\\n ', 'kennelmasterbranchfire1', 'kennel master');\n    plasy('You pick the branch back up, somewhat disappointed. Even though you weren\\'t sure what it was supposed to accomplish, you thought you were on to something there. But you weren\\'t.', 'narrbranchfire2');\n} else {\n    play('You stick the branch in the woodstove and twist it around for a few minute. Doesn\\'t seem to be catching. You pick it back up.', 'kezknqbwu6');\n}",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -33421,6 +34472,10 @@
                 },
                 {
                     "name": "show",
+                    "order": "either"
+                },
+                {
+                    "name": "offer",
                     "order": "either"
                 }
             ]
@@ -33933,7 +34988,7 @@
             ],
             "responses": [
                 {
-                    "text": "You coax the chicken toward its nest. It hangs out for a bit and then returns to its strutting",
+                    "text": "You coax the chicken toward its nest. It hangs out for a bit and then returns to its strutting.",
                     "audio": "ecennhvqcx",
                     "path": "combinations/chicken-chicken_coop/responses",
                     "character": "narrator"
@@ -34390,6 +35445,10 @@
                 {
                     "name": "pick",
                     "order": "reverse"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": []
@@ -34409,6 +35468,10 @@
                 },
                 {
                     "name": "pick",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 }
             ]
@@ -34823,7 +35886,7 @@
                 "tape player",
                 "kennel master"
             ],
-            "script": "if (getFlag('kennel master', 'taped')) {\n    play('\"Brave and beautiful! Good luck to her I say. She\\'s gonna need it...\"', 'iafuuddvcb', 'kennel master');\n} else if (!getFlag('tape player', 'hasmultipletapes')) {\n    play('You play Kindra\\'s tape for him.', '2cqxxjylng');\n    play('\\n\\n\"So, the Master\\'s little girl made a run for it! Well cheers to her!\"', 'f9gtxsztrf', 'kennel master');\n    play('\\n\\n He takes a long pull from his mug.', 'i091zdwznq');\n    play('\\n\\n\"If I were a betting man though, which I am, I\\u2019d say she\\u2019ll be back soon enough. The Master is\\u2014what\\u2019s the word? Indomitable. Always gets what he wants.\"', 'trnh9oavhm', 'kennel master');\n    setFlag('kennel master', 'taped');\n} else {\n    play('You play Kindra\\'s tapes for him.', '4hwkzxqlzz');\n    play('\\n\\n\"So, the Master\\'s little girl made a run for it! Well cheers to her!\"', 'rrvs1oupmk');\n    play('\\n\\n He takes a long pull from his mug.', 'qgp0ytbtmj');\n    play('\\n\\n\"If I were a betting man though, which I am, I\\u2019d say she\\u2019ll be back soon enough. The Master is\\u2014what\\u2019s the word? Indomitable. Always gets what he wants.\"', 'jkdrsytln4', 'kennel master');\n    setFlag('kennel master', 'taped');\n}",
+            "script": "if (getFlag('kennel master', 'taped')) {\n    play('\"Brave and beautiful! Good luck to her I say. She\\'s gonna need it...\"', 'iafuuddvcb', 'kennel master');\n} else if (!getFlag('tape player', 'hasmultipletapes')) {\n    play('You play Kindra\\'s tape for him.', '2cqxxjylng');\n    play('\\n\\n\"So, the Master\\'s little girl made a run for it! Well cheers to her!\"', 'f9gtxsztrf', 'kennel master');\n    play('\\n\\n He takes a long pull from his mug.', 'i091zdwznq');\n    play('\\n\\n\"If I were a betting man though, which I am, I\\u2019d say she\\u2019ll be back soon enough. The Master is\\u2014what\\u2019s the word? Indomitable. Always gets what he wants.\"', 'trnh9oavhm', 'kennel master');\n    setFlag('kennel master', 'taped');\n} else {\n    play('You play Kindra\\'s tapes for him.', '4hwkzxqlzz');\n    play('\\n\\n\"So, the Master\\'s little girl made a run for it! Well cheers to her!\"', 'rrvs1oupmk', 'kennel master');\n    play('\\n\\n He takes a long pull from his mug.', 'qgp0ytbtmj');\n    play('\\n\\n\"If I were a betting man though, which I am, I\\u2019d say she\\u2019ll be back soon enough. The Master is\\u2014what\\u2019s the word? Indomitable. Always gets what he wants.\"', 'jkdrsytln4', 'kennel master');\n    setFlag('kennel master', 'taped');\n}",
             "functions": [],
             "aliasGrammars": [
                 {
@@ -35811,6 +36874,14 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "place",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
                 }
             ]
         },
@@ -35829,6 +36900,14 @@
                 },
                 {
                     "name": "move",
+                    "order": "current"
+                },
+                {
+                    "name": "place",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
                     "order": "current"
                 }
             ]
@@ -35849,6 +36928,14 @@
                 {
                     "name": "move",
                     "order": "current"
+                },
+                {
+                    "name": "place",
+                    "order": "current"
+                },
+                {
+                    "name": "put",
+                    "order": "current"
                 }
             ]
         },
@@ -35867,6 +36954,10 @@
                 },
                 {
                     "name": "cut",
+                    "order": "reverse"
+                },
+                {
+                    "name": "slice",
                     "order": "reverse"
                 },
                 {
@@ -35926,6 +37017,10 @@
                 {
                     "name": "pick",
                     "order": "either"
+                },
+                {
+                    "name": "unscrew",
+                    "order": "either"
                 }
             ],
             "responses": [
@@ -35952,6 +37047,10 @@
                 },
                 {
                     "name": "pick",
+                    "order": "either"
+                },
+                {
+                    "name": "unscrew",
                     "order": "either"
                 }
             ],
@@ -36010,6 +37109,38 @@
                 },
                 {
                     "name": "show",
+                    "order": "either"
+                }
+            ],
+            "responses": []
+        },
+        {
+            "id": "FndFu07wR3bfkz-HPZgAVbLIxUxUiZNe",
+            "objects": [
+                "butler",
+                "key"
+            ],
+            "script": "play('\"What?! You have the key?! Then what are you waiting for, man? Put it in the door and get me out of here!\"', 'khkpi1gudr', 'butler');",
+            "functions": [],
+            "aliasGrammars": [
+                {
+                    "name": "combine",
+                    "order": "either"
+                },
+                {
+                    "name": "give",
+                    "order": "either"
+                },
+                {
+                    "name": "use",
+                    "order": "either"
+                },
+                {
+                    "name": "show",
+                    "order": "either"
+                },
+                {
+                    "name": "hand",
                     "order": "either"
                 }
             ],
