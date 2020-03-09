@@ -160,7 +160,10 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         gameState.currentScene= {exits: []}
       }
     }
-    playCurrentScene(outputQueue)
+    if(fromSave){
+      outputQueue.push({text: '\n\n'})
+    }
+    playCurrentScene()
   }
 
   var directions = ["north", "east", "west", "south", "northeast", "northwest", "southeast", "southwest", "up", "down"]
