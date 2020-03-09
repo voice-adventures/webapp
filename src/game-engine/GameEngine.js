@@ -609,8 +609,8 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
     return _.find(gameState.combinations, (comb) => {
       var grammar = comb.aliasGrammars[verb]
       return (grammar === 'either'
-        && comb.objects.includes(firstObject.name)
-        && comb.objects.includes(secondObject.name))
+        && ((comb.objects[0] === firstObject.name && comb.objects[1] === secondObject.name)
+        || (comb.objects[0] === secondObject.name && comb.objects[1] === firstObject.name )))
         || (grammar === 'reverse'
           && comb.objects[0] === secondObject.name
           && comb.objects[1] === firstObject.name)
