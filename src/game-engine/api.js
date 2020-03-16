@@ -165,7 +165,8 @@ module.exports = function apiGen(gameState, timers, outputQueue, sc, updateComma
 
   function addToFastTravel(sceneName){
     var scene = findScene(sceneName)
-    gameState.fastTravel.push(scene)
+    var alreadyFastTravel = gameState.fastTravel.map( s => s.name.toLowerCase())
+    if(!alreadyFastTravel.includes(sceneName.toLowerCase())) gameState.fastTravel.push(scene)
   }
 
   function removeBulkFastTravel(sceneNames){

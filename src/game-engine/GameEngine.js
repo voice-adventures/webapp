@@ -487,7 +487,9 @@ function GameEngine(gameState, updateText, updateAudio, updateCommand, save, fro
         output = output.concat(gameState.currentScene.intro)
       }
       gameState.currentScene.visited = true
-      if (gameState.currentScene) gameState.fastTravel.push(gameState.currentScene)
+      var alreadyFastTravel = gameState.fastTravel.map( s => s.name.toLowerCase())
+
+      if (gameState.currentScene && !alreadyFastTravel.includes(gameState.currentScene.name.toLowerCase())) gameState.fastTravel.push(gameState.currentScene)
       output = output.concat(getSceneDescription())
       if(gameState.currentScene.listExits) {output = output.concat(getExits())}
     }else{
