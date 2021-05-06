@@ -7,7 +7,7 @@
     "js-yaml": "^3.9.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
